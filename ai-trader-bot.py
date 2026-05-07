@@ -24,20 +24,24 @@ def log(msg):
     print(line)
 
 def api_get(path):
-    try:
-        r = requests.get(f"{BASE}{path}", headers=HEADERS, timeout=20)
-        return r.json() if r.ok else None
-    except Exception as e:
-        log(f"API GET error: {e}")
-        return None
+    for attempt in range(3):
+        try:
+            r = requests.get(f"{BASE}{path}", headers=HEADERS, timeout=25)
+            return r.json() if r.ok else None
+        except Exception as e:
+            log(f"API GET {path} 尝试 {attempt+1}/3 失败: {e}")
+            if attempt < 2: time.sleep(5)
+    return None
 
 def api_post(path, data=None):
-    try:
-        r = requests.post(f"{BASE}{path}", headers=HEADERS, json=data or {}, timeout=15)
-        return r.json() if r.ok else {"error": r.status_code}
-    except Exception as e:
-        log(f"API POST error: {e}")
-        return None
+    for attempt in range(3):
+        try:
+            r = requests.post(f"{BASE}{path}", headers=HEADERS, json=data or {}, timeout=25)
+            return r.json() if r.ok else {"error": r.status_code}
+        except Exception as e:
+            log(f"API POST {path} 尝试 {attempt+1}/3 失败: {e}")
+            if attempt < 2: time.sleep(5)
+    return None
 
 # === RUN ===
 log("=== AI-Trader Auto Bot ===")

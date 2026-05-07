@@ -26,4 +26,5 @@ jobs:
       - name: 执行交易机器人
         env:
           AI_TRADER_TOKEN: ${{ secrets.AI_TRADER_TOKEN }}
-        run: python ai-trader-bot.py
+        continue-on-error: true
+        run: python ai-trader-bot.py || echo "API暂时不可用，下次再试"
