@@ -1,0 +1,3 @@
+# Ignore local logs and sensitive files
+trading-logs/
+*.log
