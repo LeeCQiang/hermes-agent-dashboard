@@ -27,6 +27,7 @@
     --accent-cyan-dim: rgba(0,212,255,0.15);
     --accent-purple-dim: rgba(168,85,247,0.15);
     --accent-amber-dim: rgba(251,191,36,0.15);
+    --accent-red-dim: rgba(255,68,68,0.15);
     --shadow: 0 2px 8px rgba(0,0,0,0.4);
     --radius: 10px;
     --radius-sm: 6px;
@@ -44,20 +45,10 @@
     overflow-x: hidden;
   }
 
-  ::selection {
-    background: var(--accent-green);
-    color: var(--bg-primary);
-  }
-
-  ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
+  ::selection { background: var(--accent-green); color: var(--bg-primary); }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 2px;
-  }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--border-accent); }
 
   /* ===== Sidebar ===== */
@@ -75,20 +66,15 @@
   }
 
   .sidebar-logo {
-    width: 36px;
-    height: 36px;
+    width: 36px; height: 36px;
     border-radius: 8px;
     background: var(--accent-green-dim);
     border: 1px solid var(--accent-green);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
-    font-size: 14px;
+    font-weight: 700; font-size: 14px;
     color: var(--accent-green);
     margin-bottom: 16px;
-    text-decoration: none;
     cursor: default;
   }
 
@@ -101,16 +87,13 @@
   }
 
   .nav-btn {
-    width: 40px;
-    height: 40px;
+    width: 40px; height: 40px;
     border-radius: 8px;
     border: none;
     background: transparent;
     color: var(--text-muted);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-size: 16px;
     transition: var(--transition);
     position: relative;
@@ -127,15 +110,13 @@
     left: -4px;
     top: 50%;
     transform: translateY(-50%);
-    width: 3px;
-    height: 16px;
+    width: 3px; height: 16px;
     background: var(--accent-green);
     border-radius: 2px;
   }
 
   .nav-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 20px; height: 20px;
     fill: none;
     stroke: currentColor;
     stroke-width: 2;
@@ -144,12 +125,7 @@
   }
 
   /* ===== Main ===== */
-  .main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
+  .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
 
   /* ===== Header ===== */
   .header {
@@ -162,36 +138,19 @@
     flex-shrink: 0;
   }
 
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
+  .header-left { display: flex; align-items: center; gap: 16px; }
   .header-title {
     font-family: 'JetBrains Mono', monospace;
-    font-weight: 600;
-    font-size: 16px;
+    font-weight: 600; font-size: 16px;
     color: var(--text-primary);
   }
-
   .header-title span { color: var(--accent-green); }
+  .header-subtitle { font-size: 12px; color: var(--text-muted); }
 
-  .header-subtitle {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .header-right { display: flex; align-items: center; gap: 12px; }
 
   .status-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    display: flex; align-items: center; gap: 6px;
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 11px;
@@ -199,101 +158,76 @@
     background: var(--accent-green-dim);
     border: 1px solid rgba(0,255,65,0.2);
     color: var(--accent-green);
+    transition: var(--transition);
   }
+  .status-badge.warning { background: var(--accent-amber-dim); border-color: rgba(251,191,36,0.3); color: var(--accent-amber); }
+  .status-badge.offline { background: var(--accent-red-dim); border-color: rgba(255,68,68,0.3); color: var(--accent-red); }
 
   .status-dot {
-    width: 6px;
-    height: 6px;
+    width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--accent-green);
     animation: pulse-dot 2s ease-in-out infinite;
   }
+  .status-badge.warning .status-dot { background: var(--accent-amber); }
+  .status-badge.offline .status-dot { background: var(--accent-red); }
 
   @keyframes pulse-dot {
-    0%, 100% { opacity: 1; box-shadow: 0 0 4px var(--accent-green); }
-    50% { opacity: 0.4; box-shadow: 0 0 8px var(--accent-green); }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
   }
-
-  .status-badge.offline { background: var(--accent-red); border-color: rgba(255,68,68,0.3); color: var(--accent-red); }
-  .status-badge.offline .status-dot { background: var(--accent-red); animation: none; }
 
   .clock {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text-muted);
   }
 
   /* ===== Content ===== */
-  .content {
-    flex: 1;
-    padding: 20px 24px;
-    overflow-y: auto;
+  .content { padding: 20px 24px; overflow-y: auto; flex: 1; }
+  .section { margin-bottom: 20px; }
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
   }
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .section-title .count { font-weight: 400; color: var(--text-muted); font-size: 12px; }
 
-  /* ===== Stats Row ===== */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
+  .section-actions { display: flex; gap: 6px; }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
   }
+  .card-body { padding: 14px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* ===== Stats ===== */
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
 
   .stat-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 16px;
+    padding: 14px;
     transition: var(--transition);
-    cursor: default;
-    position: relative;
-    overflow: hidden;
   }
+  .stat-card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
 
-  .stat-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-  }
-
-  .stat-card.green::after { background: var(--accent-green); }
-  .stat-card.cyan::after { background: var(--accent-cyan); }
-  .stat-card.purple::after { background: var(--accent-purple); }
-  .stat-card.amber::after { background: var(--accent-amber); }
-
-  .stat-card:hover {
-    border-color: var(--border-accent);
-    background: var(--bg-card-hover);
-    transform: translateY(-1px);
-  }
-
-  .stat-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-  }
-
-  .stat-label {
-    font-size: 12px;
-    color: var(--text-secondary);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
+  .stat-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
   .stat-icon {
-    width: 28px;
-    height: 28px;
+    width: 28px; height: 28px;
     border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
   }
-
   .stat-icon.green-bg { background: var(--accent-green-dim); color: var(--accent-green); }
   .stat-icon.cyan-bg { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
   .stat-icon.purple-bg { background: var(--accent-purple-dim); color: var(--accent-purple); }
@@ -301,103 +235,71 @@
 
   .stat-value {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.5px;
+    font-size: 22px; font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+  .stat-sub { font-size: 11px; color: var(--text-muted); }
+
+  /* System status card - expanded */
+  .stat-card.system-card {
+    grid-column: span 2;
   }
 
-  .stat-sub {
-    font-size: 11px;
-    color: var(--text-muted);
+  .sys-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 20px;
     margin-top: 4px;
   }
 
-  /* ===== Section ===== */
-  .section {
-    margin-bottom: 20px;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
-
-  .section-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-primary);
+  .sys-item {
     display: flex;
     align-items: center;
     gap: 8px;
+    padding: 4px 0;
+    font-size: 12px;
   }
 
-  .section-title .count {
-    font-size: 11px;
+  .sys-item .sys-label {
     color: var(--text-muted);
-    font-weight: 400;
-  }
-
-  .section-actions {
-    display: flex;
-    gap: 6px;
-  }
-
-  .btn-sm {
-    padding: 4px 10px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-    background: var(--bg-card);
-    color: var(--text-secondary);
+    min-width: 64px;
     font-size: 11px;
-    cursor: pointer;
-    transition: var(--transition);
-    font-family: 'Inter', sans-serif;
+    flex-shrink: 0;
   }
 
-  .btn-sm:hover {
-    border-color: var(--border-accent);
+  .sys-item .sys-value {
     color: var(--text-primary);
-    background: var(--bg-card-hover);
-  }
-
-  /* ===== Grid Cards ===== */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-
-  .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: var(--transition);
-  }
-
-  .card:hover { border-color: var(--border-accent); }
-
-  .card-header {
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-  }
-
-  .card-title {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
   }
 
-  .card-body {
-    padding: 12px 14px;
+  .sys-tag {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
   }
+
+  .sys-tag.green { background: var(--accent-green-dim); color: var(--accent-green); }
+  .sys-tag.cyan { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .sys-tag.amber { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .sys-tag.purple { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .sys-tag.red { background: var(--accent-red-dim); color: var(--accent-red); }
+
+  .sys-detail-toggle {
+    font-size: 11px;
+    color: var(--accent-cyan);
+    cursor: pointer;
+    margin-top: 6px;
+    display: inline-block;
+    user-select: none;
+  }
+  .sys-detail-toggle:hover { text-decoration: underline; }
+
+  .sys-expanded { display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+  .sys-expanded.open { display: block; }
 
   /* ===== Timeline ===== */
   .timeline { position: relative; padding-left: 20px; }
@@ -410,89 +312,40 @@
     width: 1px;
     background: var(--border);
   }
-
-  .timeline-item {
-    position: relative;
-    padding: 0 0 16px 16px;
-  }
-
+  .timeline-item { position: relative; padding: 0 0 16px 16px; }
   .timeline-item:last-child { padding-bottom: 0; }
-
   .timeline-dot {
-    position: absolute;
-    left: -17px;
-    top: 3px;
-    width: 8px;
-    height: 8px;
+    position: absolute; left: -17px; top: 3px;
+    width: 8px; height: 8px;
     border-radius: 50%;
     border: 2px solid var(--border-accent);
     background: var(--bg-card);
   }
-
   .timeline-dot.green { border-color: var(--accent-green); background: var(--accent-green-dim); }
   .timeline-dot.cyan { border-color: var(--accent-cyan); background: var(--accent-cyan-dim); }
   .timeline-dot.amber { border-color: var(--accent-amber); background: var(--accent-amber-dim); }
   .timeline-dot.purple { border-color: var(--accent-purple); background: var(--accent-purple-dim); }
-
-  .timeline-time {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--text-muted);
-    margin-bottom: 2px;
-  }
-
-  .timeline-title {
-    font-size: 13px;
-    color: var(--text-primary);
-    font-weight: 500;
-  }
-
-  .timeline-desc {
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-top: 2px;
-  }
+  .timeline-time { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted); margin-bottom: 2px; }
+  .timeline-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+  .timeline-desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
 
   /* ===== Skill Items ===== */
   .skill-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: flex; align-items: center; gap: 8px;
     padding: 6px 8px;
     border-radius: var(--radius-sm);
     cursor: default;
     transition: var(--transition);
     font-size: 12px;
   }
-
   .skill-item:hover { background: var(--bg-surface); }
-
-  .skill-badge {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
+  .skill-badge { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
   .skill-badge.green { background: var(--accent-green); }
   .skill-badge.cyan { background: var(--accent-cyan); }
   .skill-badge.purple { background: var(--accent-purple); }
   .skill-badge.amber { background: var(--accent-amber); }
-
-  .skill-name {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-primary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .skill-category {
-    font-size: 10px;
-    color: var(--text-muted);
-    margin-left: auto;
-    flex-shrink: 0;
-  }
+  .skill-name { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .skill-category { font-size: 10px; color: var(--text-muted); margin-left: auto; flex-shrink: 0; }
 
   .skill-search {
     width: 100%;
@@ -507,138 +360,49 @@
     transition: var(--transition);
     margin-bottom: 8px;
   }
-
-  .skill-search:focus {
-    border-color: var(--accent-green);
-    box-shadow: 0 0 0 2px var(--accent-green-dim);
-  }
+  .skill-search:focus { border-color: var(--accent-green); box-shadow: 0 0 0 2px var(--accent-green-dim); }
   .skill-search::placeholder { color: var(--text-muted); }
 
-  .skill-list {
-    max-height: 280px;
-    overflow-y: auto;
-  }
+  .skill-list { max-height: 280px; overflow-y: auto; }
 
-  /* ===== Todo Items ===== */
-  .todo-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 0;
-    font-size: 12px;
-    border-bottom: 1px solid var(--border);
-  }
-
+  /* ===== Todo ===== */
+  .todo-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 12px; border-bottom: 1px solid var(--border); }
   .todo-item:last-child { border-bottom: none; }
-
   .todo-check {
-    width: 14px;
-    height: 14px;
-    border-radius: 3px;
+    width: 14px; height: 14px; border-radius: 3px;
     border: 1px solid var(--border-accent);
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     transition: var(--transition);
   }
+  .todo-check.done { background: var(--accent-green); border-color: var(--accent-green); }
+  .todo-check.done::after { content: '✓'; font-size: 10px; color: var(--bg-primary); font-weight: 700; }
+  .todo-check.in-progress { border-color: var(--accent-amber); animation: spin 1s linear infinite; }
+  .todo-check.in-progress::after { content: '◌'; font-size: 10px; color: var(--accent-amber); }
 
-  .todo-check.done {
-    background: var(--accent-green);
-    border-color: var(--accent-green);
-  }
-  .todo-check.done::after {
-    content: '✓';
-    font-size: 10px;
-    color: var(--bg-primary);
-    font-weight: 700;
-  }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-  .todo-check.in-progress {
-    border-color: var(--accent-amber);
-    animation: spin 1s linear infinite;
-  }
-  .todo-check.in-progress::after {
-    content: '◌';
-    font-size: 10px;
-    color: var(--accent-amber);
-  }
-
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  .todo-text {
-    flex: 1;
-    color: var(--text-primary);
-  }
-
+  .todo-text { flex: 1; color: var(--text-primary); }
   .todo-text.done-text { text-decoration: line-through; color: var(--text-muted); }
-
-  .todo-status {
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
+  .todo-status { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; }
   .todo-status.completed { background: var(--accent-green-dim); color: var(--accent-green); }
   .todo-status.pending { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
   .todo-status.in-progress-s { background: var(--accent-amber-dim); color: var(--accent-amber); }
 
-  /* ===== Cron Job ===== */
-  .cron-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 12px;
-  }
-
+  /* ===== Cron ===== */
+  .cron-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
   .cron-item:last-child { border-bottom: none; }
-
-  .cron-icon {
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-    background: var(--accent-purple-dim);
-    color: var(--accent-purple);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    flex-shrink: 0;
-  }
-
+  .cron-icon { width: 24px; height: 24px; border-radius: 4px; background: var(--accent-purple-dim); color: var(--accent-purple); display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
   .cron-info { flex: 1; min-width: 0; }
-
-  .cron-name {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-primary);
-  }
-
-  .cron-schedule {
-    font-size: 10px;
-    color: var(--text-muted);
-  }
-
-  .cron-badge {
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'JetBrains Mono', monospace;
-  }
+  .cron-name { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-primary); }
+  .cron-schedule { font-size: 10px; color: var(--text-muted); }
+  .cron-badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; }
   .cron-badge.active { background: var(--accent-green-dim); color: var(--accent-green); }
   .cron-badge.paused { background: var(--accent-amber-dim); color: var(--accent-amber); }
 
   /* ===== Tools ===== */
   .tool-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+    display: inline-flex; align-items: center; gap: 4px;
     padding: 3px 8px;
     border-radius: 4px;
     font-family: 'JetBrains Mono', monospace;
@@ -649,87 +413,37 @@
     margin: 2px;
     transition: var(--transition);
   }
-
-  .tool-tag:hover {
-    border-color: var(--accent-cyan);
-    color: var(--accent-cyan);
-    background: var(--accent-cyan-dim);
-  }
-
+  .tool-tag:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); background: var(--accent-cyan-dim); }
   .tool-tag.terminal { border-color: rgba(0,255,65,0.2); color: var(--accent-green); }
   .tool-tag.web { border-color: rgba(0,212,255,0.2); color: var(--accent-cyan); }
   .tool-tag.file { border-color: rgba(251,191,36,0.2); color: var(--accent-amber); }
   .tool-tag.memory { border-color: rgba(168,85,247,0.2); color: var(--accent-purple); }
   .tool-tag.vision { border-color: rgba(255,68,68,0.2); color: var(--accent-red); }
 
-  /* ===== Terminal Output ===== */
-  .terminal-window {
-    background: #050510;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
-
-  .terminal-bar {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 12px;
-    background: var(--bg-surface);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .term-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-  }
+  /* ===== Terminal ===== */
+  .terminal-window { background: #050510; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .terminal-bar { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: var(--bg-surface); border-bottom: 1px solid var(--border); }
+  .term-dot { width: 10px; height: 10px; border-radius: 50%; }
   .term-dot.red { background: #ff5f56; }
   .term-dot.yellow { background: #ffbd2e; }
   .term-dot.green { background: #27c93f; }
-
-  .term-title {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-left: 8px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .terminal-content {
-    padding: 14px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    min-height: 100px;
-  }
-
+  .term-title { font-size: 11px; color: var(--text-muted); margin-left: 8px; font-family: 'JetBrains Mono', monospace; }
+  .terminal-content { padding: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: var(--text-secondary); min-height: 100px; }
   .terminal-line { white-space: pre-wrap; word-break: break-all; }
   .terminal-line .prompt { color: var(--accent-green); }
   .terminal-line .cmd { color: var(--text-primary); }
   .terminal-line .output { color: var(--text-secondary); }
-  .terminal-cursor {
-    display: inline-block;
-    width: 7px;
-    height: 14px;
-    background: var(--accent-green);
-    animation: blink 1s step-end infinite;
-    vertical-align: text-bottom;
-  }
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
+  .terminal-cursor { display: inline-block; width: 7px; height: 14px; background: var(--accent-green); animation: blink 1s step-end infinite; vertical-align: text-bottom; }
+  @keyframes blink { 50% { opacity: 0; } }
 
   /* ===== Modal ===== */
   .modal-overlay {
     display: none;
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background: rgba(0,0,0,0.7);
     backdrop-filter: blur(4px);
     z-index: 100;
-    align-items: center;
-    justify-content: center;
+    align-items: center; justify-content: center;
   }
   .modal-overlay.open { display: flex; }
 
@@ -743,108 +457,200 @@
     overflow-y: auto;
     box-shadow: 0 20px 60px rgba(0,0,0,0.6);
   }
-
-  .modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 18px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .modal-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-    font-weight: 600;
-  }
-
-  .modal-close {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    border: none;
-    background: transparent;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-  }
-
+  .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--border); }
+  .modal-title { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; }
+  .modal-close { width: 28px; height: 28px; border-radius: 6px; border: none; background: transparent; color: var(--text-muted); cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
   .modal-close:hover { background: var(--bg-surface); color: var(--text-primary); }
-
   .modal-body { padding: 18px; }
-
-  .modal-body .detail-row {
-    display: flex;
-    padding: 6px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-  }
-
+  .modal-body .detail-row { display: flex; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
   .modal-body .detail-row:last-child { border-bottom: none; }
   .modal-body .detail-label { color: var(--text-muted); width: 120px; flex-shrink: 0; }
   .modal-body .detail-value { color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
 
-  /* ===== Responsive ===== */
-  @media (max-width: 900px) {
-    .stats-row { grid-template-columns: repeat(2, 1fr); }
-    .grid-2 { grid-template-columns: 1fr; }
+  /* ===== PROVIDERS / MODELS SECTION ===== */
+  .provider-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+
+  .provider-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    transition: var(--transition);
+    position: relative;
+  }
+  .provider-card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+
+  .provider-card .p-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
   }
 
+  .provider-card .p-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .provider-card .p-info { flex: 1; min-width: 0; }
+  .provider-card .p-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .provider-card .p-model {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+
+  .provider-card .p-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .provider-card .p-status.online { background: var(--accent-green-dim); color: var(--accent-green); }
+  .provider-card .p-status.offline { background: var(--accent-red-dim); color: var(--accent-red); }
+  .provider-card .p-status.testing { background: var(--accent-amber-dim); color: var(--accent-amber); }
+
+  .provider-card .p-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 12px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .provider-card .p-detail-item {
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+  .provider-card .p-detail-item span {
+    color: var(--text-muted);
+    display: block;
+    font-size: 10px;
+    margin-bottom: 1px;
+  }
+
+  .provider-card .p-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn-sm {
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+  .btn-sm:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); background: var(--accent-cyan-dim); }
+  .btn-sm.primary { border-color: var(--accent-green); color: var(--accent-green); background: var(--accent-green-dim); }
+  .btn-sm.primary:hover { background: var(--accent-green); color: var(--bg-primary); }
+  .btn-sm.danger { border-color: rgba(255,68,68,0.3); color: var(--accent-red); }
+  .btn-sm.danger:hover { background: var(--accent-red-dim); border-color: var(--accent-red); }
+
+  /* Provider Form */
+  .form-group { margin-bottom: 12px; }
+  .form-group label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    outline: none;
+    transition: var(--transition);
+  }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 0 2px var(--accent-cyan-dim);
+  }
+  .form-group input::placeholder { color: var(--text-muted); }
+  .form-group select option { background: var(--bg-card); color: var(--text-primary); }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .provider-add-card {
+    background: var(--bg-card);
+    border: 1px dashed var(--border-accent);
+    border-radius: var(--radius);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 140px;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-muted);
+    gap: 8px;
+  }
+  .provider-add-card:hover {
+    border-color: var(--accent-cyan);
+    background: var(--accent-cyan-dim);
+    color: var(--accent-cyan);
+  }
+  .provider-add-card .add-icon {
+    font-size: 28px;
+  }
+  .provider-add-card .add-text {
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--text-muted);
+  }
+  .empty-state .empty-icon { font-size: 36px; margin-bottom: 10px; }
+  .empty-state .empty-text { font-size: 13px; margin-bottom: 6px; }
+  .empty-state .empty-hint { font-size: 11px; }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 1100px) { .stats-row { grid-template-columns: repeat(2, 1fr); } .stat-card.system-card { grid-column: span 2; } }
+  @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } .sys-grid { grid-template-columns: 1fr; } }
   @media (max-width: 600px) {
     .sidebar { width: 48px; }
     .sidebar-logo { width: 28px; height: 28px; font-size: 11px; }
-    .nav-btn { width: 32px; height: 32px; }
+    .nav-btn { width: 32px; height: 32px; font-size: 14px; }
+    .content { padding: 12px; }
     .stats-row { grid-template-columns: 1fr; }
-    .header { padding: 12px 16px; flex-direction: column; gap: 8px; align-items: flex-start; }
-    .content { padding: 12px 16px; }
+    .stat-card.system-card { grid-column: span 1; }
+    .provider-grid { grid-template-columns: 1fr; }
   }
 
-  /* ===== Animations ===== */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .stat-card, .card, .section { animation: fadeIn 0.3s ease forwards; }
-  .stat-card:nth-child(1) { animation-delay: 0.02s; }
-  .stat-card:nth-child(2) { animation-delay: 0.06s; }
-  .stat-card:nth-child(3) { animation-delay: 0.10s; }
-  .stat-card:nth-child(4) { animation-delay: 0.14s; }
-
-  /* glitch effect for hermes logo */
-  .glitch span {
-    position: relative;
-  }
-  .glitch span::before,
-  .glitch span::after {
-    content: 'H';
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0.7;
-  }
-  .glitch span::before {
-    color: var(--accent-cyan);
-    clip-path: inset(40% 0 0 0);
-    transform: translate(-1px, 1px);
-    animation: glitch1 3s infinite linear alternate-reverse;
-  }
-  .glitch span::after {
-    color: var(--accent-purple);
-    clip-path: inset(0 0 40% 0);
-    transform: translate(1px, -1px);
-    animation: glitch2 3s infinite linear alternate-reverse;
-  }
+  .glitch { animation: glitch1 3s infinite; }
   @keyframes glitch1 { 0% { transform: translate(0); } 80% { transform: translate(0); } 85% { transform: translate(-1px, 1px); } 90% { transform: translate(1px, -1px); } 95% { transform: translate(-1px, 1px); } }
-  @keyframes glitch2 { 0% { transform: translate(0); } 80% { transform: translate(0); } 85% { transform: translate(1px, -1px); } 90% { transform: translate(-1px, 1px); } 95% { transform: translate(1px, -1px); } }
 
-  /* Tooltip */
-  .tt {
-    position: relative;
-  }
+  .tt { position: relative; }
   .tt:hover::after {
     content: attr(data-tip);
     position: absolute;
@@ -862,17 +668,38 @@
     z-index: 50;
   }
 
-  /* Loading shimmer */
   .shimmer {
     background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-surface) 50%, var(--bg-card) 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s ease-in-out infinite;
     border-radius: 4px;
   }
-  @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+  /* Toast notification */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-card);
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    z-index: 200;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
   }
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .toast.error { border-color: var(--accent-red); color: var(--accent-red); }
+  .toast.warning { border-color: var(--accent-amber); color: var(--accent-amber); }
 </style>
 </head>
 <body>
@@ -883,6 +710,9 @@
   <nav class="sidebar-nav">
     <button class="nav-btn active" data-section="overview" title="概览">
       <svg><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    </button>
+    <button class="nav-btn" data-section="models" title="模型">
+      <svg><circle cx="12" cy="12" r="10"/><path d="M12 6v12"/><path d="M6 12h12"/></svg>
     </button>
     <button class="nav-btn" data-section="skills" title="技能">
       <svg><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
@@ -907,11 +737,11 @@
     <div class="header-left">
       <div>
         <div class="header-title"><span>$</span> hermes-agent dashboard</div>
-        <div class="header-subtitle">CLI Agent · 会话监控 & 控制面板</div>
+        <div class="header-subtitle">CLI Agent · 会话监控 & 模型管理</div>
       </div>
     </div>
     <div class="header-right">
-      <div class="status-badge">
+      <div class="status-badge" id="header-status">
         <span class="status-dot"></span>
         <span id="status-text">Online</span>
       </div>
@@ -926,13 +756,49 @@
     <div id="section-overview">
       <!-- Stats -->
       <div class="stats-row">
-        <div class="stat-card green">
+        <!-- System Status - Expanded -->
+        <div class="stat-card system-card green" id="system-card">
           <div class="stat-header">
             <span class="stat-label">系统状态</span>
             <span class="stat-icon green-bg">⚙</span>
           </div>
-          <div class="stat-value" style="font-size:16px;" id="system-model">deepseek-v4-flash</div>
-          <div class="stat-sub" id="system-provider">Provider: deepseek · WSL</div>
+          <div class="sys-grid">
+            <div class="sys-item">
+              <span class="sys-label">Agent</span>
+              <span class="sys-value"><span class="sys-tag green">Hermes Agent</span></span>
+            </div>
+            <div class="sys-item">
+              <span class="sys-label">平台</span>
+              <span class="sys-value"><span class="sys-tag cyan">WSL2</span> · Windows 11</span>
+            </div>
+            <div class="sys-item">
+              <span class="sys-label">模型</span>
+              <span class="sys-value" id="sys-model">deepseek-v4-flash</span>
+            </div>
+            <div class="sys-item">
+              <span class="sys-label">Provider</span>
+              <span class="sys-value" id="sys-provider">deepseek</span>
+            </div>
+            <div class="sys-item">
+              <span class="sys-label">运行时长</span>
+              <span class="sys-value" id="sys-uptime">00:00:00</span>
+            </div>
+            <div class="sys-item">
+              <span class="sys-label">API 状态</span>
+              <span class="sys-value"><span class="sys-tag green" id="sys-api-status">● 已连接</span></span>
+            </div>
+          </div>
+          <span class="sys-detail-toggle" onclick="toggleSysDetail()">▸ 查看详细</span>
+          <div class="sys-expanded" id="sys-expanded">
+            <div class="sys-grid">
+              <div class="sys-item"><span class="sys-label">OS</span><span class="sys-value">Linux (WSL2) · 5.15.x</span></div>
+              <div class="sys-item"><span class="sys-label">Shell</span><span class="sys-value">zsh</span></div>
+              <div class="sys-item"><span class="sys-label">内存</span><span class="sys-value" id="sys-memory">加载中...</span></div>
+              <div class="sys-item"><span class="sys-label">会话 ID</span><span class="sys-value" id="sys-session">sess-<span id="sess-id"></span></span></div>
+              <div class="sys-item"><span class="sys-label">配置模型</span><span class="sys-value"><span class="sys-tag cyan" style="cursor:pointer" onclick="switchSection('models')">管理 →</span></span></div>
+              <div class="sys-item"><span class="sys-label">已注册提供方</span><span class="sys-value" id="sys-provider-count">-</span></div>
+            </div>
+          </div>
         </div>
 
         <div class="stat-card cyan">
@@ -975,8 +841,8 @@
                 <div class="timeline-item">
                   <div class="timeline-dot green"></div>
                   <div class="timeline-time">现在</div>
-                  <div class="timeline-title">🚀 启动 Hermes Dashboard</div>
-                  <div class="timeline-desc">打开了可视化操作面板</div>
+                  <div class="timeline-title">🚀 Dashboard v2 已升级</div>
+                  <div class="timeline-desc">系统详情面板 + 多模型管理</div>
                 </div>
                 <div class="timeline-item">
                   <div class="timeline-dot cyan"></div>
@@ -1036,6 +902,36 @@
       </div>
     </div>
 
+    <!-- ===================== MODELS SECTION ===================== -->
+    <div id="section-models" style="display:none;">
+      <div class="section-header" style="margin-bottom:14px;">
+        <span class="section-title">┃ 模型提供方 <span class="count" id="provider-total-label">(0)</span></span>
+        <div class="section-actions">
+          <button class="btn-sm primary" onclick="showAddProviderModal()">+ 添加 Provider</button>
+        </div>
+      </div>
+
+      <!-- Provider list -->
+      <div id="provider-list" class="provider-grid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Preset templates hint -->
+      <div class="section" style="margin-top:16px;">
+        <div class="section-header">
+          <span class="section-title">┃ 快速添加 <span class="count">(预设模板)</span></span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn-sm" onclick="addPreset('openai')">+ OpenAI (GPT-4o)</button>
+          <button class="btn-sm" onclick="addPreset('anthropic')">+ Anthropic (Claude)</button>
+          <button class="btn-sm" onclick="addPreset('google')">+ Google (Gemini)</button>
+          <button class="btn-sm" onclick="addPreset('ollama')">+ Ollama (本地)</button>
+          <button class="btn-sm" onclick="addPreset('azure')">+ Azure OpenAI</button>
+          <button class="btn-sm" onclick="addPreset('deepseek')">+ DeepSeek</button>
+        </div>
+      </div>
+    </div>
+
     <!-- ===================== SKILLS SECTION ===================== -->
     <div id="section-skills" style="display:none;">
       <div class="section">
@@ -1077,9 +973,7 @@
 
       <div class="grid-2">
         <div class="section">
-          <div class="section-header">
-            <span class="section-title">┃ 工具集</span>
-          </div>
+          <div class="section-header"><span class="section-title">┃ 工具集</span></div>
           <div class="card">
             <div class="card-body">
               <div id="toolsets-container">
@@ -1098,16 +992,14 @@
         </div>
 
         <div class="section">
-          <div class="section-header">
-            <span class="section-title">┃ 快捷操作</span>
-          </div>
+          <div class="section-header"><span class="section-title">┃ 快捷操作</span></div>
           <div class="card">
             <div class="card-body">
               <div style="display:grid;gap:6px;">
                 <button class="btn-sm" onclick="copyToClipboard('skill_view(name)')">📋 skill_view(name)</button>
-                <button class="btn-sm" onclick="copyToClipboard('skill_manage(action=\\'create\\', ...)')">📋 skill_manage()</button>
-                <button class="btn-sm" onclick="copyToClipboard('memory(action=\\'add\\', target=\\'memory\\', content=\\'...\\')')">📋 memory()</button>
-                <button class="btn-sm" onclick="copyToClipboard('cronjob(action=\\'create\\', schedule=\\'every 1h\\', ...)')">📋 cronjob()</button>
+                <button class="btn-sm" onclick="copyToClipboard('skill_manage(action=\\'create\\\\', ...)')">📋 skill_manage()</button>
+                <button class="btn-sm" onclick="copyToClipboard('memory(action=\\'add\\\\', target=\\'memory\\\\', content=\\'...\\\\')')">📋 memory()</button>
+                <button class="btn-sm" onclick="copyToClipboard('cronjob(action=\\'create\\\\', schedule=\\'every 1h\\\\', ...)')">📋 cronjob()</button>
               </div>
             </div>
           </div>
@@ -1119,17 +1011,13 @@
     <div id="section-tasks" style="display:none;">
       <div class="grid-2">
         <div class="section">
-          <div class="section-header">
-            <span class="section-title">┃ 当前任务</span>
-          </div>
+          <div class="section-header"><span class="section-title">┃ 当前任务</span></div>
           <div class="card">
             <div class="card-body" id="todo-list"></div>
           </div>
         </div>
         <div class="section">
-          <div class="section-header">
-            <span class="section-title">┃ Cron 作业</span>
-          </div>
+          <div class="section-header"><span class="section-title">┃ Cron 作业</span></div>
           <div class="card">
             <div class="card-body" id="cron-list">
               <div class="cron-item"><div class="cron-icon">⏰</div><div class="cron-info"><div class="cron-name">暂无定时任务</div></div></div>
@@ -1171,7 +1059,54 @@
   </div><!-- /content -->
 </div><!-- /main -->
 
-<!-- Modal -->
+<!-- Provider Add Modal -->
+<div class="modal-overlay" id="provider-modal" onclick="if(event.target===this)closeProviderModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="provider-modal-title">+ 添加 Provider</span>
+      <button class="modal-close" onclick="closeProviderModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>提供方名称</label>
+        <input type="text" id="pf-name" placeholder="例如: My OpenAI">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>API 类型</label>
+          <select id="pf-type">
+            <option value="openai">OpenAI Compatible</option>
+            <option value="anthropic">Anthropic (Claude)</option>
+            <option value="google">Google (Gemini)</option>
+            <option value="ollama">Ollama (本地)</option>
+            <option value="azure">Azure OpenAI</option>
+            <option value="custom">自定义</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>模型名称</label>
+          <input type="text" id="pf-model" placeholder="例如: gpt-4o">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>API 地址</label>
+        <input type="text" id="pf-url" placeholder="https://api.openai.com/v1">
+      </div>
+      <div class="form-group">
+        <label>API Key</label>
+        <input type="password" id="pf-key" placeholder="sk-...">
+      </div>
+      <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">
+        <button class="btn-sm" onclick="closeProviderModal()">取消</button>
+        <button class="btn-sm primary" onclick="saveProvider()">保存</button>
+        <button class="btn-sm" onclick="testProvider()" id="test-btn">测试连接</button>
+      </div>
+      <div id="test-result" style="margin-top:8px;font-size:11px;font-family:'JetBrains Mono',monospace;display:none;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- General Modal -->
 <div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-header">
@@ -1182,7 +1117,273 @@
   </div>
 </div>
 
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
 <script>
+// ===== SESSION START =====
+const sessId = Math.random().toString(36).substring(2, 8);
+document.getElementById('sess-id').textContent = sessId;
+const sessionStart = Date.now();
+
+function formatUptime() {
+  const diff = Math.floor((Date.now() - sessionStart) / 1000);
+  const h = String(Math.floor(diff / 3600)).padStart(2, '0');
+  const m = String(Math.floor((diff % 3600) / 60)).padStart(2, '0');
+  const s = String(diff % 60).padStart(2, '0');
+  return `${h}:${m}:${s}`;
+}
+
+setInterval(() => {
+  document.getElementById('sys-uptime').textContent = formatUptime();
+}, 1000);
+
+// ===== TOAST =====
+function showToast(msg, type) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast' + (type ? ' ' + type : '');
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+// ===== PROVIDERS =====
+const PRESETS = {
+  openai:     { type:'openai', url:'https://api.openai.com/v1', model:'gpt-4o', icon:'🧠', color:'#10a37f' },
+  anthropic:  { type:'anthropic', url:'https://api.anthropic.com/v1', model:'claude-sonnet-4', icon:'🌀', color:'#d4a574' },
+  google:     { type:'google', url:'https://generativelanguage.googleapis.com/v1beta', model:'gemini-2.0-flash', icon:'🔬', color:'#4285f4' },
+  ollama:     { type:'ollama', url:'http://localhost:11434/v1', model:'llama3.2', icon:'🦙', color:'#a855f7' },
+  azure:      { type:'azure', url:'https://YOUR_RESOURCE.openai.azure.com/v1', model:'gpt-4o', icon:'☁️', color:'#0078d4' },
+  deepseek:   { type:'deepseek', url:'https://api.deepseek.com/v1', model:'deepseek-chat', icon:'🌊', color:'#4d6bfe' },
+};
+
+let providers = loadProviders();
+let editingId = null;
+
+function loadProviders() {
+  try {
+    return JSON.parse(localStorage.getItem('hermes-providers') || '[]');
+  } catch { return []; }
+}
+
+function saveProviders() {
+  localStorage.setItem('hermes-providers', JSON.stringify(providers));
+  renderProviders();
+  updateProviderCount();
+}
+
+function renderProviders() {
+  const el = document.getElementById('provider-list');
+  if (providers.length === 0) {
+    el.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">🔌</div>
+      <div class="empty-text">尚未添加任何 API Provider</div>
+      <div class="empty-hint">点击上方「+ 添加 Provider」或使用下方预设模板快速添加</div>
+    </div>`;
+    return;
+  }
+  el.innerHTML = providers.map((p, i) => {
+    const online = p.status === 'online';
+    const statusClass = p.status === 'testing' ? 'testing' : online ? 'online' : 'offline';
+    const statusLabel = p.status === 'testing' ? '测试中…' : online ? '● 在线' : '○ 离线';
+    const icon = p.icon || '🔌';
+    return `<div class="provider-card">
+      <div class="p-header">
+        <div class="p-icon" style="background:${p.color || 'var(--bg-surface)'};color:var(--text-primary)">${icon}</div>
+        <div class="p-info">
+          <div class="p-name">${p.name}</div>
+          <div class="p-model">${p.model} · ${p.type}</div>
+        </div>
+        <div class="p-status ${statusClass}">${statusLabel}</div>
+      </div>
+      <div class="p-details">
+        <div class="p-detail-item"><span>API 地址</span>${p.url}</div>
+        <div class="p-detail-item"><span>Key</span>${p.key ? p.key.substring(0, 8) + '…' : '未设置'}</div>
+      </div>
+      <div class="p-actions">
+        <button class="btn-sm" onclick="testProviderById(${i})">测试</button>
+        <button class="btn-sm" onclick="editProvider(${i})">编辑</button>
+        <button class="btn-sm danger" onclick="deleteProvider(${i})">删除</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateProviderCount() {
+  document.getElementById('provider-total-label').textContent = `(${providers.length})`;
+  document.getElementById('sys-provider-count').textContent = providers.length;
+}
+
+function showAddProviderModal(preset) {
+  editingId = null;
+  document.getElementById('provider-modal-title').textContent = '+ 添加 Provider';
+  // Clear form
+  document.getElementById('pf-name').value = preset ? preset.name || '' : '';
+  document.getElementById('pf-type').value = preset ? preset.type : 'openai';
+  document.getElementById('pf-model').value = preset ? preset.model || '' : '';
+  document.getElementById('pf-url').value = preset ? preset.url || '' : '';
+  document.getElementById('pf-key').value = preset ? preset.key || '' : '';
+  document.getElementById('test-result').style.display = 'none';
+  document.getElementById('provider-modal').classList.add('open');
+}
+
+function closeProviderModal() {
+  document.getElementById('provider-modal').classList.remove('open');
+  editingId = null;
+}
+
+function getFormData() {
+  return {
+    name: document.getElementById('pf-name').value.trim(),
+    type: document.getElementById('pf-type').value,
+    model: document.getElementById('pf-model').value.trim(),
+    url: document.getElementById('pf-url').value.trim(),
+    key: document.getElementById('pf-key').value.trim(),
+    status: 'offline',
+    icon: '🔌',
+    color: '#606078',
+  };
+}
+
+function saveProvider() {
+  const data = getFormData();
+  if (!data.name) { showToast('请输入提供方名称', 'error'); return; }
+  if (!data.model) { showToast('请输入模型名称', 'error'); return; }
+  if (!data.url) { showToast('请输入 API 地址', 'error'); return; }
+
+  // Assign icon/color based on type
+  const iconMap = { openai:'🧠', anthropic:'🌀', google:'🔬', ollama:'🦙', azure:'☁️', custom:'🔌' };
+  const colorMap = { openai:'#10a37f', anthropic:'#d4a574', google:'#4285f4', ollama:'#a855f7', azure:'#0078d4', custom:'#606078' };
+  data.icon = iconMap[data.type] || '🔌';
+  data.color = colorMap[data.type] || '#606078';
+
+  if (editingId !== null) {
+    // Preserve existing key if user left it blank
+    if (!data.key && providers[editingId].key) data.key = providers[editingId].key;
+    providers[editingId] = { ...providers[editingId], ...data };
+    showToast('Provider 已更新', '');
+  } else {
+    providers.push(data);
+    showToast('Provider 已添加', '');
+  }
+
+  saveProviders();
+  closeProviderModal();
+}
+
+function editProvider(index) {
+  const p = providers[index];
+  editingId = index;
+  document.getElementById('provider-modal-title').textContent = '✏️ 编辑 Provider';
+  document.getElementById('pf-name').value = p.name;
+  document.getElementById('pf-type').value = p.type;
+  document.getElementById('pf-model').value = p.model;
+  document.getElementById('pf-url').value = p.url;
+  document.getElementById('pf-key').value = '';
+  document.getElementById('test-result').style.display = 'none';
+  document.getElementById('provider-modal').classList.add('open');
+}
+
+function deleteProvider(index) {
+  const name = providers[index].name;
+  if (!confirm(`确定要删除「${name}」吗？`)) return;
+  providers.splice(index, 1);
+  saveProviders();
+  showToast(`已删除「${name}」`, '');
+}
+
+function addPreset(key) {
+  const preset = PRESETS[key];
+  if (!preset) return;
+  // Check if already exists
+  const exists = providers.some(p => p.type === key);
+  const name = key.charAt(0).toUpperCase() + key.slice(1);
+  if (exists) {
+    showToast(`${name} 已存在，请编辑或添加新实例`, 'warning');
+    return;
+  }
+  showAddProviderModal({ name, ...preset });
+}
+
+async function testProvider() {
+  const data = getFormData();
+  if (!data.url || !data.key) {
+    showToast('请填写 API 地址和 Key 后再测试', 'error');
+    return;
+  }
+  const btn = document.getElementById('test-btn');
+  btn.textContent = '测试中…';
+  btn.disabled = true;
+  document.getElementById('test-result').style.display = 'block';
+  document.getElementById('test-result').textContent = '⏳ 正在连接...';
+  document.getElementById('test-result').style.color = 'var(--accent-amber)';
+
+  try {
+    const resp = await fetch(data.url + '/models', {
+      headers: {
+        'Authorization': 'Bearer ' + data.key,
+        'Content-Type': 'application/json',
+      },
+      signal: AbortSignal.timeout(10000),
+    });
+    if (resp.ok) {
+      const json = await resp.json();
+      const count = json.data ? json.data.length : '✓';
+      document.getElementById('test-result').textContent = `✅ 连接成功！可用模型数: ${count}`;
+      document.getElementById('test-result').style.color = 'var(--accent-green)';
+    } else {
+      const errText = await resp.text().catch(() => '');
+      document.getElementById('test-result').textContent = `❌ 连接失败 (${resp.status}): ${errText.slice(0, 80)}`;
+      document.getElementById('test-result').style.color = 'var(--accent-red)';
+    }
+  } catch (e) {
+    document.getElementById('test-result').textContent = `❌ 错误: ${e.message}`;
+    document.getElementById('test-result').style.color = 'var(--accent-red)';
+  }
+
+  btn.textContent = '测试连接';
+  btn.disabled = false;
+}
+
+async function testProviderById(index) {
+  const p = providers[index];
+  p.status = 'testing';
+  renderProviders();
+
+  try {
+    const resp = await fetch(p.url + '/models', {
+      headers: {
+        'Authorization': 'Bearer ' + p.key,
+        'Content-Type': 'application/json',
+      },
+      signal: AbortSignal.timeout(8000),
+    });
+    p.status = resp.ok ? 'online' : 'offline';
+  } catch {
+    p.status = 'offline';
+  }
+
+  saveProviders();
+  if (p.status === 'online') showToast(`${p.name}: 连接正常 ✓`, '');
+  else showToast(`${p.name}: 连接失败 ✗`, 'error');
+}
+
+// Try to auto-test all saved providers on load
+async function autoTestProviders() {
+  for (let i = 0; i < providers.length; i++) {
+    const p = providers[i];
+    if (!p.key) { p.status = 'offline'; continue; }
+    try {
+      const resp = await fetch(p.url + '/models', {
+        headers: { 'Authorization': 'Bearer ' + p.key },
+        signal: AbortSignal.timeout(5000),
+      });
+      p.status = resp.ok ? 'online' : 'offline';
+    } catch { p.status = 'offline'; }
+  }
+  saveProviders();
+}
+
 // ===== SKILLS DATA =====
 const skills = [
   {name:'autonomous-ai-agents',category:'autonomous-ai-agents',desc:'自动化 AI 编码代理和多代理工作流'},
@@ -1280,23 +1481,10 @@ function renderSkills(listId, data) {
   `).join('');
 }
 
-function filterSkills(query, mode) {
+function filterSkills(query, listId) {
   const q = query.toLowerCase();
-  const filtered = skills.filter(s => s.name.toLowerCase().includes(q) || s.category.toLowerCase().includes(q));
-  const listId = mode === 'overview' ? 'skill-list-overview' : 'skill-list-all';
-  const limit = mode === 'overview' ? 12 : filtered.length;
-  renderSkills(listId, filtered.slice(0, limit));
-}
-
-let currentSkillFilter = 'all';
-function setSkillFilter(category) {
-  currentSkillFilter = category;
-  const btns = document.querySelectorAll('[data-filter]');
-  btns.forEach(b => b.style.cssText = b.dataset.filter === category ? 'border-color:var(--accent-green);color:var(--accent-green);background:var(--accent-green-dim);' : '');
-  const q = document.getElementById('skill-search-all').value.toLowerCase();
-  let filtered = category === 'all' ? skills : skills.filter(s => s.category === category);
-  if (q) filtered = filtered.filter(s => s.name.toLowerCase().includes(q) || s.category.toLowerCase().includes(q));
-  renderSkills('skill-list-all', filtered);
+  const data = skills.filter(s => s.name.toLowerCase().includes(q) || s.category.toLowerCase().includes(q));
+  renderSkills('skill-list-' + listId, data);
 }
 
 function showAllSkills() {
@@ -1321,9 +1509,7 @@ function showSkillDetail(name) {
   modal.classList.add('open');
 }
 
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('open');
-}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
 
 function renderTools() {
   const container = document.getElementById('tools-container');
@@ -1353,12 +1539,11 @@ function showToolDetail(name) {
 }
 
 function renderTodos() {
-  // Placeholder todo data — in a real setup this would come from the agent
   const todos = [
     { id: '1', content: '设计整体布局和配色方案', status: 'completed' },
     { id: '2', content: '构建仪表盘 HTML（含 CSS 和 JS）', status: 'completed' },
-    { id: '3', content: '添加实时/动态数据展示能力', status: 'in_progress' },
-    { id: '4', content: '让用户预览和反馈', status: 'pending' },
+    { id: '3', content: '扩展系统详情面板和模型管理', status: 'completed' },
+    { id: '4', content: '继续完善和优化', status: 'in_progress' },
   ];
   const el = document.getElementById('todo-list');
   el.innerHTML = todos.map(t => `
@@ -1373,13 +1558,40 @@ function renderTodos() {
 // ===== SECTION SWITCHING =====
 function switchSection(name) {
   document.querySelectorAll('[id^="section-"]').forEach(el => el.style.display = 'none');
-  document.getElementById(`section-${name}`).style.display = 'block';
+  const target = document.getElementById('section-' + name);
+  if (target) target.style.display = 'block';
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.section === name));
 }
 
 document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.addEventListener('click', () => switchSection(btn.dataset.section));
 });
+
+// ===== SYSTEM DETAIL TOGGLE =====
+function toggleSysDetail() {
+  const el = document.getElementById('sys-expanded');
+  el.classList.toggle('open');
+  const toggle = document.querySelector('.sys-detail-toggle');
+  toggle.textContent = el.classList.contains('open') ? '▾ 收起详细' : '▸ 查看详细';
+}
+
+// ===== SKILL FILTER =====
+let currentSkillFilter = 'all';
+function setSkillFilter(filter) {
+  currentSkillFilter = filter;
+  document.querySelectorAll('[data-filter]').forEach(b => {
+    b.style.borderColor = b.dataset.filter === filter ? 'var(--accent-green)' : 'var(--border)';
+    b.style.color = b.dataset.filter === filter ? 'var(--accent-green)' : 'var(--text-secondary)';
+  });
+  applySkillFilter();
+}
+function applySkillFilter() {
+  const q = (document.getElementById('skill-search-all')?.value || '').toLowerCase();
+  let filtered = skills;
+  if (currentSkillFilter !== 'all') filtered = filtered.filter(s => s.category === currentSkillFilter);
+  if (q) filtered = filtered.filter(s => s.name.toLowerCase().includes(q) || s.category.toLowerCase().includes(q));
+  renderSkills('skill-list-all', filtered);
+}
 
 // ===== CLOCK =====
 function updateClock() {
@@ -1395,44 +1607,40 @@ function demoTerm(input) {
   const val = input.value.trim();
   if (!val) return;
   out.innerHTML += `<div class="terminal-line"><span class="prompt">hermes@agent</span><span class="text-muted">:</span><span class="prompt">~</span><span class="cmd">$</span> <span class="cmd">${val}</span></div>`;
-  out.innerHTML += `<div class="terminal-line"><span class="output">${val.includes('help') ? '可用命令: status, tools, skills, memory, cron, session' : val.includes('status') ? 'Agent: Hermes Agent · Online · deepseek-v4-flash' : val.includes('cron') ? '→ 当前无定时任务' : val.includes('skills') ? '→ 共 ' + skills.length + ' 个技能可用。输入 skills list 查看。' : `[模拟] 命令 '${val}' 已收到`}</span></div>`;
+  out.innerHTML += `<div class="terminal-line"><span class="output">${val.includes('help') ? '可用命令: status, tools, skills, memory, cron, session' : val.includes('status') ? 'Agent: Hermes Agent · Online · deepseek-v4-flash' : val.includes('cron') ? '→ 当前无定时任务' : val.includes('skills') ? '→ 共 ' + skills.length + ' 个技能可用。输入 skills list 查看。' : `[仿真] 命令 '${val}' 已收到`}</span></div>`;
   out.scrollTop = out.scrollHeight;
   input.value = '';
 }
 
 // ===== COPY =====
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text);
-}
+function copyToClipboard(text) { navigator.clipboard.writeText(text); }
 
 // ===== INIT =====
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   renderSkills('skill-list-overview', skills.slice(0, 12));
   renderSkills('skill-list-all', skills);
   renderTools();
   renderTodos();
+
   document.getElementById('skill-total-label').textContent = `(${skills.length})`;
   document.getElementById('skill-count').textContent = skills.length;
   document.getElementById('tool-count').textContent = toolsList.length;
   document.getElementById('memory-count').textContent = '7';
-
   const cats = new Set(skills.map(s => s.category));
   document.getElementById('skill-category-count').textContent = cats.size;
 
-  const sb = document.getElementById('skill-search-all');
-  if (sb) {
-    sb.addEventListener('input', function() {
-      const q = this.value.toLowerCase();
-      let filtered = skills;
-      if (currentSkillFilter !== 'all') filtered = filtered.filter(s => s.category === currentSkillFilter);
-      if (q) filtered = filtered.filter(s => s.name.toLowerCase().includes(q) || s.category.toLowerCase().includes(q));
-      renderSkills('skill-list-all', filtered);
-    });
-  }
+  // Provider init
+  renderProviders();
+  updateProviderCount();
 
-  // Show status variation based on time
-  const h = new Date().getHours();
-});
-</script>
+  // Search events
+  const sb = document.getElementById('skill-search-all');
+  if (sb) sb.addEventListener('input', applySkillFilter);
+  const sb2 = document.getElementById('skill-search-overview');
+  if (sb2) sb2.addEventListener('input', function() { filterSkills(this.value, 'overview'); });
+
+  // Auto-test providers silently
+  setTimeout(autoTestProviders, 3000);
+});</script>
 </body>
 </html>
