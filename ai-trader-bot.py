@@ -25,7 +25,7 @@ def log(msg):
 
 def api_get(path):
     try:
-        r = requests.get(f"{BASE}{path}", headers=HEADERS, timeout=15)
+        r = requests.get(f"{BASE}{path}", headers=HEADERS, timeout=20)
         return r.json() if r.ok else None
     except Exception as e:
         log(f"API GET error: {e}")
