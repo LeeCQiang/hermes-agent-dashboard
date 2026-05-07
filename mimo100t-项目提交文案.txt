@@ -110,7 +110,15 @@ Responsive Design
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-六、部署与环境 (Deployment & Environment)
+六、项目源码 (Source Code)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  GitHub 仓库：https://github.com/LeeCQiang/hermes-agent-dashboard
+  完整项目代码，欢迎 Star / Fork / 贡献
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+七、部署与环境 (Deployment & Environment)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   · 运行环境：WSL2 (Windows Subsystem for Linux) on Windows 11
@@ -122,12 +130,12 @@ Responsive Design
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-七、成果截图 (Screenshot)
+八、成果截图 (Screenshot)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-（建议：用浏览器打开 hermes-dashboard.html，截取完整面板截图附上）
+![Dashboard Screenshot](dashboard-screenshot.png)
 
 ======================================================================
   文档生成时间：2026-05-07
-  提交项目：Hermes Agent Observability Dashboard
+  GitHub：https://github.com/LeeCQiang/hermes-agent-dashboard
 ======================================================================
