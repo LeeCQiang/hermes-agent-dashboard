@@ -8,698 +8,249 @@
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
   :root {
-    --bg-primary: #0a0a0f;
-    --bg-secondary: #12121a;
-    --bg-card: #16161f;
-    --bg-card-hover: #1c1c28;
-    --bg-surface: #1a1a26;
-    --border: #2a2a3a;
-    --border-accent: #3a3a50;
-    --text-primary: #e0e0e8;
-    --text-secondary: #9090a8;
-    --text-muted: #606078;
-    --accent-green: #00ff41;
-    --accent-cyan: #00d4ff;
-    --accent-purple: #a855f7;
-    --accent-amber: #fbbf24;
-    --accent-red: #ff4444;
-    --accent-green-dim: rgba(0,255,65,0.15);
-    --accent-cyan-dim: rgba(0,212,255,0.15);
-    --accent-purple-dim: rgba(168,85,247,0.15);
-    --accent-amber-dim: rgba(251,191,36,0.15);
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f;
+    --bg-card-hover: #1c1c28; --bg-surface: #1a1a26;
+    --border: #2a2a3a; --border-accent: #3a3a50;
+    --text-primary: #e0e0e8; --text-secondary: #9090a8; --text-muted: #606078;
+    --accent-green: #00ff41; --accent-cyan: #00d4ff; --accent-purple: #a855f7;
+    --accent-amber: #fbbf24; --accent-red: #ff4444;
+    --accent-green-dim: rgba(0,255,65,0.15); --accent-cyan-dim: rgba(0,212,255,0.15);
+    --accent-purple-dim: rgba(168,85,247,0.15); --accent-amber-dim: rgba(251,191,36,0.15);
     --accent-red-dim: rgba(255,68,68,0.15);
     --shadow: 0 2px 8px rgba(0,0,0,0.4);
-    --radius: 10px;
-    --radius-sm: 6px;
-    --transition: 0.2s ease;
+    --radius: 10px; --radius-sm: 6px; --transition: 0.2s ease;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    min-height: 100vh;
-    display: flex;
-    overflow-x: hidden;
-  }
-
+  body { font-family: 'Inter',-apple-system,BlinkMacSystemFont,sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; display: flex; overflow-x: hidden; }
   ::selection { background: var(--accent-green); color: var(--bg-primary); }
   ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--border-accent); }
 
-  /* ===== Sidebar ===== */
-  .sidebar {
-    width: 64px;
-    background: var(--bg-secondary);
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px 0;
-    gap: 4px;
-    flex-shrink: 0;
-    z-index: 10;
-  }
+  .sidebar { width: 64px; background: var(--bg-secondary); border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; padding: 16px 0; gap: 4px; flex-shrink: 0; z-index: 10; }
+  .sidebar-logo { width:36px;height:36px;border-radius:8px;background:var(--accent-green-dim);border:1px solid var(--accent-green);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;color:var(--accent-green);margin-bottom:16px;cursor:default;}
+  .sidebar-nav { display:flex;flex-direction:column;align-items:center;gap:2px;flex:1; }
+  .nav-btn { width:40px;height:40px;border-radius:8px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:var(--transition);position:relative; }
+  .nav-btn:hover { background:var(--bg-card);color:var(--text-primary); }
+  .nav-btn.active { background:var(--bg-card);color:var(--accent-green); }
+  .nav-btn.active::before { content:'';position:absolute;left:-4px;top:50%;transform:translateY(-50%);width:3px;height:16px;background:var(--accent-green);border-radius:2px; }
+  .nav-btn svg { width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round; }
 
-  .sidebar-logo {
-    width: 36px; height: 36px;
-    border-radius: 8px;
-    background: var(--accent-green-dim);
-    border: 1px solid var(--accent-green);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700; font-size: 14px;
-    color: var(--accent-green);
-    margin-bottom: 16px;
-    cursor: default;
-  }
+  .main { flex:1; display:flex; flex-direction:column; min-width:0; }
+  .header { padding:16px 24px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; background:var(--bg-secondary); flex-shrink:0; }
+  .header-left { display:flex; align-items:center; gap:16px; }
+  .header-title { font-family:'JetBrains Mono',monospace; font-weight:600; font-size:16px; color:var(--text-primary); }
+  .header-title span { color:var(--accent-green); }
+  .header-subtitle { font-size:12px; color:var(--text-muted); }
+  .header-right { display:flex; align-items:center; gap:12px; }
+  .status-badge { display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;font-size:11px;font-family:'JetBrains Mono',monospace;background:var(--accent-green-dim);border:1px solid rgba(0,255,65,0.2);color:var(--accent-green);transition:var(--transition);}
+  .status-badge.warning { background:var(--accent-amber-dim); border-color:rgba(251,191,36,0.3); color:var(--accent-amber); }
+  .status-badge.offline { background:var(--accent-red-dim); border-color:rgba(255,68,68,0.3); color:var(--accent-red); }
+  .status-dot { width:6px;height:6px;border-radius:50%;background:var(--accent-green);animation:pulse-dot 2s ease-in-out infinite;}
+  .status-badge.warning .status-dot { background:var(--accent-amber); }
+  .status-badge.offline .status-dot { background:var(--accent-red); }
+  @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .clock { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text-muted); }
 
-  .sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    flex: 1;
-  }
+  .content { padding:20px 24px; overflow-y:auto; flex:1; }
+  .section { margin-bottom:20px; }
+  .section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .section-title { font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600; color:var(--text-secondary); }
+  .section-title .count { font-weight:400; color:var(--text-muted); font-size:12px; }
+  .section-actions { display:flex; gap:6px; }
+  .card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); }
+  .card-body { padding:14px; }
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
 
-  .nav-btn {
-    width: 40px; height: 40px;
-    border-radius: 8px;
-    border: none;
-    background: transparent;
-    color: var(--text-muted);
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-    transition: var(--transition);
-    position: relative;
-  }
+  .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+  .stat-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:14px; transition:var(--transition); }
+  .stat-card:hover { background:var(--bg-card-hover); border-color:var(--border-accent); }
+  .stat-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+  .stat-label { font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; }
+  .stat-icon { width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px; }
+  .stat-icon.green-bg{background:var(--accent-green-dim);color:var(--accent-green);}
+  .stat-icon.cyan-bg{background:var(--accent-cyan-dim);color:var(--accent-cyan);}
+  .stat-icon.purple-bg{background:var(--accent-purple-dim);color:var(--accent-purple);}
+  .stat-icon.amber-bg{background:var(--accent-amber-dim);color:var(--accent-amber);}
+  .stat-value { font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:600; color:var(--text-primary); margin-bottom:2px; }
+  .stat-sub { font-size:11px; color:var(--text-muted); }
 
-  .nav-btn:hover { background: var(--bg-card); color: var(--text-primary); }
-  .nav-btn.active {
-    background: var(--bg-card);
-    color: var(--accent-green);
-  }
-  .nav-btn.active::before {
-    content: '';
-    position: absolute;
-    left: -4px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 3px; height: 16px;
-    background: var(--accent-green);
-    border-radius: 2px;
-  }
+  .stat-card.system-card { grid-column:span 2; }
+  .sys-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px 20px; margin-top:4px; }
+  .sys-item { display:flex; align-items:center; gap:8px; padding:4px 0; font-size:12px; }
+  .sys-item .sys-label { color:var(--text-muted); min-width:64px; font-size:11px; flex-shrink:0; }
+  .sys-item .sys-value { color:var(--text-primary); font-family:'JetBrains Mono',monospace; font-size:11px; }
+  .sys-tag { display:inline-block; padding:1px 6px; border-radius:3px; font-size:10px; font-family:'JetBrains Mono',monospace; }
+  .sys-tag.green{background:var(--accent-green-dim);color:var(--accent-green);}
+  .sys-tag.cyan{background:var(--accent-cyan-dim);color:var(--accent-cyan);}
+  .sys-tag.amber{background:var(--accent-amber-dim);color:var(--accent-amber);}
+  .sys-tag.purple{background:var(--accent-purple-dim);color:var(--accent-purple);}
+  .sys-tag.red{background:var(--accent-red-dim);color:var(--accent-red);}
+  .sys-detail-toggle { font-size:11px; color:var(--accent-cyan); cursor:pointer; margin-top:6px; display:inline-block; user-select:none; }
+  .sys-detail-toggle:hover { text-decoration:underline; }
+  .sys-expanded { display:none; margin-top:8px; padding-top:8px; border-top:1px solid var(--border); }
+  .sys-expanded.open { display:block; }
 
-  .nav-btn svg {
-    width: 20px; height: 20px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
+  .timeline { position:relative; padding-left:20px; }
+  .timeline::before { content:'';position:absolute;left:6px;top:4px;bottom:4px;width:1px;background:var(--border);}
+  .timeline-item { position:relative; padding:0 0 16px 16px; }
+  .timeline-item:last-child { padding-bottom:0; }
+  .timeline-dot { position:absolute;left:-17px;top:3px;width:8px;height:8px;border-radius:50%;border:2px solid var(--border-accent);background:var(--bg-card);}
+  .timeline-dot.green{border-color:var(--accent-green);background:var(--accent-green-dim);}
+  .timeline-dot.cyan{border-color:var(--accent-cyan);background:var(--accent-cyan-dim);}
+  .timeline-dot.amber{border-color:var(--accent-amber);background:var(--accent-amber-dim);}
+  .timeline-dot.purple{border-color:var(--accent-purple);background:var(--accent-purple-dim);}
+  .timeline-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted);margin-bottom:2px;}
+  .timeline-title{font-size:13px;color:var(--text-primary);font-weight:500;}
+  .timeline-desc{font-size:12px;color:var(--text-secondary);margin-top:2px;}
 
-  /* ===== Main ===== */
-  .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  /* ===== Skill Items (enhanced) ===== */
+  .skill-item { display:flex; align-items:center; gap:8px; padding:7px 8px; border-radius:var(--radius-sm); cursor:pointer; transition:var(--transition); font-size:12px; border-bottom:1px solid transparent; }
+  .skill-item:hover { background:var(--bg-surface); border-bottom-color:var(--border); }
+  .skill-item .s-dot { width:4px;height:4px;border-radius:50%;flex-shrink:0; }
+  .skill-item .s-name { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-primary); white-space:nowrap; flex-shrink:0; }
+  .skill-item .s-desc { font-size:11px; color:var(--text-secondary); flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin:0 8px; }
+  .skill-item .s-cat { font-size:9px; color:var(--text-muted); padding:1px 5px; border-radius:3px; background:var(--bg-surface); flex-shrink:0; border:1px solid var(--border); }
 
-  /* ===== Header ===== */
-  .header {
-    padding: 16px 24px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--bg-secondary);
-    flex-shrink: 0;
-  }
+  .skill-search { width:100%; padding:8px 10px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--bg-surface); color:var(--text-primary); font-family:'JetBrains Mono',monospace; font-size:12px; outline:none; transition:var(--transition); margin-bottom:8px; }
+  .skill-search:focus { border-color:var(--accent-green); box-shadow:0 0 0 2px var(--accent-green-dim); }
+  .skill-search::placeholder { color:var(--text-muted); }
+  .skill-list { max-height:360px; overflow-y:auto; }
 
-  .header-left { display: flex; align-items: center; gap: 16px; }
-  .header-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 600; font-size: 16px;
-    color: var(--text-primary);
-  }
-  .header-title span { color: var(--accent-green); }
-  .header-subtitle { font-size: 12px; color: var(--text-muted); }
+  /* ===== Category filter pills ===== */
+  .filter-pills { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:8px; }
+  .pill { padding:3px 8px; border-radius:12px; border:1px solid var(--border); background:transparent; color:var(--text-muted); font-size:10px; font-family:'JetBrains Mono',monospace; cursor:pointer; transition:var(--transition); }
+  .pill:hover { border-color:var(--accent-cyan); color:var(--accent-cyan); }
+  .pill.active { background:var(--accent-cyan-dim); border-color:var(--accent-cyan); color:var(--accent-cyan); }
 
-  .header-right { display: flex; align-items: center; gap: 12px; }
+  /* ===== Tool items (enhanced) ===== */
+  .tool-group { margin-bottom:14px; }
+  .tool-group-title { font-size:11px; color:var(--text-muted); font-family:'JetBrains Mono',monospace; padding:4px 0; border-bottom:1px solid var(--border); margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+  .tool-group-title .g-count { font-size:10px; color:var(--text-muted); }
+  .tool-item { display:flex; align-items:center; gap:8px; padding:5px 8px; border-radius:var(--radius-sm); cursor:pointer; transition:var(--transition); }
+  .tool-item:hover { background:var(--bg-surface); }
+  .tool-item .t-name { font-family:'JetBrains Mono',monospace; font-size:11px; }
+  .tool-item .t-desc { font-size:11px; color:var(--text-secondary); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
-  .status-badge {
-    display: flex; align-items: center; gap: 6px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-family: 'JetBrains Mono', monospace;
-    background: var(--accent-green-dim);
-    border: 1px solid rgba(0,255,65,0.2);
-    color: var(--accent-green);
-    transition: var(--transition);
-  }
-  .status-badge.warning { background: var(--accent-amber-dim); border-color: rgba(251,191,36,0.3); color: var(--accent-amber); }
-  .status-badge.offline { background: var(--accent-red-dim); border-color: rgba(255,68,68,0.3); color: var(--accent-red); }
+  .tool-tag { display:inline-flex; align-items:center; gap:4px; padding:2px 6px; border-radius:3px; font-family:'JetBrains Mono',monospace; font-size:10px; border:1px solid var(--border); background:var(--bg-surface); color:var(--text-secondary); transition:var(--transition); }
+  .tool-tag:hover { border-color:var(--accent-cyan); color:var(--accent-cyan); background:var(--accent-cyan-dim); }
+  .tool-tag.terminal { border-color:rgba(0,255,65,0.2); color:var(--accent-green); }
+  .tool-tag.web { border-color:rgba(0,212,255,0.2); color:var(--accent-cyan); }
+  .tool-tag.file { border-color:rgba(251,191,36,0.2); color:var(--accent-amber); }
+  .tool-tag.memory { border-color:rgba(168,85,247,0.2); color:var(--accent-purple); }
+  .tool-tag.vision { border-color:rgba(255,68,68,0.2); color:var(--accent-red); }
 
-  .status-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent-green);
-    animation: pulse-dot 2s ease-in-out infinite;
-  }
-  .status-badge.warning .status-dot { background: var(--accent-amber); }
-  .status-badge.offline .status-dot { background: var(--accent-red); }
+  /* ===== Memory items ===== */
+  .memory-list { }
+  .memory-item { padding:8px; border-radius:var(--radius-sm); border-left:2px solid var(--border); margin-bottom:6px; transition:var(--transition); cursor:pointer; }
+  .memory-item:hover { background:var(--bg-surface); border-left-color:var(--accent-cyan); }
+  .memory-item .m-type { font-size:9px; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-bottom:2px; display:flex; align-items:center; gap:6px; }
+  .memory-item .m-type .m-badge { padding:1px 5px; border-radius:3px; font-size:9px; }
+  .memory-item .m-content { font-size:12px; color:var(--text-primary); line-height:1.5; }
+  .memory-item .m-time { font-size:10px; color:var(--text-muted); margin-top:3px; font-family:'JetBrains Mono',monospace; }
 
-  @keyframes pulse-dot {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
+  .todo-item { display:flex; align-items:center; gap:8px; padding:6px 0; font-size:12px; border-bottom:1px solid var(--border); }
+  .todo-item:last-child { border-bottom:none; }
+  .todo-check { width:14px;height:14px;border-radius:3px;border:1px solid var(--border-accent);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:var(--transition);}
+  .todo-check.done{background:var(--accent-green);border-color:var(--accent-green);}
+  .todo-check.done::after{content:'✓';font-size:10px;color:var(--bg-primary);font-weight:700;}
+  .todo-check.in-progress{border-color:var(--accent-amber);animation:spin 1s linear infinite;}
+  .todo-check.in-progress::after{content:'◌';font-size:10px;color:var(--accent-amber);}
+  @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+  .todo-text{flex:1;color:var(--text-primary);}
+  .todo-text.done-text{text-decoration:line-through;color:var(--text-muted);}
+  .todo-status{font-size:10px;padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;}
+  .todo-status.completed{background:var(--accent-green-dim);color:var(--accent-green);}
+  .todo-status.pending{background:var(--accent-cyan-dim);color:var(--accent-cyan);}
+  .todo-status.in-progress-s{background:var(--accent-amber-dim);color:var(--accent-amber);}
 
-  .clock {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    color: var(--text-muted);
-  }
+  .cron-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;}
+  .cron-item:last-child{border-bottom:none;}
+  .cron-icon{width:24px;height:24px;border-radius:4px;background:var(--accent-purple-dim);color:var(--accent-purple);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+  .cron-info{flex:1;min-width:0;}
+  .cron-name{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-primary);}
+  .cron-schedule{font-size:10px;color:var(--text-muted);}
+  .cron-badge{font-size:10px;padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;}
+  .cron-badge.active{background:var(--accent-green-dim);color:var(--accent-green);}
+  .cron-badge.paused{background:var(--accent-amber-dim);color:var(--accent-amber);}
 
-  /* ===== Content ===== */
-  .content { padding: 20px 24px; overflow-y: auto; flex: 1; }
-  .section { margin-bottom: 20px; }
-  .section-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  .section-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px; font-weight: 600;
-    color: var(--text-secondary);
-  }
-  .section-title .count { font-weight: 400; color: var(--text-muted); font-size: 12px; }
+  .terminal-window{background:#050510;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .terminal-bar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--bg-surface);border-bottom:1px solid var(--border);}
+  .term-dot{width:10px;height:10px;border-radius:50%;}
+  .term-dot.red{background:#ff5f56;}
+  .term-dot.yellow{background:#ffbd2e;}
+  .term-dot.green{background:#27c93f;}
+  .term-title{font-size:11px;color:var(--text-muted);margin-left:8px;font-family:'JetBrains Mono',monospace;}
+  .terminal-content{padding:14px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.6;color:var(--text-secondary);min-height:100px;}
+  .terminal-line{white-space:pre-wrap;word-break:break-all;}
+  .terminal-line .prompt{color:var(--accent-green);}
+  .terminal-line .cmd{color:var(--text-primary);}
+  .terminal-line .output{color:var(--text-secondary);}
+  .terminal-cursor{display:inline-block;width:7px;height:14px;background:var(--accent-green);animation:blink 1s step-end infinite;vertical-align:text-bottom;}
+  @keyframes blink{50%{opacity:0}}
 
-  .section-actions { display: flex; gap: 6px; }
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:100;align-items:center;justify-content:center;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);width:90%;max-width:600px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.6);}
+  .modal-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);}
+  .modal-title{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;}
+  .modal-close{width:28px;height:28px;border-radius:6px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:var(--transition);}
+  .modal-close:hover{background:var(--bg-surface);color:var(--text-primary);}
+  .modal-body{padding:18px;}
+  .modal-body .detail-row{display:flex;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
+  .modal-body .detail-row:last-child{border-bottom:none;}
+  .modal-body .detail-label{color:var(--text-muted);width:100px;flex-shrink:0;}
+  .modal-body .detail-value{color:var(--text-primary);font-family:'JetBrains Mono',monospace;font-size:12px;}
 
-  .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-  }
-  .card-body { padding: 14px; }
+  .provider-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+  .provider-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;transition:var(--transition);position:relative;}
+  .provider-card:hover{background:var(--bg-card-hover);border-color:var(--border-accent);}
+  .provider-card .p-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .provider-card .p-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+  .provider-card .p-info{flex:1;min-width:0;}
+  .provider-card .p-name{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--text-primary);}
+  .provider-card .p-model{font-size:11px;color:var(--text-muted);margin-top:1px;}
+  .provider-card .p-status{display:flex;align-items:center;gap:4px;font-size:10px;font-family:'JetBrains Mono',monospace;padding:2px 6px;border-radius:4px;}
+  .provider-card .p-status.online{background:var(--accent-green-dim);color:var(--accent-green);}
+  .provider-card .p-status.offline{background:var(--accent-red-dim);color:var(--accent-red);}
+  .provider-card .p-status.testing{background:var(--accent-amber-dim);color:var(--accent-amber);}
+  .provider-card .p-details{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
+  .provider-card .p-detail-item{font-size:11px;color:var(--text-secondary);}
+  .provider-card .p-detail-item span{color:var(--text-muted);display:block;font-size:10px;margin-bottom:1px;}
+  .provider-card .p-actions{display:flex;gap:6px;margin-top:10px;padding-top:8px;border-top:1px solid var(--border);}
 
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .btn-sm{padding:4px 10px;border-radius:4px;border:1px solid var(--border);background:var(--bg-surface);color:var(--text-secondary);font-size:10px;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:var(--transition);white-space:nowrap;}
+  .btn-sm:hover{border-color:var(--accent-cyan);color:var(--accent-cyan);background:var(--accent-cyan-dim);}
+  .btn-sm.primary{border-color:var(--accent-green);color:var(--accent-green);background:var(--accent-green-dim);}
+  .btn-sm.primary:hover{background:var(--accent-green);color:var(--bg-primary);}
+  .btn-sm.danger{border-color:rgba(255,68,68,0.3);color:var(--accent-red);}
+  .btn-sm.danger:hover{background:var(--accent-red-dim);border-color:var(--accent-red);}
 
-  /* ===== Stats ===== */
-  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  .form-group{margin-bottom:12px;}
+  .form-group label{display:block;font-size:11px;color:var(--text-muted);margin-bottom:4px;font-family:'JetBrains Mono',monospace;}
+  .form-group input,.form-group select{width:100%;padding:8px 10px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg-surface);color:var(--text-primary);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;transition:var(--transition);}
+  .form-group input:focus,.form-group select:focus{border-color:var(--accent-cyan);box-shadow:0 0 0 2px var(--accent-cyan-dim);}
+  .form-group input::placeholder{color:var(--text-muted);}
+  .form-group select option{background:var(--bg-card);color:var(--text-primary);}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 
-  .stat-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px;
-    transition: var(--transition);
-  }
-  .stat-card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+  .empty-state{text-align:center;padding:30px 20px;color:var(--text-muted);}
+  .empty-state .empty-icon{font-size:36px;margin-bottom:10px;}
+  .empty-state .empty-text{font-size:13px;margin-bottom:6px;}
+  .empty-state .empty-hint{font-size:11px;}
 
-  .stat-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-  .stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-  .stat-icon {
-    width: 28px; height: 28px;
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px;
-  }
-  .stat-icon.green-bg { background: var(--accent-green-dim); color: var(--accent-green); }
-  .stat-icon.cyan-bg { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
-  .stat-icon.purple-bg { background: var(--accent-purple-dim); color: var(--accent-purple); }
-  .stat-icon.amber-bg { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .toast{position:fixed;bottom:24px;right:24px;padding:10px 16px;border-radius:var(--radius-sm);background:var(--bg-card);border:1px solid var(--accent-green);color:var(--accent-green);font-family:'JetBrains Mono',monospace;font-size:12px;z-index:200;opacity:0;transform:translateY(10px);transition:all 0.3s ease;pointer-events:none;}
+  .toast.show{opacity:1;transform:translateY(0);}
+  .toast.error{border-color:var(--accent-red);color:var(--accent-red);}
+  .toast.warning{border-color:var(--accent-amber);color:var(--accent-amber);}
 
-  .stat-value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 22px; font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 2px;
-  }
-  .stat-sub { font-size: 11px; color: var(--text-muted); }
+  .glitch{animation:glitch1 3s infinite;}
+  @keyframes glitch1{0%{transform:translate(0)}80%{transform:translate(0)}85%{transform:translate(-1px,1px)}90%{transform:translate(1px,-1px)}95%{transform:translate(-1px,1px)}}
 
-  /* System status card - expanded */
-  .stat-card.system-card {
-    grid-column: span 2;
-  }
-
-  .sys-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px 20px;
-    margin-top: 4px;
-  }
-
-  .sys-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 4px 0;
-    font-size: 12px;
-  }
-
-  .sys-item .sys-label {
-    color: var(--text-muted);
-    min-width: 64px;
-    font-size: 11px;
-    flex-shrink: 0;
-  }
-
-  .sys-item .sys-value {
-    color: var(--text-primary);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-  }
-
-  .sys-tag {
-    display: inline-block;
-    padding: 1px 6px;
-    border-radius: 3px;
-    font-size: 10px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .sys-tag.green { background: var(--accent-green-dim); color: var(--accent-green); }
-  .sys-tag.cyan { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
-  .sys-tag.amber { background: var(--accent-amber-dim); color: var(--accent-amber); }
-  .sys-tag.purple { background: var(--accent-purple-dim); color: var(--accent-purple); }
-  .sys-tag.red { background: var(--accent-red-dim); color: var(--accent-red); }
-
-  .sys-detail-toggle {
-    font-size: 11px;
-    color: var(--accent-cyan);
-    cursor: pointer;
-    margin-top: 6px;
-    display: inline-block;
-    user-select: none;
-  }
-  .sys-detail-toggle:hover { text-decoration: underline; }
-
-  .sys-expanded { display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
-  .sys-expanded.open { display: block; }
-
-  /* ===== Timeline ===== */
-  .timeline { position: relative; padding-left: 20px; }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 6px;
-    top: 4px;
-    bottom: 4px;
-    width: 1px;
-    background: var(--border);
-  }
-  .timeline-item { position: relative; padding: 0 0 16px 16px; }
-  .timeline-item:last-child { padding-bottom: 0; }
-  .timeline-dot {
-    position: absolute; left: -17px; top: 3px;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    border: 2px solid var(--border-accent);
-    background: var(--bg-card);
-  }
-  .timeline-dot.green { border-color: var(--accent-green); background: var(--accent-green-dim); }
-  .timeline-dot.cyan { border-color: var(--accent-cyan); background: var(--accent-cyan-dim); }
-  .timeline-dot.amber { border-color: var(--accent-amber); background: var(--accent-amber-dim); }
-  .timeline-dot.purple { border-color: var(--accent-purple); background: var(--accent-purple-dim); }
-  .timeline-time { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted); margin-bottom: 2px; }
-  .timeline-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
-  .timeline-desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
-
-  /* ===== Skill Items ===== */
-  .skill-item {
-    display: flex; align-items: center; gap: 8px;
-    padding: 6px 8px;
-    border-radius: var(--radius-sm);
-    cursor: default;
-    transition: var(--transition);
-    font-size: 12px;
-  }
-  .skill-item:hover { background: var(--bg-surface); }
-  .skill-badge { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
-  .skill-badge.green { background: var(--accent-green); }
-  .skill-badge.cyan { background: var(--accent-cyan); }
-  .skill-badge.purple { background: var(--accent-purple); }
-  .skill-badge.amber { background: var(--accent-amber); }
-  .skill-name { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .skill-category { font-size: 10px; color: var(--text-muted); margin-left: auto; flex-shrink: 0; }
-
-  .skill-search {
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    outline: none;
-    transition: var(--transition);
-    margin-bottom: 8px;
-  }
-  .skill-search:focus { border-color: var(--accent-green); box-shadow: 0 0 0 2px var(--accent-green-dim); }
-  .skill-search::placeholder { color: var(--text-muted); }
-
-  .skill-list { max-height: 280px; overflow-y: auto; }
-
-  /* ===== Todo ===== */
-  .todo-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 12px; border-bottom: 1px solid var(--border); }
-  .todo-item:last-child { border-bottom: none; }
-  .todo-check {
-    width: 14px; height: 14px; border-radius: 3px;
-    border: 1px solid var(--border-accent);
-    flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    transition: var(--transition);
-  }
-  .todo-check.done { background: var(--accent-green); border-color: var(--accent-green); }
-  .todo-check.done::after { content: '✓'; font-size: 10px; color: var(--bg-primary); font-weight: 700; }
-  .todo-check.in-progress { border-color: var(--accent-amber); animation: spin 1s linear infinite; }
-  .todo-check.in-progress::after { content: '◌'; font-size: 10px; color: var(--accent-amber); }
-
-  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-  .todo-text { flex: 1; color: var(--text-primary); }
-  .todo-text.done-text { text-decoration: line-through; color: var(--text-muted); }
-  .todo-status { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; }
-  .todo-status.completed { background: var(--accent-green-dim); color: var(--accent-green); }
-  .todo-status.pending { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
-  .todo-status.in-progress-s { background: var(--accent-amber-dim); color: var(--accent-amber); }
-
-  /* ===== Cron ===== */
-  .cron-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
-  .cron-item:last-child { border-bottom: none; }
-  .cron-icon { width: 24px; height: 24px; border-radius: 4px; background: var(--accent-purple-dim); color: var(--accent-purple); display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
-  .cron-info { flex: 1; min-width: 0; }
-  .cron-name { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-primary); }
-  .cron-schedule { font-size: 10px; color: var(--text-muted); }
-  .cron-badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; }
-  .cron-badge.active { background: var(--accent-green-dim); color: var(--accent-green); }
-  .cron-badge.paused { background: var(--accent-amber-dim); color: var(--accent-amber); }
-
-  /* ===== Tools ===== */
-  .tool-tag {
-    display: inline-flex; align-items: center; gap: 4px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    border: 1px solid var(--border);
-    background: var(--bg-surface);
-    color: var(--text-secondary);
-    margin: 2px;
-    transition: var(--transition);
-  }
-  .tool-tag:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); background: var(--accent-cyan-dim); }
-  .tool-tag.terminal { border-color: rgba(0,255,65,0.2); color: var(--accent-green); }
-  .tool-tag.web { border-color: rgba(0,212,255,0.2); color: var(--accent-cyan); }
-  .tool-tag.file { border-color: rgba(251,191,36,0.2); color: var(--accent-amber); }
-  .tool-tag.memory { border-color: rgba(168,85,247,0.2); color: var(--accent-purple); }
-  .tool-tag.vision { border-color: rgba(255,68,68,0.2); color: var(--accent-red); }
-
-  /* ===== Terminal ===== */
-  .terminal-window { background: #050510; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-  .terminal-bar { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: var(--bg-surface); border-bottom: 1px solid var(--border); }
-  .term-dot { width: 10px; height: 10px; border-radius: 50%; }
-  .term-dot.red { background: #ff5f56; }
-  .term-dot.yellow { background: #ffbd2e; }
-  .term-dot.green { background: #27c93f; }
-  .term-title { font-size: 11px; color: var(--text-muted); margin-left: 8px; font-family: 'JetBrains Mono', monospace; }
-  .terminal-content { padding: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: var(--text-secondary); min-height: 100px; }
-  .terminal-line { white-space: pre-wrap; word-break: break-all; }
-  .terminal-line .prompt { color: var(--accent-green); }
-  .terminal-line .cmd { color: var(--text-primary); }
-  .terminal-line .output { color: var(--text-secondary); }
-  .terminal-cursor { display: inline-block; width: 7px; height: 14px; background: var(--accent-green); animation: blink 1s step-end infinite; vertical-align: text-bottom; }
-  @keyframes blink { 50% { opacity: 0; } }
-
-  /* ===== Modal ===== */
-  .modal-overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(4px);
-    z-index: 100;
-    align-items: center; justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-
-  .modal {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-  }
-  .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--border); }
-  .modal-title { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; }
-  .modal-close { width: 28px; height: 28px; border-radius: 6px; border: none; background: transparent; color: var(--text-muted); cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
-  .modal-close:hover { background: var(--bg-surface); color: var(--text-primary); }
-  .modal-body { padding: 18px; }
-  .modal-body .detail-row { display: flex; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
-  .modal-body .detail-row:last-child { border-bottom: none; }
-  .modal-body .detail-label { color: var(--text-muted); width: 120px; flex-shrink: 0; }
-  .modal-body .detail-value { color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
-
-  /* ===== PROVIDERS / MODELS SECTION ===== */
-  .provider-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-
-  .provider-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px;
-    transition: var(--transition);
-    position: relative;
-  }
-  .provider-card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
-
-  .provider-card .p-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .provider-card .p-icon {
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-  }
-
-  .provider-card .p-info { flex: 1; min-width: 0; }
-  .provider-card .p-name {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-  .provider-card .p-model {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 1px;
-  }
-
-  .provider-card .p-status {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    padding: 2px 6px;
-    border-radius: 4px;
-  }
-  .provider-card .p-status.online { background: var(--accent-green-dim); color: var(--accent-green); }
-  .provider-card .p-status.offline { background: var(--accent-red-dim); color: var(--accent-red); }
-  .provider-card .p-status.testing { background: var(--accent-amber-dim); color: var(--accent-amber); }
-
-  .provider-card .p-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px 12px;
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px solid var(--border);
-  }
-  .provider-card .p-detail-item {
-    font-size: 11px;
-    color: var(--text-secondary);
-  }
-  .provider-card .p-detail-item span {
-    color: var(--text-muted);
-    display: block;
-    font-size: 10px;
-    margin-bottom: 1px;
-  }
-
-  .provider-card .p-actions {
-    display: flex;
-    gap: 6px;
-    margin-top: 10px;
-    padding-top: 8px;
-    border-top: 1px solid var(--border);
-  }
-
-  .btn-sm {
-    padding: 4px 10px;
-    border-radius: 4px;
-    border: 1px solid var(--border);
-    background: var(--bg-surface);
-    color: var(--text-secondary);
-    font-size: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    cursor: pointer;
-    transition: var(--transition);
-    white-space: nowrap;
-  }
-  .btn-sm:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); background: var(--accent-cyan-dim); }
-  .btn-sm.primary { border-color: var(--accent-green); color: var(--accent-green); background: var(--accent-green-dim); }
-  .btn-sm.primary:hover { background: var(--accent-green); color: var(--bg-primary); }
-  .btn-sm.danger { border-color: rgba(255,68,68,0.3); color: var(--accent-red); }
-  .btn-sm.danger:hover { background: var(--accent-red-dim); border-color: var(--accent-red); }
-
-  /* Provider Form */
-  .form-group { margin-bottom: 12px; }
-  .form-group label {
-    display: block;
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-bottom: 4px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-  .form-group input, .form-group select {
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    outline: none;
-    transition: var(--transition);
-  }
-  .form-group input:focus, .form-group select:focus {
-    border-color: var(--accent-cyan);
-    box-shadow: 0 0 0 2px var(--accent-cyan-dim);
-  }
-  .form-group input::placeholder { color: var(--text-muted); }
-  .form-group select option { background: var(--bg-card); color: var(--text-primary); }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  .provider-add-card {
-    background: var(--bg-card);
-    border: 1px dashed var(--border-accent);
-    border-radius: var(--radius);
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 140px;
-    cursor: pointer;
-    transition: var(--transition);
-    color: var(--text-muted);
-    gap: 8px;
-  }
-  .provider-add-card:hover {
-    border-color: var(--accent-cyan);
-    background: var(--accent-cyan-dim);
-    color: var(--accent-cyan);
-  }
-  .provider-add-card .add-icon {
-    font-size: 28px;
-  }
-  .provider-add-card .add-text {
-    font-size: 12px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  /* Empty state */
-  .empty-state {
-    text-align: center;
-    padding: 30px 20px;
-    color: var(--text-muted);
-  }
-  .empty-state .empty-icon { font-size: 36px; margin-bottom: 10px; }
-  .empty-state .empty-text { font-size: 13px; margin-bottom: 6px; }
-  .empty-state .empty-hint { font-size: 11px; }
-
-  /* ===== Responsive ===== */
-  @media (max-width: 1100px) { .stats-row { grid-template-columns: repeat(2, 1fr); } .stat-card.system-card { grid-column: span 2; } }
-  @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } .sys-grid { grid-template-columns: 1fr; } }
-  @media (max-width: 600px) {
-    .sidebar { width: 48px; }
-    .sidebar-logo { width: 28px; height: 28px; font-size: 11px; }
-    .nav-btn { width: 32px; height: 32px; font-size: 14px; }
-    .content { padding: 12px; }
-    .stats-row { grid-template-columns: 1fr; }
-    .stat-card.system-card { grid-column: span 1; }
-    .provider-grid { grid-template-columns: 1fr; }
-  }
-
-  .glitch { animation: glitch1 3s infinite; }
-  @keyframes glitch1 { 0% { transform: translate(0); } 80% { transform: translate(0); } 85% { transform: translate(-1px, 1px); } 90% { transform: translate(1px, -1px); } 95% { transform: translate(-1px, 1px); } }
-
-  .tt { position: relative; }
-  .tt:hover::after {
-    content: attr(data-tip);
-    position: absolute;
-    bottom: calc(100% + 6px);
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 3px 8px;
-    border-radius: 4px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--text-secondary);
-    white-space: nowrap;
-    z-index: 50;
-  }
-
-  .shimmer {
-    background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-surface) 50%, var(--bg-card) 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s ease-in-out infinite;
-    border-radius: 4px;
-  }
-  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-  /* Toast notification */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    padding: 10px 16px;
-    border-radius: var(--radius-sm);
-    background: var(--bg-card);
-    border: 1px solid var(--accent-green);
-    color: var(--accent-green);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    z-index: 200;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    pointer-events: none;
-  }
-  .toast.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .toast.error { border-color: var(--accent-red); color: var(--accent-red); }
-  .toast.warning { border-color: var(--accent-amber); color: var(--accent-amber); }
+  @media(max-width:1100px){.stats-row{grid-template-columns:repeat(2,1fr)}.stat-card.system-card{grid-column:span 2}}
+  @media(max-width:900px){.grid-2{grid-template-columns:1fr}.sys-grid{grid-template-columns:1fr}}
+  @media(max-width:600px){.sidebar{width:48px}.sidebar-logo{width:28px;height:28px;font-size:11px}.nav-btn{width:32px;height:32px;font-size:14px}.content{padding:12px}.stats-row{grid-template-columns:1fr}.stat-card.system-card{grid-column:span 1}.provider-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -714,11 +265,14 @@
     <button class="nav-btn" data-section="models" title="模型">
       <svg><circle cx="12" cy="12" r="10"/><path d="M12 6v12"/><path d="M6 12h12"/></svg>
     </button>
-    <button class="nav-btn" data-section="skills" title="技能">
+    <button class="nav-btn" data-section="skills" title="技能仓库">
       <svg><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
     </button>
     <button class="nav-btn" data-section="tools" title="工具">
       <svg><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0.33-1.82 1.65 1.65 0 0 0-1.51-1H5.78a1.65 1.65 0 0 0-1.51 1 1.65 1.65 0 0 0.33 1.82l6.22 6.22a1.65 1.65 0 0 0 2.36 0z"/><path d="M19.4 9a1.65 1.65 0 0 1.33 1.82 1.65 1.65 0 0 1-1.51 1H5.78a1.65 1.65 0 0 1-1.51-1 1.65 1.65 0 0 1.33-1.82l6.22-6.22a1.65 1.65 0 0 1 2.36 0z"/></svg>
+    </button>
+    <button class="nav-btn" data-section="memory" title="记忆">
+      <svg><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
     </button>
     <button class="nav-btn" data-section="tasks" title="任务">
       <svg><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>
@@ -729,15 +283,12 @@
   </nav>
 </aside>
 
-<!-- Main -->
 <div class="main">
-
-  <!-- Header -->
   <header class="header">
     <div class="header-left">
       <div>
-        <div class="header-title"><span>$</span> hermes-agent dashboard</div>
-        <div class="header-subtitle">CLI Agent · 会话监控 & 模型管理</div>
+        <div class="header-title"><span>$</span> hermes-agent dashboard <span style="font-size:11px;color:var(--text-muted);font-weight:400;">v2</span></div>
+        <div class="header-subtitle">CLI Agent · 会话监控 & 模型管理 · 技能仓库</div>
       </div>
     </div>
     <div class="header-right">
@@ -749,178 +300,98 @@
     </div>
   </header>
 
-  <!-- Content -->
   <div class="content" id="content">
 
-    <!-- ===================== OVERVIEW SECTION ===================== -->
+    <!-- ===================== OVERVIEW ===================== -->
     <div id="section-overview">
-      <!-- Stats -->
       <div class="stats-row">
-        <!-- System Status - Expanded -->
-        <div class="stat-card system-card green" id="system-card">
+        <div class="stat-card system-card green">
           <div class="stat-header">
             <span class="stat-label">系统状态</span>
             <span class="stat-icon green-bg">⚙</span>
           </div>
           <div class="sys-grid">
-            <div class="sys-item">
-              <span class="sys-label">Agent</span>
-              <span class="sys-value"><span class="sys-tag green">Hermes Agent</span></span>
-            </div>
-            <div class="sys-item">
-              <span class="sys-label">平台</span>
-              <span class="sys-value"><span class="sys-tag cyan">WSL2</span> · Windows 11</span>
-            </div>
-            <div class="sys-item">
-              <span class="sys-label">模型</span>
-              <span class="sys-value" id="sys-model">deepseek-v4-flash</span>
-            </div>
-            <div class="sys-item">
-              <span class="sys-label">Provider</span>
-              <span class="sys-value" id="sys-provider">deepseek</span>
-            </div>
-            <div class="sys-item">
-              <span class="sys-label">运行时长</span>
-              <span class="sys-value" id="sys-uptime">00:00:00</span>
-            </div>
-            <div class="sys-item">
-              <span class="sys-label">API 状态</span>
-              <span class="sys-value"><span class="sys-tag green" id="sys-api-status">● 已连接</span></span>
-            </div>
+            <div class="sys-item"><span class="sys-label">Agent</span><span class="sys-value"><span class="sys-tag green">Hermes Agent</span></span></div>
+            <div class="sys-item"><span class="sys-label">平台</span><span class="sys-value"><span class="sys-tag cyan">WSL2</span> · Windows 11</span></div>
+            <div class="sys-item"><span class="sys-label">模型</span><span class="sys-value" id="sys-model">deepseek-v4-flash</span></div>
+            <div class="sys-item"><span class="sys-label">Provider</span><span class="sys-value" id="sys-provider">deepseek</span></div>
+            <div class="sys-item"><span class="sys-label">运行时长</span><span class="sys-value" id="sys-uptime">00:00:00</span></div>
+            <div class="sys-item"><span class="sys-label">API 状态</span><span class="sys-value"><span class="sys-tag green" id="sys-api-status">● 已连接</span></span></div>
           </div>
           <span class="sys-detail-toggle" onclick="toggleSysDetail()">▸ 查看详细</span>
           <div class="sys-expanded" id="sys-expanded">
             <div class="sys-grid">
               <div class="sys-item"><span class="sys-label">OS</span><span class="sys-value">Linux (WSL2) · 5.15.x</span></div>
               <div class="sys-item"><span class="sys-label">Shell</span><span class="sys-value">zsh</span></div>
-              <div class="sys-item"><span class="sys-label">内存</span><span class="sys-value" id="sys-memory">加载中...</span></div>
-              <div class="sys-item"><span class="sys-label">会话 ID</span><span class="sys-value" id="sys-session">sess-<span id="sess-id"></span></span></div>
+              <div class="sys-item"><span class="sys-label">技能仓库</span><span class="sys-value" id="sys-skills-count">86 个可用</span></div>
+              <div class="sys-item"><span class="sys-label">会话 ID</span><span class="sys-value">sess-<span id="sess-id"></span></span></div>
               <div class="sys-item"><span class="sys-label">配置模型</span><span class="sys-value"><span class="sys-tag cyan" style="cursor:pointer" onclick="switchSection('models')">管理 →</span></span></div>
               <div class="sys-item"><span class="sys-label">已注册提供方</span><span class="sys-value" id="sys-provider-count">-</span></div>
             </div>
           </div>
         </div>
 
-        <div class="stat-card cyan">
-          <div class="stat-header">
-            <span class="stat-label">技能</span>
-            <span class="stat-icon cyan-bg">⊕</span>
-          </div>
-          <div class="stat-value" id="skill-count">42</div>
-          <div class="stat-sub">可用技能 · <span id="skill-category-count">12</span> 个分类</div>
+        <div class="stat-card cyan" onclick="switchSection('skills')" style="cursor:pointer;">
+          <div class="stat-header"><span class="stat-label">技能仓库</span><span class="stat-icon cyan-bg">⊕</span></div>
+          <div class="stat-value" id="skill-count">86</div>
+          <div class="stat-sub"><span id="skill-category-count">17</span> 个分类 · 点击查看</div>
         </div>
 
-        <div class="stat-card purple">
-          <div class="stat-header">
-            <span class="stat-label">工具</span>
-            <span class="stat-icon purple-bg">◆</span>
-          </div>
-          <div class="stat-value" id="tool-count">16</div>
-          <div class="stat-sub">已注册工具</div>
+        <div class="stat-card purple" onclick="switchSection('tools')" style="cursor:pointer;">
+          <div class="stat-header"><span class="stat-label">工具</span><span class="stat-icon purple-bg">◆</span></div>
+          <div class="stat-value" id="tool-count">23</div>
+          <div class="stat-sub">已注册工具 · 点击查看</div>
         </div>
 
-        <div class="stat-card amber">
-          <div class="stat-header">
-            <span class="stat-label">记忆</span>
-            <span class="stat-icon amber-bg">◈</span>
-          </div>
+        <div class="stat-card amber" onclick="switchSection('memory')" style="cursor:pointer;">
+          <div class="stat-header"><span class="stat-label">记忆</span><span class="stat-icon amber-bg">◈</span></div>
           <div class="stat-value" id="memory-count">7</div>
-          <div class="stat-sub">持久化记忆条目</div>
+          <div class="stat-sub">持久化记忆条目 · 点击查看</div>
         </div>
       </div>
 
-      <!-- Timeline + Skills -->
       <div class="grid-2">
         <div class="section">
-          <div class="section-header">
-            <span class="section-title">┃ 会话时间线 <span class="count">(最近活动)</span></span>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <div class="timeline" id="timeline">
-                <div class="timeline-item">
-                  <div class="timeline-dot green"></div>
-                  <div class="timeline-time">现在</div>
-                  <div class="timeline-title">🚀 Dashboard v2 已升级</div>
-                  <div class="timeline-desc">系统详情面板 + 多模型管理</div>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot cyan"></div>
-                  <div class="timeline-time">之前</div>
-                  <div class="timeline-title">📋 任务编排</div>
-                  <div class="timeline-desc">设置 todos 列表</div>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot amber"></div>
-                  <div class="timeline-time">之前</div>
-                  <div class="timeline-title">🔧 系统准备</div>
-                  <div class="timeline-desc">环境就绪 · WSL 检测</div>
-                </div>
-              </div>
+          <div class="section-header"><span class="section-title">┃ 会话时间线 <span class="count">(最近活动)</span></span></div>
+          <div class="card"><div class="card-body">
+            <div class="timeline" id="timeline">
+              <div class="timeline-item"><div class="timeline-dot green"></div><div class="timeline-time">现在</div><div class="timeline-title">🚀 Dashboard v3 技能仓库升级</div><div class="timeline-desc">86 技能仓库 · 中文说明 · 记忆面板</div></div>
+              <div class="timeline-item"><div class="timeline-dot cyan"></div><div class="timeline-time">之前</div><div class="timeline-title">📋 任务编排</div><div class="timeline-desc">设置 todos 列表</div></div>
+              <div class="timeline-item"><div class="timeline-dot amber"></div><div class="timeline-time">之前</div><div class="timeline-title">🔧 系统准备</div><div class="timeline-desc">环境就绪 · WSL 检测</div></div>
             </div>
-          </div>
+          </div></div>
         </div>
-
         <div class="section">
-          <div class="section-header">
-            <span class="section-title">┃ 热门技能 <span class="count">(快速访问)</span></span>
-            <div class="section-actions">
-              <button class="btn-sm" onclick="showAllSkills()">查看全部</button>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <input class="skill-search" type="text" placeholder="搜索技能..." id="skill-search-overview" oninput="filterSkills(this.value, 'overview')">
-              <div class="skill-list" id="skill-list-overview"></div>
-            </div>
-          </div>
+          <div class="section-header"><span class="section-title">┃ 快速查找 <span class="count">(技能仓库)</span></span></div>
+          <div class="card"><div class="card-body">
+            <input class="skill-search" type="text" placeholder="搜索技能名称或中文说明..." id="quick-skill-search" oninput="quickSearchSkills(this.value)">
+            <div class="skill-list" id="quick-skill-results" style="max-height:200px;"></div>
+          </div></div>
         </div>
       </div>
 
-      <!-- Terminal Preview -->
       <div class="section">
-        <div class="section-header">
-          <span class="section-title">┃ 终端预览 <span class="count">(实时)</span></span>
-        </div>
+        <div class="section-header"><span class="section-title">┃ 终端预览 <span class="count">(实时)</span></span></div>
         <div class="terminal-window">
-          <div class="terminal-bar">
-            <span class="term-dot red"></span>
-            <span class="term-dot yellow"></span>
-            <span class="term-dot green"></span>
-            <span class="term-title">hermes-agent — zsh</span>
-          </div>
+          <div class="terminal-bar"><span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span><span class="term-title">hermes-agent — zsh</span></div>
           <div class="terminal-content" id="terminal-output">
-            <div class="terminal-line"><span class="prompt">hermes@agent</span><span class="text-muted">:</span><span class="prompt">~</span><span class="cmd">$</span> <span class="cmd">systemctl status hermes</span></div>
-            <div class="terminal-line"><span class="output">● hermes-agent.service — CLI Agent Runtime</span></div>
-            <div class="terminal-line"><span class="output">   Active: active (running) since 2026-05-06 18:24 UTC</span></div>
-            <div class="terminal-line"><span class="output">   Model: deepseek-v4-flash · Provider: deepseek</span></div>
-            <div class="terminal-line"><span class="prompt">hermes@agent</span><span class="text-muted">:</span><span class="prompt">~</span><span class="cmd">$</span> <span class="cmd">tool inventory | wc -l</span></div>
-            <div class="terminal-line"><span class="output">16</span></div>
+            <div class="terminal-line"><span class="prompt">hermes@agent</span><span class="text-muted">:</span><span class="prompt">~</span><span class="cmd">$</span> <span class="cmd">skills list --all</span></div>
+            <div class="terminal-line"><span class="output">📦 技能仓库: 86 skills available across 17 categories</span></div>
             <div class="terminal-line"><span class="prompt">hermes@agent</span><span class="text-muted">:</span><span class="prompt">~</span><span class="cmd">$</span> <span class="cmd">_</span><span class="terminal-cursor"></span></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ===================== MODELS SECTION ===================== -->
+    <!-- ===================== MODELS ===================== -->
     <div id="section-models" style="display:none;">
       <div class="section-header" style="margin-bottom:14px;">
         <span class="section-title">┃ 模型提供方 <span class="count" id="provider-total-label">(0)</span></span>
-        <div class="section-actions">
-          <button class="btn-sm primary" onclick="showAddProviderModal()">+ 添加 Provider</button>
-        </div>
+        <div class="section-actions"><button class="btn-sm primary" onclick="showAddProviderModal()">+ 添加 Provider</button></div>
       </div>
-
-      <!-- Provider list -->
-      <div id="provider-list" class="provider-grid">
-        <!-- Rendered by JS -->
-      </div>
-
-      <!-- Preset templates hint -->
+      <div id="provider-list" class="provider-grid"></div>
       <div class="section" style="margin-top:16px;">
-        <div class="section-header">
-          <span class="section-title">┃ 快速添加 <span class="count">(预设模板)</span></span>
-        </div>
+        <div class="section-header"><span class="section-title">┃ 快速添加 <span class="count">(预设模板)</span></span></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <button class="btn-sm" onclick="addPreset('openai')">+ OpenAI (GPT-4o)</button>
           <button class="btn-sm" onclick="addPreset('anthropic')">+ Anthropic (Claude)</button>
@@ -932,114 +403,122 @@
       </div>
     </div>
 
-    <!-- ===================== SKILLS SECTION ===================== -->
+    <!-- ===================== SKILLS ===================== -->
     <div id="section-skills" style="display:none;">
-      <div class="section">
-        <div class="section-header">
-          <span class="section-title">┃ 所有技能 <span class="count" id="skill-total-label">(42)</span></span>
-          <span style="font-size:11px;color:var(--text-muted);">加载技能: skill_view(name) / skill_manage()</span>
+      <div class="section-header" style="margin-bottom:12px;">
+        <span class="section-title">┃ 技能仓库 <span class="count">(86 个技能 · 17 个分类)</span></span>
+        <div class="section-actions">
+          <span style="font-size:10px;color:var(--text-muted);margin-right:8px;">点击技能查看详情和加载命令</span>
         </div>
-        <div class="card">
-          <div class="card-body">
-            <input class="skill-search" type="text" placeholder="按名称或分类搜索..." id="skill-search-all" autofocus>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
-              <button class="btn-sm" data-filter="all" onclick="setSkillFilter('all')">全部</button>
-              <button class="btn-sm" data-filter="software-development" onclick="setSkillFilter('software-development')">开发</button>
-              <button class="btn-sm" data-filter="devops" onclick="setSkillFilter('devops')">DevOps</button>
-              <button class="btn-sm" data-filter="creative" onclick="setSkillFilter('creative')">创意</button>
-              <button class="btn-sm" data-filter="research" onclick="setSkillFilter('research')">研究</button>
-              <button class="btn-sm" data-filter="mlops" onclick="setSkillFilter('mlops')">MLOps</button>
-              <button class="btn-sm" data-filter="github" onclick="setSkillFilter('github')">GitHub</button>
-            </div>
-            <div class="skill-list" id="skill-list-all"></div>
+      </div>
+
+      <!-- Search + Filters -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-body">
+          <input class="skill-search" type="text" placeholder="🔍 搜索技能名称或中文说明..." id="skill-repo-search" oninput="filterSkillRepo()" autofocus>
+          <div class="filter-pills" id="skill-filter-pills">
+            <span class="pill active" data-cat="all" onclick="setSkillCat('all')">全部 (86)</span>
           </div>
         </div>
+      </div>
+
+      <!-- Skill list -->
+      <div class="card">
+        <div class="card-body" id="skill-repo-list"></div>
       </div>
     </div>
 
-    <!-- ===================== TOOLS SECTION ===================== -->
+    <!-- ===================== TOOLS ===================== -->
     <div id="section-tools" style="display:none;">
-      <div class="section">
-        <div class="section-header">
-          <span class="section-title">┃ 工具清单 <span class="count">(16 已注册)</span></span>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px;">Hermes Agent 可调用的全部工具。点击标签查看详细用法。</p>
-            <div id="tools-container"></div>
-          </div>
-        </div>
+      <div class="section-header" style="margin-bottom:12px;">
+        <span class="section-title">┃ 工具清单 <span class="count">(23 个已注册)</span></span>
+        <span style="font-size:10px;color:var(--text-muted);">点击查看详细用法</span>
       </div>
-
-      <div class="grid-2">
+      <div class="card">
+        <div class="card-body" id="tools-container"></div>
+      </div>
+      <div class="grid-2" style="margin-top:16px;">
         <div class="section">
-          <div class="section-header"><span class="section-title">┃ 工具集</span></div>
-          <div class="card">
-            <div class="card-body">
-              <div id="toolsets-container">
-                <span class="tool-tag terminal">terminal</span>
-                <span class="tool-tag web">web</span>
-                <span class="tool-tag file">file</span>
-                <span class="tool-tag vision">vision</span>
-                <span class="tool-tag memory">memory</span>
-                <span class="tool-tag memory">browser</span>
-                <span class="tool-tag terminal">cronjob</span>
-                <span class="tool-tag web">search</span>
-                <span class="tool-tag terminal">delegate_task</span>
-              </div>
+          <div class="section-header"><span class="section-title">┃ 工具集 (Toolsets)</span></div>
+          <div class="card"><div class="card-body">
+            <div id="toolsets-container">
+              <span class="tool-tag terminal">terminal</span>
+              <span class="tool-tag web">web</span>
+              <span class="tool-tag file">file</span>
+              <span class="tool-tag vision">vision</span>
+              <span class="tool-tag memory">memory</span>
+              <span class="tool-tag memory">browser</span>
+              <span class="tool-tag terminal">cronjob</span>
+              <span class="tool-tag web">search</span>
+              <span class="tool-tag terminal">delegate_task</span>
             </div>
-          </div>
+          </div></div>
         </div>
-
         <div class="section">
           <div class="section-header"><span class="section-title">┃ 快捷操作</span></div>
-          <div class="card">
-            <div class="card-body">
-              <div style="display:grid;gap:6px;">
-                <button class="btn-sm" onclick="copyToClipboard('skill_view(name)')">📋 skill_view(name)</button>
-                <button class="btn-sm" onclick="copyToClipboard('skill_manage(action=\\'create\\\\', ...)')">📋 skill_manage()</button>
-                <button class="btn-sm" onclick="copyToClipboard('memory(action=\\'add\\\\', target=\\'memory\\\\', content=\\'...\\\\')')">📋 memory()</button>
-                <button class="btn-sm" onclick="copyToClipboard('cronjob(action=\\'create\\\\', schedule=\\'every 1h\\\\', ...)')">📋 cronjob()</button>
-              </div>
+          <div class="card"><div class="card-body">
+            <div style="display:grid;gap:6px;">
+              <button class="btn-sm" onclick="copyToClipboard('skill_view(name)')">📋 skill_view(name) — 加载技能</button>
+              <button class="btn-sm" onclick="copyToClipboard('skill_manage(action=\\'create\\\\', name=\\'...\\\\', content=\\'...\\\\')')">📋 skill_manage() — 管理技能</button>
+              <button class="btn-sm" onclick="copyToClipboard('memory(action=\\'add\\\\', target=\\'memory\\\\', content=\\'...\\\\')')">📋 memory() — 添加记忆</button>
+              <button class="btn-sm" onclick="copyToClipboard('cronjob(action=\\'create\\\\', schedule=\\'every 1h\\\\')')">📋 cronjob() — 定时任务</button>
             </div>
-          </div>
+          </div></div>
         </div>
       </div>
     </div>
 
-    <!-- ===================== TASKS SECTION ===================== -->
+    <!-- ===================== MEMORY ===================== -->
+    <div id="section-memory" style="display:none;">
+      <div class="section-header" style="margin-bottom:12px;">
+        <span class="section-title">┃ 持久化记忆 <span class="count">(7 条)</span></span>
+        <div class="section-actions">
+          <button class="btn-sm" onclick="copyToClipboard('memory(action=\\'add\\\\', target=\\'memory\\\\', content=\\'...\\\\')')">+ 添加记忆</button>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="section">
+          <div class="section-header"><span class="section-title">┃ 用户信息 <span class="count">(User)</span></span></div>
+          <div class="card"><div class="card-body"><div class="memory-list" id="memory-user-list"></div></div></div>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-title">┃ 系统笔记 <span class="count">(Memory)</span></span></div>
+          <div class="card"><div class="card-body"><div class="memory-list" id="memory-sys-list"></div></div></div>
+        </div>
+      </div>
+      <div class="section" style="margin-top:4px;">
+        <div class="section-header"><span class="section-title">┃ 记忆使用说明</span></div>
+        <div class="card"><div class="card-body" style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+          <p>记忆 (Memory) 是 Agent 跨会话的持久化存储系统，分为两种类型：</p>
+          <p style="margin-top:4px;">📌 <strong>用户信息 (User)</strong> — 你是谁、你的偏好、习惯、沟通风格</p>
+          <p>📌 <strong>系统笔记 (Memory)</strong> — 环境信息、项目规范、工具经验、技术教训</p>
+          <p style="margin-top:4px;color:var(--text-muted);font-size:11px;">💡 命令: <code style="color:var(--accent-cyan);font-family:'JetBrains Mono',monospace;">memory(action='add', target='user'/'memory', content='...')</code></p>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ===================== TASKS ===================== -->
     <div id="section-tasks" style="display:none;">
       <div class="grid-2">
         <div class="section">
           <div class="section-header"><span class="section-title">┃ 当前任务</span></div>
-          <div class="card">
-            <div class="card-body" id="todo-list"></div>
-          </div>
+          <div class="card"><div class="card-body" id="todo-list"></div></div>
         </div>
         <div class="section">
           <div class="section-header"><span class="section-title">┃ Cron 作业</span></div>
-          <div class="card">
-            <div class="card-body" id="cron-list">
-              <div class="cron-item"><div class="cron-icon">⏰</div><div class="cron-info"><div class="cron-name">暂无定时任务</div></div></div>
-            </div>
-          </div>
+          <div class="card"><div class="card-body" id="cron-list">
+            <div class="cron-item"><div class="cron-icon">⏰</div><div class="cron-info"><div class="cron-name">暂无定时任务</div></div></div>
+          </div></div>
         </div>
       </div>
     </div>
 
-    <!-- ===================== TERMINAL SECTION ===================== -->
+    <!-- ===================== TERMINAL ===================== -->
     <div id="section-terminal" style="display:none;">
       <div class="section">
-        <div class="section-header">
-          <span class="section-title">┃ 终端模拟器 <span class="count">(演示)</span></span>
-        </div>
+        <div class="section-header"><span class="section-title">┃ 终端模拟器 <span class="count">(演示)</span></span></div>
         <div class="terminal-window">
-          <div class="terminal-bar">
-            <span class="term-dot red"></span>
-            <span class="term-dot yellow"></span>
-            <span class="term-dot green"></span>
-            <span class="term-title">hermes-agent — 🤖 interactive</span>
-          </div>
+          <div class="terminal-bar"><span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span><span class="term-title">hermes-agent — 🤖 interactive</span></div>
           <div class="terminal-content" style="min-height:200px;" id="term-demo-output">
             <div class="terminal-line"><span class="prompt">hermes@agent</span><span class="text-muted">:</span><span class="prompt">~</span><span class="cmd">$</span> <span class="cmd">hermes status</span></div>
             <div class="terminal-line"><span class="output">Agent: Hermes Agent</span></div>
@@ -1050,52 +529,25 @@
             <div class="terminal-line"><span class="prompt">hermes@agent</span><span class="text-muted">:</span><span class="prompt">~</span><span class="cmd">$</span> <span class="cmd">_</span><span class="terminal-cursor"></span></div>
           </div>
         </div>
-        <div style="margin-top:8px;">
-          <input type="text" class="skill-search" placeholder="输入命令（模拟）..." id="term-input" onkeydown="if(event.key==='Enter')demoTerm(this)">
-        </div>
+        <div style="margin-top:8px;"><input type="text" class="skill-search" placeholder="输入命令（模拟）..." id="term-input" onkeydown="if(event.key==='Enter')demoTerm(this)"></div>
       </div>
     </div>
 
   </div><!-- /content -->
 </div><!-- /main -->
 
-<!-- Provider Add Modal -->
+<!-- Provider Modal -->
 <div class="modal-overlay" id="provider-modal" onclick="if(event.target===this)closeProviderModal()">
   <div class="modal">
-    <div class="modal-header">
-      <span class="modal-title" id="provider-modal-title">+ 添加 Provider</span>
-      <button class="modal-close" onclick="closeProviderModal()">✕</button>
-    </div>
+    <div class="modal-header"><span class="modal-title" id="provider-modal-title">+ 添加 Provider</span><button class="modal-close" onclick="closeProviderModal()">✕</button></div>
     <div class="modal-body">
-      <div class="form-group">
-        <label>提供方名称</label>
-        <input type="text" id="pf-name" placeholder="例如: My OpenAI">
-      </div>
+      <div class="form-group"><label>提供方名称</label><input type="text" id="pf-name" placeholder="例如: My OpenAI"></div>
       <div class="form-row">
-        <div class="form-group">
-          <label>API 类型</label>
-          <select id="pf-type">
-            <option value="openai">OpenAI Compatible</option>
-            <option value="anthropic">Anthropic (Claude)</option>
-            <option value="google">Google (Gemini)</option>
-            <option value="ollama">Ollama (本地)</option>
-            <option value="azure">Azure OpenAI</option>
-            <option value="custom">自定义</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>模型名称</label>
-          <input type="text" id="pf-model" placeholder="例如: gpt-4o">
-        </div>
+        <div class="form-group"><label>API 类型</label><select id="pf-type"><option value="openai">OpenAI Compatible</option><option value="anthropic">Anthropic</option><option value="google">Google Gemini</option><option value="ollama">Ollama</option><option value="azure">Azure OpenAI</option><option value="custom">自定义</option></select></div>
+        <div class="form-group"><label>模型名称</label><input type="text" id="pf-model" placeholder="gpt-4o"></div>
       </div>
-      <div class="form-group">
-        <label>API 地址</label>
-        <input type="text" id="pf-url" placeholder="https://api.openai.com/v1">
-      </div>
-      <div class="form-group">
-        <label>API Key</label>
-        <input type="password" id="pf-key" placeholder="sk-...">
-      </div>
+      <div class="form-group"><label>API 地址</label><input type="text" id="pf-url" placeholder="https://api.openai.com/v1"></div>
+      <div class="form-group"><label>API Key</label><input type="password" id="pf-key" placeholder="sk-..."></div>
       <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">
         <button class="btn-sm" onclick="closeProviderModal()">取消</button>
         <button class="btn-sm primary" onclick="saveProvider()">保存</button>
@@ -1106,418 +558,350 @@
   </div>
 </div>
 
-<!-- General Modal -->
-<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
+<!-- Skill Detail Modal -->
+<div class="modal-overlay" id="skill-modal" onclick="if(event.target===this)closeSkillModal()">
   <div class="modal">
-    <div class="modal-header">
-      <span class="modal-title" id="modal-title">详情</span>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-header"><span class="modal-title" id="skill-modal-title">技能详情</span><button class="modal-close" onclick="closeSkillModal()">✕</button></div>
+    <div class="modal-body" id="skill-modal-body"></div>
   </div>
 </div>
 
-<!-- Toast -->
+<!-- Tool Detail Modal -->
+<div class="modal-overlay" id="tool-modal" onclick="if(event.target===this)closeToolModal()">
+  <div class="modal">
+    <div class="modal-header"><span class="modal-title" id="tool-modal-title">工具详情</span><button class="modal-close" onclick="closeToolModal()">✕</button></div>
+    <div class="modal-body" id="tool-modal-body"></div>
+  </div>
+</div>
+
+<!-- Memory Detail Modal -->
+<div class="modal-overlay" id="memory-modal" onclick="if(event.target===this)closeMemoryModal()">
+  <div class="modal">
+    <div class="modal-header"><span class="modal-title" id="memory-modal-title">记忆详情</span><button class="modal-close" onclick="closeMemoryModal()">✕</button></div>
+    <div class="modal-body" id="memory-modal-body"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ===== SESSION START =====
-const sessId = Math.random().toString(36).substring(2, 8);
-document.getElementById('sess-id').textContent = sessId;
-const sessionStart = Date.now();
+// ===== UTILITIES =====
+function showToast(msg, type) { const e=document.getElementById('toast'); e.textContent=msg; e.className='toast'+(type?' '+type:''); e.classList.add('show'); setTimeout(()=>e.classList.remove('show'),2500); }
+function copyToClipboard(t){navigator.clipboard.writeText(t);showToast('已复制到剪贴板');}
 
-function formatUptime() {
-  const diff = Math.floor((Date.now() - sessionStart) / 1000);
-  const h = String(Math.floor(diff / 3600)).padStart(2, '0');
-  const m = String(Math.floor((diff % 3600) / 60)).padStart(2, '0');
-  const s = String(diff % 60).padStart(2, '0');
-  return `${h}:${m}:${s}`;
+// ===== SESSION =====
+const sessId=Math.random().toString(36).substring(2,8);
+document.getElementById('sess-id').textContent=sessId;
+const sessionStart=Date.now();
+function formatUptime(){const d=Math.floor((Date.now()-sessionStart)/1000);return String(Math.floor(d/3600)).padStart(2,'0')+':'+String(Math.floor((d%3600)/60)).padStart(2,'0')+':'+String(d%60).padStart(2,'0');}
+setInterval(()=>{document.getElementById('sys-uptime').textContent=formatUptime();},1000);
+
+// ===== SECTION SWITCHING =====
+function switchSection(name){
+  document.querySelectorAll('[id^="section-"]').forEach(el=>el.style.display='none');
+  const t=document.getElementById('section-'+name);
+  if(t)t.style.display='block';
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.section===name));
 }
+document.querySelectorAll('.nav-btn').forEach(btn=>{btn.addEventListener('click',()=>switchSection(btn.dataset.section));});
 
-setInterval(() => {
-  document.getElementById('sys-uptime').textContent = formatUptime();
-}, 1000);
+// ===== SYSTEM DETAIL TOGGLE =====
+function toggleSysDetail(){const e=document.getElementById('sys-expanded');e.classList.toggle('open');document.querySelector('.sys-detail-toggle').textContent=e.classList.contains('open')?'▾ 收起详细':'▸ 查看详细';}
 
-// ===== TOAST =====
-function showToast(msg, type) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = 'toast' + (type ? ' ' + type : '');
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2500);
-}
+// ===== CLOCK =====
+function updateClock(){const n=new Date();document.getElementById('clock').textContent=n.toLocaleTimeString('zh-CN',{hour12:false});}
+setInterval(updateClock,1000);updateClock();
 
 // ===== PROVIDERS =====
-const PRESETS = {
-  openai:     { type:'openai', url:'https://api.openai.com/v1', model:'gpt-4o', icon:'🧠', color:'#10a37f' },
-  anthropic:  { type:'anthropic', url:'https://api.anthropic.com/v1', model:'claude-sonnet-4', icon:'🌀', color:'#d4a574' },
-  google:     { type:'google', url:'https://generativelanguage.googleapis.com/v1beta', model:'gemini-2.0-flash', icon:'🔬', color:'#4285f4' },
-  ollama:     { type:'ollama', url:'http://localhost:11434/v1', model:'llama3.2', icon:'🦙', color:'#a855f7' },
-  azure:      { type:'azure', url:'https://YOUR_RESOURCE.openai.azure.com/v1', model:'gpt-4o', icon:'☁️', color:'#0078d4' },
-  deepseek:   { type:'deepseek', url:'https://api.deepseek.com/v1', model:'deepseek-chat', icon:'🌊', color:'#4d6bfe' },
-};
+const PRESETS={openai:{type:'openai',url:'https://api.openai.com/v1',model:'gpt-4o',icon:'🧠',color:'#10a37f'},anthropic:{type:'anthropic',url:'https://api.anthropic.com/v1',model:'claude-sonnet-4',icon:'🌀',color:'#d4a574'},google:{type:'google',url:'https://generativelanguage.googleapis.com/v1beta',model:'gemini-2.0-flash',icon:'🔬',color:'#4285f4'},ollama:{type:'ollama',url:'http://localhost:11434/v1',model:'llama3.2',icon:'🦙',color:'#a855f7'},azure:{type:'azure',url:'https://YOUR_RESOURCE.openai.azure.com/v1',model:'gpt-4o',icon:'☁️',color:'#0078d4'},deepseek:{type:'deepseek',url:'https://api.deepseek.com/v1',model:'deepseek-chat',icon:'🌊',color:'#4d6bfe'}};
+let providers=loadProviders();let editingId=null;
+function loadProviders(){try{return JSON.parse(localStorage.getItem('hermes-providers')||'[]')}catch{return[]}}
+function saveProviders(){localStorage.setItem('hermes-providers',JSON.stringify(providers));renderProviders();updateProviderCount();}
+function renderProviders(){
+  const el=document.getElementById('provider-list');
+  if(!providers.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">🔌</div><div class="empty-text">尚未添加任何 API Provider</div><div class="empty-hint">点击上方「+ 添加 Provider」或使用预设模板快速添加</div></div>';return;}
+  el.innerHTML=providers.map((p,i)=>{const online=p.status==='online';const sc=p.status==='testing'?'testing':online?'online':'offline';const sl=p.status==='testing'?'测试中…':online?'● 在线':'○ 离线';
+  return `<div class="provider-card"><div class="p-header"><div class="p-icon" style="background:${p.color||'var(--bg-surface)'};color:var(--text-primary)">${p.icon||'🔌'}</div><div class="p-info"><div class="p-name">${p.name}</div><div class="p-model">${p.model} · ${p.type}</div></div><div class="p-status ${sc}">${sl}</div></div><div class="p-details"><div class="p-detail-item"><span>API 地址</span>${p.url}</div><div class="p-detail-item"><span>Key</span>${p.key?p.key.substring(0,8)+'…':'未设置'}</div></div><div class="p-actions"><button class="btn-sm" onclick="testProviderById(${i})">测试</button><button class="btn-sm" onclick="editProvider(${i})">编辑</button><button class="btn-sm danger" onclick="deleteProvider(${i})">删除</button></div></div>`;}).join('');
+}
+function updateProviderCount(){document.getElementById('provider-total-label').textContent=`(${providers.length})`;document.getElementById('sys-provider-count').textContent=providers.length;}
+function showAddProviderModal(preset){editingId=null;document.getElementById('provider-modal-title').textContent='+ 添加 Provider';document.getElementById('pf-name').value=preset?preset.name||'':'';document.getElementById('pf-type').value=preset?preset.type:'openai';document.getElementById('pf-model').value=preset?preset.model||'':'';document.getElementById('pf-url').value=preset?preset.url||'':'';document.getElementById('pf-key').value=preset?preset.key||'':'';document.getElementById('test-result').style.display='none';document.getElementById('provider-modal').classList.add('open');}
+function closeProviderModal(){document.getElementById('provider-modal').classList.remove('open');editingId=null;}
+function getFormData(){return{name:document.getElementById('pf-name').value.trim(),type:document.getElementById('pf-type').value,model:document.getElementById('pf-model').value.trim(),url:document.getElementById('pf-url').value.trim(),key:document.getElementById('pf-key').value.trim(),status:'offline',icon:'🔌',color:'#606078'};}
+function saveProvider(){const d=getFormData();if(!d.name){showToast('请输入提供方名称','error');return;}if(!d.model){showToast('请输入模型名称','error');return;}if(!d.url){showToast('请输入 API 地址','error');return;}
+  const im={openai:'🧠',anthropic:'🌀',google:'🔬',ollama:'🦙',azure:'☁️',custom:'🔌'};const cm={openai:'#10a37f',anthropic:'#d4a574',google:'#4285f4',ollama:'#a855f7',azure:'#0078d4',custom:'#606078'};
+  d.icon=im[d.type]||'🔌';d.color=cm[d.type]||'#606078';
+  if(editingId!==null){if(!d.key&&providers[editingId].key)d.key=providers[editingId].key;providers[editingId]={...providers[editingId],...d};showToast('Provider 已更新');}
+  else{providers.push(d);showToast('Provider 已添加');}
+  saveProviders();closeProviderModal();
+}
+function editProvider(i){const p=providers[i];editingId=i;document.getElementById('provider-modal-title').textContent='✏️ 编辑 Provider';document.getElementById('pf-name').value=p.name;document.getElementById('pf-type').value=p.type;document.getElementById('pf-model').value=p.model;document.getElementById('pf-url').value=p.url;document.getElementById('pf-key').value='';document.getElementById('test-result').style.display='none';document.getElementById('provider-modal').classList.add('open');}
+function deleteProvider(i){const n=providers[i].name;if(!confirm(`确定要删除「${n}」吗？`))return;providers.splice(i,1);saveProviders();showToast(`已删除「${n}」`);}
+function addPreset(key){const p=PRESETS[key];if(!p)return;if(providers.some(p=>p.type===key)){showToast(key.charAt(0).toUpperCase()+key.slice(1)+' 已存在','warning');return;}
+  showAddProviderModal({name:key.charAt(0).toUpperCase()+key.slice(1),...p});}
+async function testProvider(){const d=getFormData();if(!d.url||!d.key){showToast('请填写 API 地址和 Key','error');return;}
+  const btn=document.getElementById('test-btn');btn.textContent='测试中…';btn.disabled=true;document.getElementById('test-result').style.display='block';document.getElementById('test-result').textContent='⏳ 正在连接...';document.getElementById('test-result').style.color='var(--accent-amber)';
+  try{const r=await fetch(d.url+'/models',{headers:{'Authorization':'Bearer '+d.key,'Content-Type':'application/json'},signal:AbortSignal.timeout(10000)});if(r.ok){const j=await r.json();document.getElementById('test-result').textContent=`✅ 连接成功！可用模型数: ${j.data?j.data.length:'✓'}`;document.getElementById('test-result').style.color='var(--accent-green)';}
+  else{const e=await r.text().catch(()=>'');document.getElementById('test-result').textContent=`❌ 连接失败 (${r.status}): ${e.slice(0,80)}`;document.getElementById('test-result').style.color='var(--accent-red)';}}
+  catch(e){document.getElementById('test-result').textContent=`❌ 错误: ${e.message}`;document.getElementById('test-result').style.color='var(--accent-red)';}
+  btn.textContent='测试连接';btn.disabled=false;}
+async function testProviderById(i){const p=providers[i];p.status='testing';renderProviders();try{const r=await fetch(p.url+'/models',{headers:{'Authorization':'Bearer '+p.key},signal:AbortSignal.timeout(8000)});p.status=r.ok?'online':'offline';}catch{p.status='offline';}
+  saveProviders();if(p.status==='online')showToast(`${p.name}: 连接正常 ✓`);else showToast(`${p.name}: 连接失败 ✗`,'error');}
+async function autoTestProviders(){for(let i=0;i<providers.length;i++){const p=providers[i];if(!p.key){p.status='offline';continue;}try{const r=await fetch(p.url+'/models',{headers:{'Authorization':'Bearer '+p.key},signal:AbortSignal.timeout(5000)});p.status=r.ok?'online':'offline';}catch{p.status='offline';}}
+  saveProviders();}
 
-let providers = loadProviders();
-let editingId = null;
+// ===== SKILLS DATA (Complete · 86 Skills) =====
+const skillsRepo = [
+  // Autonomous AI Agents (5)
+  {name:'autonomous-ai-agents',cat:'autonomous-ai-agents',desc:'自动化 AI 编码代理和多代理工作流的编排与管理'},
+  {name:'claude-code',cat:'autonomous-ai-agents',desc:'委托 Claude Code CLI 进行代码开发，支持功能开发和 PR'},
+  {name:'codex',cat:'autonomous-ai-agents',desc:'委托 OpenAI Codex CLI 进行代码开发，支持功能和 PR'},
+  {name:'hermes-agent',cat:'autonomous-ai-agents',desc:'配置、扩展或贡献 Hermes Agent 本身'},
+  {name:'opencode',cat:'autonomous-ai-agents',desc:'委托 OpenCode CLI 进行编码和代码审查'},
 
-function loadProviders() {
-  try {
-    return JSON.parse(localStorage.getItem('hermes-providers') || '[]');
-  } catch { return []; }
+  // Creative (20)
+  {name:'architecture-diagram',cat:'creative',desc:'生成暗色主题的 SVG 架构图/云架构/基础设施图 (HTML格式)'},
+  {name:'ascii-art',cat:'creative',desc:'ASCII 艺术生成：pyfiglet、cowsay、boxes、图片转 ASCII'},
+  {name:'ascii-video',cat:'creative',desc:'ASCII 视频：将视频/音频转换为彩色 ASCII MP4/GIF'},
+  {name:'baoyu-comic',cat:'creative',desc:'制作知识漫画：教育科普、人物传记、教程漫画'},
+  {name:'baoyu-infographic',cat:'creative',desc:'生成信息图：21 种布局 × 21 种风格'},
+  {name:'claude-design',cat:'creative',desc:'设计一次性 HTML 作品：落地页、演示文稿、原型'},
+  {name:'comfyui',cat:'creative',desc:'用 ComfyUI 生成图像/视频/音频 — 安装、启动、管理节点和模型'},
+  {name:'design-md',cat:'creative',desc:'编写/验证/导出 Google 的 DESIGN.md Token 规范文件'},
+  {name:'excalidraw',cat:'creative',desc:'生成手绘风格的 Excalidraw 图表：架构图、流程图、时序图'},
+  {name:'humanizer',cat:'creative',desc:'去除 AI 文本痕迹，加入真实人类语气的润色工具'},
+  {name:'ideation',cat:'creative',desc:'通过创意约束条件生成项目创意'},
+  {name:'manim-video',cat:'creative',desc:'Manim CE 动画视频：3Blue1Brown 风格的数学/算法视频'},
+  {name:'p5js',cat:'creative',desc:'p5.js 创作：生成艺术、着色器、交互 3D'},
+  {name:'pixel-art',cat:'creative',desc:'复古像素艺术：NES、Game Boy、PICO-8 风格调色板'},
+  {name:'popular-web-designs',cat:'creative',desc:'54 个真实设计系统的 HTML/CSS 复刻（Stripe、Linear、Vercel 等）'},
+  {name:'pretext',cat:'creative',desc:'DOM-free 文本布局：用于 ASCII 艺术、文本几何游戏、动力学排版'},
+  {name:'project-proposals',cat:'creative',desc:'为 AI/技术开发者活动、黑客松、资助申请撰写项目描述'},
+  {name:'sketch',cat:'creative',desc:'快速网页原型：2-3 个设计变体对比'},
+  {name:'songwriting-and-ai-music',cat:'creative',desc:'写歌技巧 + Suno AI 音乐提示词创作'},
+  {name:'touchdesigner-mcp',cat:'creative',desc:'控制 TouchDesigner：创建运算符、设置参数、连接节点、实时视觉'},
+
+  // Data Science (1)
+  {name:'jupyter-live-kernel',cat:'data-science',desc:'通过实时 Jupyter 内核交互式执行 Python 代码'},
+
+  // DevOps (3)
+  {name:'kanban-orchestrator',cat:'devops',desc:'看板编排：任务分解 + 专业分工 + 反诱惑规则'},
+  {name:'kanban-worker',cat:'devops',desc:'看板工作者：陷阱指南、示例和边界情况'},
+  {name:'webhook-subscriptions',cat:'devops',desc:'Webhook 订阅：事件驱动的 Agent 自动运行'},
+
+  // Dogfood (1)
+  {name:'dogfood',cat:'dogfood',desc:'Web 应用探索性 QA：查找 Bug、收集证据、生成报告'},
+
+  // Email (1)
+  {name:'himalaya',cat:'email',desc:'Himalaya CLI：在终端中收发 IMAP/SMTP 邮件'},
+
+  // Gaming (2)
+  {name:'minecraft-modpack-server',cat:'gaming',desc:'搭建模组版 Minecraft 服务器（CurseForge、Modrinth）'},
+  {name:'pokemon-player',cat:'gaming',desc:'通过无头模拟器 + RAM 读取自动玩宝可梦'},
+
+  // GitHub (6)
+  {name:'codebase-inspection',cat:'github',desc:'检查代码库：统计代码行数、语言占比'},
+  {name:'github-auth',cat:'github',desc:'GitHub 认证设置：HTTPS Token、SSH 密钥、gh CLI 登录'},
+  {name:'github-code-review',cat:'github',desc:'审查 PR：查看 diff、添加行内评论、审批'},
+  {name:'github-issues',cat:'github',desc:'创建/分类/打标签/分配 GitHub Issue'},
+  {name:'github-pr-workflow',cat:'github',desc:'GitHub PR 全生命周期：分支、提交、CI、合并'},
+  {name:'github-repo-management',cat:'github',desc:'克隆/创建/Fork 仓库、管理远程和 Release'},
+
+  // MCP (1)
+  {name:'native-mcp',cat:'mcp',desc:'MCP 客户端：连接 MCP 服务器（stdio/HTTP），注册和使用工具'},
+
+  // Media (5)
+  {name:'gif-search',cat:'media',desc:'从 Tenor 搜索和下载 GIF'},
+  {name:'heartmula',cat:'media',desc:'HeartMuLa：从歌词 + 标签生成 Suno 风格歌曲'},
+  {name:'songsee',cat:'media',desc:'音频频谱分析：mel、chroma、MFCC 特征可视化'},
+  {name:'spotify',cat:'media',desc:'控制 Spotify：播放、搜索、队列、管理播放列表'},
+  {name:'youtube-content',cat:'media',desc:'YouTube 转录 → 摘要、推文、博客文章'},
+
+  // MLOps (12)
+  {name:'audiocraft-audio-generation',cat:'mlops',desc:'AudioCraft：MusicGen 文生音乐、AudioGen 文生声音'},
+  {name:'axolotl',cat:'mlops',desc:'Axolotl：通过 YAML 配置文件微调 LLM（LoRA、DPO、GRPO）'},
+  {name:'dspy',cat:'mlops',desc:'DSPy：声明式 LM 编程框架，自动优化提示词和 RAG 流程'},
+  {name:'evaluating-llms-harness',cat:'mlops',desc:'lm-eval-harness：对 LLM 进行基准测试（MMLU、GSM8K 等）'},
+  {name:'fine-tuning-with-trl',cat:'mlops',desc:'TRL 框架：SFT、DPO、PPO、GRPO、Reward Model 训练'},
+  {name:'huggingface-hub',cat:'mlops',desc:'HuggingFace CLI：搜索/下载/上传模型和数据集'},
+  {name:'llama-cpp',cat:'mlops',desc:'llama.c本地 GGUF 模型推理 + HuggingFace Hub 模型发现'},
+  {name:'obliteratus',cat:'mlops',desc:'OBLITERATUS：通过 diff-in-means 方法消除 LLM 拒绝回答'},
+  {name:'outlines',cat:'mlops',desc:'Outlines：结构化 JSON/正则/Pydantic LLM 输出生成'},
+  {name:'segment-anything-model',cat:'mlops',desc:'SAM：零样本图像分割（点选、框选、遮罩）'},
+  {name:'serving-llms-vllm',cat:'mlops',desc:'vLLM：高性能 LLM 推理服务，支持 OpenAI API 和量化'},
+  {name:'unsloth',cat:'mlops',desc:'Unsloth：2-5 倍加速 LoRA/QLoRA 微调，更低显存占用'},
+  {name:'weights-and-biases',cat:'mlops',desc:'W&B：ML 实验跟踪、Sweep 超参搜索、模型注册表'},
+
+  // Note-taking (1)
+  {name:'obsidian',cat:'note-taking',desc:'读取、搜索、创建和编辑 Obsidian 笔记库中的笔记'},
+
+  // Productivity (7)
+  {name:'airtable',cat:'productivity',desc:'Airtable REST API：记录 CRUD、筛选、批量更新'},
+  {name:'google-workspace',cat:'productivity',desc:'Gmail、Calendar、Drive、Docs、Sheets 全功能操作'},
+  {name:'linear',cat:'productivity',desc:'Linear：管理 Issue、项目、团队'},
+  {name:'maps',cat:'productivity',desc:'地理编码、POI 搜索、路径规划、时区查询'},
+  {name:'nano-pdf',cat:'productivity',desc:'通过自然语言编辑 PDF 文字/标题'},
+  {name:'notion',cat:'productivity',desc:'Notion API：页面/数据库/块操作和搜索'},
+  {name:'ocr-and-documents',cat:'productivity',desc:'从 PDF/扫描件中提取文字（pymupdf、marker-pdf）'},
+  {name:'powerpoint',cat:'productivity',desc:'创建、读取、编辑 .pptx 演示文稿'},
+
+  // Red-teaming (1)
+  {name:'godmode',cat:'red-teaming',desc:'LLM 红队对抗：绕过多层安全限制的提示词技术'},
+
+  // Research (5)
+  {name:'arxiv',cat:'research',desc:'搜索 arXiv 论文：按关键词、作者、分类或 ID'},
+  {name:'blogwatcher',cat:'research',desc:'监控博客和 RSS/Atom 源'},
+  {name:'llm-wiki',cat:'research',desc:'Karpathy 风格 LLM Wiki：构建/查询相互关联的 Markdown 知识库'},
+  {name:'polymarket',cat:'research',desc:'查询 Polymarket：市场、价格、订单簿、历史数据'},
+  {name:'research-paper-writing',cat:'research',desc:'撰写 ML 论文：从设计到 NeurIPS/ICML/ICLR 投稿'},
+
+  // Smart Home (1)
+  {name:'openhue',cat:'smart-home',desc:'控制 Philips Hue 智能灯、场景和房间'},
+
+  // Social Media (1)
+  {name:'xurl',cat:'social-media',desc:'X/Twitter API：发推、搜索、私信、媒体上传'},
+
+  // Software Development (10)
+  {name:'debugging-hermes-tui-commands',cat:'software-development',desc:'调试 Hermes TUI 斜杠命令：Python、Gateway、Ink UI'},
+  {name:'hermes-agent-skill-authoring',cat:'software-development',desc:'编写 Hermes Agent 技能：SKILL.md 元数据、验证、结构'},
+  {name:'node-inspect-debugger',cat:'software-development',desc:'通过 --inspect + Chrome DevTools 协议调试 Node.js'},
+  {name:'plan',cat:'software-development',desc:'计划模式：生成 .hermes/plans/ 计划文件，不执行代码'},
+  {name:'python-debugpy',cat:'software-development',desc:'Python 调试：pdb REPL + debugpy 远程调试 (DAP)'},
+  {name:'requesting-code-review',cat:'software-development',desc:'提交前代码审查：安全扫描、质量门禁、自动修复'},
+  {name:'spike',cat:'software-development',desc:'快速实验：验证想法，可丢弃的原型代码'},
+  {name:'subagent-driven-development',cat:'software-development',desc:'通过子 Agent 执行计划：委托任务 + 两阶段审核'},
+  {name:'systematic-debugging',cat:'software-development',desc:'四阶段系统化调试：理解 Bug 本质后再修复'},
+  {name:'test-driven-development',cat:'software-development',desc:'TDD：强制 RED-GREEN-REFACTOR 循环'},
+  {name:'writing-plans',cat:'software-development',desc:'编写实现计划：小任务、文件路径、代码示例'},
+];
+
+// ===== SKILL CATEGORIES =====
+const skillCats = [...new Set(skillsRepo.map(s=>s.cat))].sort();
+
+// ===== SKILL REPO RENDER =====
+let currentSkillCat = 'all';
+let currentSkillSearch = '';
+
+function renderSkillPills() {
+  const el = document.getElementById('skill-filter-pills');
+  const total = skillsRepo.length;
+  let html = `<span class="pill active" data-cat="all" onclick="setSkillCat('all')">全部 (${total})</span>`;
+  for (const cat of skillCats) {
+    const count = skillsRepo.filter(s=>s.cat===cat).length;
+    const label = {'autonomous-ai-agents':'AI 代理','creative':'创意','data-science':'数据科学','devops':'DevOps','dogfood':'内测','email':'邮件','gaming':'游戏','github':'GitHub','mcp':'MCP','media':'媒体','mlops':'MLOps','note-taking':'笔记','productivity':'效率','red-teaming':'红队','research':'研究','smart-home':'智能家居','social-media':'社交媒体','software-development':'软件开发'}[cat] || cat;
+    html += `<span class="pill" data-cat="${cat}" onclick="setSkillCat('${cat}')">${label} (${count})</span>`;
+  }
+  el.innerHTML = html;
 }
 
-function saveProviders() {
-  localStorage.setItem('hermes-providers', JSON.stringify(providers));
-  renderProviders();
-  updateProviderCount();
+function setSkillCat(cat) {
+  currentSkillCat = cat;
+  document.querySelectorAll('#skill-filter-pills .pill').forEach(p => p.classList.toggle('active', p.dataset.cat === cat));
+  filterSkillRepo();
 }
 
-function renderProviders() {
-  const el = document.getElementById('provider-list');
-  if (providers.length === 0) {
-    el.innerHTML = `<div class="empty-state">
-      <div class="empty-icon">🔌</div>
-      <div class="empty-text">尚未添加任何 API Provider</div>
-      <div class="empty-hint">点击上方「+ 添加 Provider」或使用下方预设模板快速添加</div>
-    </div>`;
+function filterSkillRepo() {
+  const q = (document.getElementById('skill-repo-search').value || '').toLowerCase();
+  currentSkillSearch = q;
+  let filtered = skillsRepo;
+  if (currentSkillCat !== 'all') filtered = filtered.filter(s => s.cat === currentSkillCat);
+  if (q) filtered = filtered.filter(s => s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q) || s.cat.toLowerCase().includes(q));
+  renderSkillList(filtered);
+}
+
+function renderSkillList(data) {
+  const el = document.getElementById('skill-repo-list');
+  if (!data.length) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">未找到匹配的技能</div><div class="empty-hint">试试其他关键词或分类</div></div>';
     return;
   }
-  el.innerHTML = providers.map((p, i) => {
-    const online = p.status === 'online';
-    const statusClass = p.status === 'testing' ? 'testing' : online ? 'online' : 'offline';
-    const statusLabel = p.status === 'testing' ? '测试中…' : online ? '● 在线' : '○ 离线';
-    const icon = p.icon || '🔌';
-    return `<div class="provider-card">
-      <div class="p-header">
-        <div class="p-icon" style="background:${p.color || 'var(--bg-surface)'};color:var(--text-primary)">${icon}</div>
-        <div class="p-info">
-          <div class="p-name">${p.name}</div>
-          <div class="p-model">${p.model} · ${p.type}</div>
-        </div>
-        <div class="p-status ${statusClass}">${statusLabel}</div>
-      </div>
-      <div class="p-details">
-        <div class="p-detail-item"><span>API 地址</span>${p.url}</div>
-        <div class="p-detail-item"><span>Key</span>${p.key ? p.key.substring(0, 8) + '…' : '未设置'}</div>
-      </div>
-      <div class="p-actions">
-        <button class="btn-sm" onclick="testProviderById(${i})">测试</button>
-        <button class="btn-sm" onclick="editProvider(${i})">编辑</button>
-        <button class="btn-sm danger" onclick="deleteProvider(${i})">删除</button>
-      </div>
+  el.innerHTML = data.map(s => {
+    const badgeColor = {'creative':'cyan','mlops':'purple','devops':'amber','research':'cyan','github':'amber','software-development':'green','autonomous-ai-agents':'green','data-science':'cyan','productivity':'amber','media':'purple','note-taking':'green','smart-home':'cyan','social-media':'amber','red-teaming':'red','email':'green','gaming':'purple','mcp':'cyan','dogfood':'amber'}[s.cat] || 'green';
+    return `<div class="skill-item" onclick="showSkillDetail('${s.name}')">
+      <span class="s-dot" style="background:var(--accent-${badgeColor})"></span>
+      <span class="s-name">${s.name}</span>
+      <span class="s-desc">${s.desc}</span>
+      <span class="s-cat">${s.cat}</span>
     </div>`;
   }).join('');
 }
 
-function updateProviderCount() {
-  document.getElementById('provider-total-label').textContent = `(${providers.length})`;
-  document.getElementById('sys-provider-count').textContent = providers.length;
-}
-
-function showAddProviderModal(preset) {
-  editingId = null;
-  document.getElementById('provider-modal-title').textContent = '+ 添加 Provider';
-  // Clear form
-  document.getElementById('pf-name').value = preset ? preset.name || '' : '';
-  document.getElementById('pf-type').value = preset ? preset.type : 'openai';
-  document.getElementById('pf-model').value = preset ? preset.model || '' : '';
-  document.getElementById('pf-url').value = preset ? preset.url || '' : '';
-  document.getElementById('pf-key').value = preset ? preset.key || '' : '';
-  document.getElementById('test-result').style.display = 'none';
-  document.getElementById('provider-modal').classList.add('open');
-}
-
-function closeProviderModal() {
-  document.getElementById('provider-modal').classList.remove('open');
-  editingId = null;
-}
-
-function getFormData() {
-  return {
-    name: document.getElementById('pf-name').value.trim(),
-    type: document.getElementById('pf-type').value,
-    model: document.getElementById('pf-model').value.trim(),
-    url: document.getElementById('pf-url').value.trim(),
-    key: document.getElementById('pf-key').value.trim(),
-    status: 'offline',
-    icon: '🔌',
-    color: '#606078',
-  };
-}
-
-function saveProvider() {
-  const data = getFormData();
-  if (!data.name) { showToast('请输入提供方名称', 'error'); return; }
-  if (!data.model) { showToast('请输入模型名称', 'error'); return; }
-  if (!data.url) { showToast('请输入 API 地址', 'error'); return; }
-
-  // Assign icon/color based on type
-  const iconMap = { openai:'🧠', anthropic:'🌀', google:'🔬', ollama:'🦙', azure:'☁️', custom:'🔌' };
-  const colorMap = { openai:'#10a37f', anthropic:'#d4a574', google:'#4285f4', ollama:'#a855f7', azure:'#0078d4', custom:'#606078' };
-  data.icon = iconMap[data.type] || '🔌';
-  data.color = colorMap[data.type] || '#606078';
-
-  if (editingId !== null) {
-    // Preserve existing key if user left it blank
-    if (!data.key && providers[editingId].key) data.key = providers[editingId].key;
-    providers[editingId] = { ...providers[editingId], ...data };
-    showToast('Provider 已更新', '');
-  } else {
-    providers.push(data);
-    showToast('Provider 已添加', '');
-  }
-
-  saveProviders();
-  closeProviderModal();
-}
-
-function editProvider(index) {
-  const p = providers[index];
-  editingId = index;
-  document.getElementById('provider-modal-title').textContent = '✏️ 编辑 Provider';
-  document.getElementById('pf-name').value = p.name;
-  document.getElementById('pf-type').value = p.type;
-  document.getElementById('pf-model').value = p.model;
-  document.getElementById('pf-url').value = p.url;
-  document.getElementById('pf-key').value = '';
-  document.getElementById('test-result').style.display = 'none';
-  document.getElementById('provider-modal').classList.add('open');
-}
-
-function deleteProvider(index) {
-  const name = providers[index].name;
-  if (!confirm(`确定要删除「${name}」吗？`)) return;
-  providers.splice(index, 1);
-  saveProviders();
-  showToast(`已删除「${name}」`, '');
-}
-
-function addPreset(key) {
-  const preset = PRESETS[key];
-  if (!preset) return;
-  // Check if already exists
-  const exists = providers.some(p => p.type === key);
-  const name = key.charAt(0).toUpperCase() + key.slice(1);
-  if (exists) {
-    showToast(`${name} 已存在，请编辑或添加新实例`, 'warning');
-    return;
-  }
-  showAddProviderModal({ name, ...preset });
-}
-
-async function testProvider() {
-  const data = getFormData();
-  if (!data.url || !data.key) {
-    showToast('请填写 API 地址和 Key 后再测试', 'error');
-    return;
-  }
-  const btn = document.getElementById('test-btn');
-  btn.textContent = '测试中…';
-  btn.disabled = true;
-  document.getElementById('test-result').style.display = 'block';
-  document.getElementById('test-result').textContent = '⏳ 正在连接...';
-  document.getElementById('test-result').style.color = 'var(--accent-amber)';
-
-  try {
-    const resp = await fetch(data.url + '/models', {
-      headers: {
-        'Authorization': 'Bearer ' + data.key,
-        'Content-Type': 'application/json',
-      },
-      signal: AbortSignal.timeout(10000),
-    });
-    if (resp.ok) {
-      const json = await resp.json();
-      const count = json.data ? json.data.length : '✓';
-      document.getElementById('test-result').textContent = `✅ 连接成功！可用模型数: ${count}`;
-      document.getElementById('test-result').style.color = 'var(--accent-green)';
-    } else {
-      const errText = await resp.text().catch(() => '');
-      document.getElementById('test-result').textContent = `❌ 连接失败 (${resp.status}): ${errText.slice(0, 80)}`;
-      document.getElementById('test-result').style.color = 'var(--accent-red)';
-    }
-  } catch (e) {
-    document.getElementById('test-result').textContent = `❌ 错误: ${e.message}`;
-    document.getElementById('test-result').style.color = 'var(--accent-red)';
-  }
-
-  btn.textContent = '测试连接';
-  btn.disabled = false;
-}
-
-async function testProviderById(index) {
-  const p = providers[index];
-  p.status = 'testing';
-  renderProviders();
-
-  try {
-    const resp = await fetch(p.url + '/models', {
-      headers: {
-        'Authorization': 'Bearer ' + p.key,
-        'Content-Type': 'application/json',
-      },
-      signal: AbortSignal.timeout(8000),
-    });
-    p.status = resp.ok ? 'online' : 'offline';
-  } catch {
-    p.status = 'offline';
-  }
-
-  saveProviders();
-  if (p.status === 'online') showToast(`${p.name}: 连接正常 ✓`, '');
-  else showToast(`${p.name}: 连接失败 ✗`, 'error');
-}
-
-// Try to auto-test all saved providers on load
-async function autoTestProviders() {
-  for (let i = 0; i < providers.length; i++) {
-    const p = providers[i];
-    if (!p.key) { p.status = 'offline'; continue; }
-    try {
-      const resp = await fetch(p.url + '/models', {
-        headers: { 'Authorization': 'Bearer ' + p.key },
-        signal: AbortSignal.timeout(5000),
-      });
-      p.status = resp.ok ? 'online' : 'offline';
-    } catch { p.status = 'offline'; }
-  }
-  saveProviders();
-}
-
-// ===== SKILLS DATA =====
-const skills = [
-  {name:'autonomous-ai-agents',category:'autonomous-ai-agents',desc:'自动化 AI 编码代理和多代理工作流'},
-  {name:'claude-code',category:'autonomous-ai-agents',desc:'委托 Claude Code CLI 进行编码'},
-  {name:'codex',category:'autonomous-ai-agents',desc:'委托 OpenAI Codex CLI 进行编码'},
-  {name:'hermes-agent',category:'autonomous-ai-agents',desc:'配置/扩展/贡献 Hermes Agent'},
-  {name:'opencode',category:'autonomous-ai-agents',desc:'委托 OpenCode CLI 进行编码'},
-  {name:'architecture-diagram',category:'creative',desc:'暗色主题 SVG 架构图 (HTML)'},
-  {name:'ascii-art',category:'creative',desc:'ASCII 艺术: pyfiglet, cowsay, boxes'},
-  {name:'ascii-video',category:'creative',desc:'ASCII 视频: 转换视频/音频为彩色 ASCII'},
-  {name:'comfyui',category:'creative',desc:'用 ComfyUI 生成图像/视频/音频'},
-  {name:'excalidraw',category:'creative',desc:'手绘风格 Excalidraw 图表'},
-  {name:'humanizer',category:'creative',desc:'去除 AI 痕迹，加入真实语气'},
-  {name:'manim-video',category:'creative',desc:'Manim CE 动画: 数学/算法视频'},
-  {name:'p5js',category:'creative',desc:'p5.js 交互式生成艺术'},
-  {name:'pixel-art',category:'creative',desc:'复古像素艺术 (NES, Game Boy, PICO-8)'},
-  {name:'popular-web-designs',category:'creative',desc:'54 个真实设计系统的 HTML/CSS'},
-  {name:'sketch',category:'creative',desc:'快速网页原型设计'},
-  {name:'songwriting-and-ai-music',category:'creative',desc:'写歌与 AI 音乐创作'},
-  {name:'jupyter-live-kernel',category:'data-science',desc:'实时 Jupyter 内核 Python'},
-  {name:'kanban-orchestrator',category:'devops',desc:'看板编排: 分解 + 专业分工'},
-  {name:'kanban-worker',category:'devops',desc:'看板工作者的陷阱和边界情况'},
-  {name:'webhook-subscriptions',category:'devops',desc:'Webhook 订阅: 事件驱动代理运行'},
-  {name:'dogfood',category:'dogfood',desc:'Web 应用探索性 QA'},
-  {name:'himalaya',category:'email',desc:'Himalaya CLI: 终端 IMAP/SMTP 邮件'},
-  {name:'minecraft-modpack-server',category:'gaming',desc:'搭建模组 Minecraft 服务器'},
-  {name:'pokemon-player',category:'gaming',desc:'通过模拟器 + RAM 读取玩宝可梦'},
-  {name:'codebase-inspection',category:'github',desc:'用 pygount 检查代码库'},
-  {name:'github-code-review',category:'github',desc:'审查 PR: diff + 行内评论'},
-  {name:'github-issues',category:'github',desc:'创建/分类/分配 GitHub Issue'},
-  {name:'github-pr-workflow',category:'github',desc:'PR 工作流: 分支、提交、合并'},
-  {name:'github-repo-management',category:'github',desc:'克隆/创建/Fork 仓库'},
-  {name:'native-mcp',category:'mcp',desc:'MCP 客户端: 连接服务器、注册工具'},
-  {name:'youtube-content',category:'media',desc:'YouTube 转录 → 摘要/博客/推文'},
-  {name:'huggingface-hub',category:'mlops',desc:'HuggingFace CLI: 搜索/下载/上传模型'},
-  {name:'evaluating-llms-harness',category:'mlops/evaluation',desc:'lm-eval-harness 基准测试 LLM'},
-  {name:'weights-and-biases',category:'mlops/evaluation',desc:'W&B: ML 实验跟踪'},
-  {name:'llama-cpp',category:'mlops/inference',desc:'本地 GGUF 推理 + HF Hub 模型发现'},
-  {name:'outlines',category:'mlops/inference',desc:'Structured JSON/regex LLM 生成'},
-  {name:'serving-llms-vllm',category:'mlops/inference',desc:'vLLM 高性能 LLM 推理'},
-  {name:'dspy',category:'mlops/research',desc:'声明式 LM 编程'},
-  {name:'axolotl',category:'mlops/training',desc:'YAML LLM 微调'},
-  {name:'unsloth',category:'mlops/training',desc:'2-5x 加速 LoRA/QLoRA 微调'},
-  {name:'obsidian',category:'note-taking',desc:'读取/搜索/编辑 Obsidian 笔记'},
-  {name:'linear',category:'productivity',desc:'Linear: 管理 Issue/项目'},
-  {name:'notion',category:'productivity',desc:'Notion API: 页面/数据库操作'},
-  {name:'godmode',category:'red-teaming',desc:'Jailbreak LLM: 红队对抗'},
-  {name:'arxiv',category:'research',desc:'搜索 arXiv 论文'},
-  {name:'blogwatcher',category:'research',desc:'RSS/Atom 博客监控'},
-  {name:'openhue',category:'smart-home',desc:'控制 Philips Hue 智能灯'},
-  {name:'spike',category:'software-development',desc:'探索性实验验证想法'},
-  {name:'test-driven-development',category:'software-development',desc:'TDD: RED-GREEN-REFACTOR'},
-  {name:'writing-plans',category:'software-development',desc:'编写实现计划'},
-  {name:'plan',category:'software-development',desc:'计划模式: markdown 计划文件'},
-];
-
-const toolsList = [
-  { name: 'terminal', category: 'exec', desc: '执行 Shell 命令', color: 'terminal' },
-  { name: 'read_file', category: 'file', desc: '读取文本文件', color: 'file' },
-  { name: 'write_file', category: 'file', desc: '写入文件', color: 'file' },
-  { name: 'search_files', category: 'file', desc: '搜索文件/内容', color: 'file' },
-  { name: 'patch', category: 'file', desc: '查找替换编辑', color: 'file' },
-  { name: 'browser_navigate', category: 'web', desc: '导航至 URL', color: 'web' },
-  { name: 'browser_snapshot', category: 'web', desc: '页面快照', color: 'web' },
-  { name: 'browser_click', category: 'web', desc: '点击元素', color: 'web' },
-  { name: 'browser_type', category: 'web', desc: '输入文本', color: 'web' },
-  { name: 'browser_vision', category: 'web', desc: '截图分析', color: 'vision' },
-  { name: 'browser_console', category: 'web', desc: '控制台输出/JS', color: 'web' },
-  { name: 'memory', category: 'memory', desc: '持久化记忆', color: 'memory' },
-  { name: 'skill_view', category: 'skills', desc: '加载技能', color: 'memory' },
-  { name: 'skill_manage', category: 'skills', desc: '管理技能', color: 'memory' },
-  { name: 'cronjob', category: 'schedule', desc: '定时任务', color: 'terminal' },
-  { name: 'delegate_task', category: 'exec', desc: '并行子任务', color: 'terminal' },
-  { name: 'execute_code', category: 'exec', desc: '脚本化工具调用', color: 'terminal' },
-  { name: 'todo', category: 'mgmt', desc: '任务列表', color: 'file' },
-  { name: 'clarify', category: 'mgmt', desc: '向用户提问', color: 'memory' },
-  { name: 'vision_analyze', category: 'vision', desc: '分析单张图片', color: 'vision' },
-  { name: 'session_search', category: 'memory', desc: '搜索历史会话', color: 'memory' },
-  { name: 'text_to_speech', category: 'media', desc: '文本转语音', color: 'web' },
-  { name: 'process', category: 'exec', desc: '管理后台进程', color: 'terminal' },
-];
-
-const toolsetColors = { terminal:'terminal', web:'web', file:'file', memory:'memory', vision:'vision', search:'web', skills:'memory', exec:'terminal', mgmt:'file', schedule:'terminal', media:'web' };
-
-// ===== RENDER FUNCTIONS =====
-function renderSkills(listId, data) {
-  const el = document.getElementById(listId);
-  if (!el) return;
-  el.innerHTML = data.map(s => `
-    <div class="skill-item" onclick="showSkillDetail('${s.name}')" style="cursor:pointer;">
-      <span class="skill-badge ${s.category.includes('creative')?'cyan':s.category.includes('mlops')?'purple':s.category.includes('devops')?'amber':s.category.includes('research')?'cyan':s.category.includes('github')?'amber':'green'}"></span>
-      <span class="skill-name">${s.name}</span>
-      <span class="skill-category">${s.category}</span>
-    </div>
-  `).join('');
-}
-
-function filterSkills(query, listId) {
-  const q = query.toLowerCase();
-  const data = skills.filter(s => s.name.toLowerCase().includes(q) || s.category.toLowerCase().includes(q));
-  renderSkills('skill-list-' + listId, data);
-}
-
-function showAllSkills() {
-  switchSection('skills');
-  setSkillFilter('all');
+function quickSearchSkills(q) {
+  q = q.toLowerCase();
+  const el = document.getElementById('quick-skill-results');
+  if (!q) { el.innerHTML = '<div style="font-size:11px;color:var(--text-muted);padding:4px;">输入名称或说明搜索技能仓库</div>'; return; }
+  const filtered = skillsRepo.filter(s => s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q));
+  if (!filtered.length) { el.innerHTML = '<div style="font-size:11px;color:var(--text-muted);padding:4px;">未找到匹配</div>'; return; }
+  el.innerHTML = filtered.slice(0, 8).map(s => {
+    return `<div class="skill-item" onclick="switchSection('skills');setTimeout(()=>{document.getElementById('skill-repo-search').value='${s.name}';filterSkillRepo();showSkillDetail('${s.name}')},100)" style="padding:4px 6px;">
+      <span class="s-dot" style="background:var(--accent-cyan)"></span>
+      <span class="s-name">${s.name}</span>
+      <span class="s-desc">${s.desc}</span>
+    </div>`;
+  }).join('');
 }
 
 function showSkillDetail(name) {
-  const s = skills.find(x => x.name === name);
+  const s = skillsRepo.find(x => x.name === name);
   if (!s) return;
-  const modal = document.getElementById('modal-overlay');
-  document.getElementById('modal-title').textContent = `⊕ ${s.name}`;
-  document.getElementById('modal-body').innerHTML = `
-    <div class="detail-row"><span class="detail-label">名称</span><span class="detail-value">${s.name}</span></div>
-    <div class="detail-row"><span class="detail-label">分类</span><span class="detail-value">${s.category}</span></div>
-    <div class="detail-row"><span class="detail-label">描述</span><span class="detail-value" style="font-family:'Inter',sans-serif;font-size:13px;">${s.desc}</span></div>
-    <div class="detail-row"><span class="detail-label">加载方式</span><span class="detail-value" style="color:var(--accent-green);">skill_view(name='${s.name}')</span></div>
-    <div style="margin-top:12px;">
-      <button class="btn-sm" onclick="navigator.clipboard.writeText('skill_view(name=\\'${s.name}\\')');this.textContent='✓ 已复制'">📋 复制加载命令</button>
+  const modal = document.getElementById('skill-modal');
+  document.getElementById('skill-modal-title').textContent = `⊕ ${s.name}`;
+  const badgeColor = {'creative':'cyan','mlops':'purple','devops':'amber','research':'cyan','github':'amber','software-development':'green','autonomous-ai-agents':'green','data-science':'cyan','productivity':'amber','media':'purple','note-taking':'green','smart-home':'cyan','social-media':'amber','red-teaming':'red','email':'green','gaming':'purple','mcp':'cyan','dogfood':'amber'}[s.cat] || 'green';
+  document.getElementById('skill-modal-body').innerHTML = `
+    <div class="detail-row"><span class="detail-label">技能名称</span><span class="detail-value">${s.name}</span></div>
+    <div class="detail-row"><span class="detail-label">分类</span><span class="detail-value"><span class="sys-tag ${badgeColor}">${s.cat}</span></span></div>
+    <div class="detail-row"><span class="detail-label">中文说明</span><span class="detail-value" style="font-family:'Inter',sans-serif;font-size:13px;color:var(--text-secondary);">${s.desc}</span></div>
+    <div class="detail-row"><span class="detail-label">加载方式</span><span class="detail-value" style="color:var(--accent-green);font-size:12px;">skill_view(name='${s.name}')</span></div>
+    <div style="margin-top:14px;display:flex;gap:8px;">
+      <button class="btn-sm primary" onclick="navigator.clipboard.writeText('skill_view(name=\\'${s.name}\\')');this.textContent='✓ 已复制';showToast('已复制加载命令')">📋 复制加载命令</button>
+      <button class="btn-sm" onclick="navigator.clipboard.writeText('${s.name}');this.textContent='✓ 已复制';showToast('已复制技能名')">📋 复制名称</button>
     </div>
   `;
   modal.classList.add('open');
 }
 
-function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+function closeSkillModal() { document.getElementById('skill-modal').classList.remove('open'); }
+
+// ===== TOOLS DATA =====
+const toolsList = [
+  { name:'terminal', cat:'exec', desc:'执行 Shell 命令，支持超时和后台运行', color:'terminal' },
+  { name:'read_file', cat:'file', desc:'读取文本文件内容，支持分页', color:'file' },
+  { name:'write_file', cat:'file', desc:'写入文件内容（覆盖写入）', color:'file' },
+  { name:'search_files', cat:'file', desc:'搜索文件内容或按名称查找文件', color:'file' },
+  { name:'patch', cat:'file', desc:'查找替换文本编辑，支持模糊匹配', color:'file' },
+  { name:'browser_navigate', cat:'web', desc:'浏览器导航至指定 URL', color:'web' },
+  { name:'browser_snapshot', cat:'web', desc:'获取当前页面的无障碍树快照', color:'web' },
+  { name:'browser_click', cat:'web', desc:'点击页面中的元素（通过 ref ID）', color:'web' },
+  { name:'browser_type', cat:'web', desc:'在输入框中输入文本', color:'web' },
+  { name:'browser_vision', cat:'vision', desc:'截图分析页面，支持标注和问答', color:'vision' },
+  { name:'browser_console', cat:'web', desc:'获取浏览器控制台输出，或执行 JS', color:'web' },
+  { name:'memory', cat:'memory', desc:'保存/读取/删除持久化记忆', color:'memory' },
+  { name:'skill_view', cat:'skills', desc:'加载技能，获取工作流和模板', color:'memory' },
+  { name:'skill_manage', cat:'skills', desc:'创建/修改/删除技能', color:'memory' },
+  { name:'cronjob', cat:'schedule', desc:'创建/管理定时任务（Cron）', color:'terminal' },
+  { name:'delegate_task', cat:'exec', desc:'委托子 Agent 并行执行任务', color:'terminal' },
+  { name:'execute_code', cat:'exec', desc:'执行 Python 脚本，可调用其他工具', color:'terminal' },
+  { name:'todo', cat:'mgmt', desc:'管理待办任务列表', color:'file' },
+  { name:'clarify', cat:'mgmt', desc:'向用户提问来获取澄清或决策', color:'memory' },
+  { name:'vision_analyze', cat:'vision', desc:'分析单张图片（URL 或路径）', color:'vision' },
+  { name:'session_search', cat:'memory', desc:'搜索历史会话记录', color:'memory' },
+  { name:'text_to_speech', cat:'media', desc:'将文本转换为语音', color:'web' },
+  { name:'process', cat:'exec', desc:'管理后台进程：查看、等待、终止', color:'terminal' },
+];
 
 function renderTools() {
   const container = document.getElementById('tools-container');
-  container.innerHTML = toolsList.map(t => `
-    <div class="skill-item" style="cursor:pointer;" onclick="showToolDetail('${t.name}')">
-      <span class="tool-tag ${t.color}" style="margin:0;font-size:10px;">${t.name}</span>
-      <span style="font-size:12px;color:var(--text-secondary);flex:1;">${t.desc}</span>
-      <span style="font-size:10px;color:var(--text-muted);">${t.category}</span>
+  const groups = {};
+  const catNames = {exec:'执行',file:'文件',web:'浏览器',vision:'视觉',memory:'记忆',skills:'技能',schedule:'调度',mgmt:'管理',media:'媒体'};
+  toolsList.forEach(t => { if (!groups[t.cat]) groups[t.cat] = []; groups[t.cat].push(t); });
+  container.innerHTML = Object.entries(groups).map(([cat, tools]) => `
+    <div class="tool-group">
+      <div class="tool-group-title">┃ ${catNames[cat]||cat} <span class="g-count">(${tools.length})</span></div>
+      ${tools.map(t => `
+        <div class="tool-item" onclick="showToolDetail('${t.name}')">
+          <span class="tool-tag ${t.color}">${t.name}</span>
+          <span class="t-desc">${t.desc}</span>
+        </div>
+      `).join('')}
     </div>
   `).join('');
 }
@@ -1525,121 +909,128 @@ function renderTools() {
 function showToolDetail(name) {
   const t = toolsList.find(x => x.name === name);
   if (!t) return;
-  const modal = document.getElementById('modal-overlay');
-  document.getElementById('modal-title').textContent = `◆ ${t.name}`;
-  document.getElementById('modal-body').innerHTML = `
+  const modal = document.getElementById('tool-modal');
+  document.getElementById('tool-modal-title').textContent = `◆ ${t.name}`;
+  document.getElementById('tool-modal-body').innerHTML = `
     <div class="detail-row"><span class="detail-label">工具名</span><span class="detail-value"><span class="tool-tag ${t.color}" style="margin:0;">${t.name}</span></span></div>
-    <div class="detail-row"><span class="detail-label">分类</span><span class="detail-value">${t.category}</span></div>
-    <div class="detail-row"><span class="detail-label">描述</span><span class="detail-value" style="font-family:'Inter',sans-serif;font-size:13px;">${t.desc}</span></div>
+    <div class="detail-row"><span class="detail-label">分类</span><span class="detail-value">${t.cat}</span></div>
+    <div class="detail-row"><span class="detail-label">功能说明</span><span class="detail-value" style="font-family:'Inter',sans-serif;font-size:13px;color:var(--text-secondary);">${t.desc}</span></div>
     <div style="margin-top:12px;">
-      <button class="btn-sm" onclick="navigator.clipboard.writeText('${t.name}()');this.textContent='✓ 已复制'">📋 复制调用</button>
+      <button class="btn-sm primary" onclick="navigator.clipboard.writeText('${t.name}()');this.textContent='✓ 已复制';showToast('已复制调用命令')">📋 复制调用命令</button>
     </div>
   `;
   modal.classList.add('open');
 }
 
+function closeToolModal() { document.getElementById('tool-modal').classList.remove('open'); }
+
+// ===== MEMORY DATA =====
+const memoryItems = [
+  { type:'user', content:'用户使用 WSL 环境，Windows 用户名是 Administrator（已确认）', time:'2026-05-06 18:30' },
+  { type:'user', content:'用户偏好暗色终端风格的 UI 设计', time:'2026-05-06 18:28' },
+  { type:'user', content:'用户正在准备小米 MIMO 100T 活动申请，项目是 Hermes Dashboard', time:'2026-05-07 17:00' },
+  { type:'memory', content:'Hermes Dashboard 文件路径: ~/Desktop/Hermes/hermes-dashboard.html', time:'2026-05-06 18:29' },
+  { type:'memory', content:'GitHub 仓库: https://github.com/LeeCQiang/hermes-agent-dashboard', time:'2026-05-07 17:30' },
+  { type:'memory', content:'Dashboard v2 新增了系统详情面板和多模型管理功能', time:'2026-05-07 18:20' },
+  { type:'memory', content:'Dashboard v3 新增了 86 技能仓库、中文说明、记忆面板', time:'2026-05-07 18:50' },
+];
+
+function renderMemory() {
+  const userItems = memoryItems.filter(m => m.type === 'user');
+  const sysItems = memoryItems.filter(m => m.type === 'memory');
+
+  const renderList = (items, elId) => {
+    const el = document.getElementById(elId);
+    el.innerHTML = items.map((m, i) => `
+      <div class="memory-item" onclick="showMemoryDetail(${i})">
+        <div class="m-type">
+          <span class="m-badge" style="background:${m.type==='user'?'var(--accent-cyan-dim)':'var(--accent-purple-dim)'};color:${m.type==='user'?'var(--accent-cyan)':'var(--accent-purple)'}">${m.type==='user'?'用户信息':'系统笔记'}</span>
+        </div>
+        <div class="m-content">${m.content}</div>
+        <div class="m-time">${m.time}</div>
+      </div>
+    `).join('');
+  };
+  renderList(userItems, 'memory-user-list');
+  renderList(sysItems, 'memory-sys-list');
+}
+
+function showMemoryDetail(index) {
+  const m = memoryItems[index];
+  if (!m) return;
+  const modal = document.getElementById('memory-modal');
+  document.getElementById('memory-modal-title').textContent = m.type === 'user' ? '👤 用户信息' : '📝 系统笔记';
+  document.getElementById('memory-modal-body').innerHTML = `
+    <div class="detail-row"><span class="detail-label">类型</span><span class="detail-value"><span class="sys-tag ${m.type==='user'?'cyan':'purple'}">${m.type==='user'?'用户信息 (User)':'系统笔记 (Memory)'}</span></span></div>
+    <div class="detail-row"><span class="detail-label">内容</span><span class="detail-value" style="font-family:'Inter',sans-serif;font-size:13px;color:var(--text-secondary);line-height:1.6;">${m.content}</span></div>
+    <div class="detail-row"><span class="detail-label">记录时间</span><span class="detail-value">${m.time}</span></div>
+    <div style="margin-top:12px;">
+      <button class="btn-sm" onclick="navigator.clipboard.writeText('${m.content}');this.textContent='✓ 已复制';showToast('已复制')">📋 复制内容</button>
+    </div>
+  `;
+  modal.classList.add('open');
+}
+
+function closeMemoryModal() { document.getElementById('memory-modal').classList.remove('open'); }
+
+// ===== TODOS =====
 function renderTodos() {
   const todos = [
-    { id: '1', content: '设计整体布局和配色方案', status: 'completed' },
-    { id: '2', content: '构建仪表盘 HTML（含 CSS 和 JS）', status: 'completed' },
-    { id: '3', content: '扩展系统详情面板和模型管理', status: 'completed' },
-    { id: '4', content: '继续完善和优化', status: 'in_progress' },
+    { id:'1', content:'设计整体布局和配色方案', status:'completed' },
+    { id:'2', content:'构建仪表盘 HTML（含 CSS 和 JS）', status:'completed' },
+    { id:'3', content:'扩展系统详情面板和模型管理', status:'completed' },
+    { id:'4', content:'完善技能仓库和工具/记忆面板', status:'completed' },
+    { id:'5', content:'继续完善和优化', status:'in_progress' },
   ];
   const el = document.getElementById('todo-list');
   el.innerHTML = todos.map(t => `
     <div class="todo-item">
-      <div class="todo-check ${t.status === 'completed' ? 'done' : t.status === 'in_progress' ? 'in-progress' : ''}"></div>
-      <span class="todo-text ${t.status === 'completed' ? 'done-text' : ''}">${t.content}</span>
-      <span class="todo-status ${t.status === 'completed' ? 'completed' : t.status === 'in_progress' ? 'in-progress-s' : 'pending'}">${t.status === 'in_progress' ? '进行中' : t.status === 'completed' ? '完成' : '待办'}</span>
+      <div class="todo-check ${t.status==='completed'?'done':t.status==='in_progress'?'in-progress':''}"></div>
+      <span class="todo-text ${t.status==='completed'?'done-text':''}">${t.content}</span>
+      <span class="todo-status ${t.status==='completed'?'completed':t.status==='in_progress'?'in-progress-s':'pending'}">${t.status==='in_progress'?'进行中':t.status==='completed'?'完成':'待办'}</span>
     </div>
   `).join('');
 }
 
-// ===== SECTION SWITCHING =====
-function switchSection(name) {
-  document.querySelectorAll('[id^="section-"]').forEach(el => el.style.display = 'none');
-  const target = document.getElementById('section-' + name);
-  if (target) target.style.display = 'block';
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.section === name));
-}
-
-document.querySelectorAll('.nav-btn').forEach(btn => {
-  btn.addEventListener('click', () => switchSection(btn.dataset.section));
-});
-
-// ===== SYSTEM DETAIL TOGGLE =====
-function toggleSysDetail() {
-  const el = document.getElementById('sys-expanded');
-  el.classList.toggle('open');
-  const toggle = document.querySelector('.sys-detail-toggle');
-  toggle.textContent = el.classList.contains('open') ? '▾ 收起详细' : '▸ 查看详细';
-}
-
-// ===== SKILL FILTER =====
-let currentSkillFilter = 'all';
-function setSkillFilter(filter) {
-  currentSkillFilter = filter;
-  document.querySelectorAll('[data-filter]').forEach(b => {
-    b.style.borderColor = b.dataset.filter === filter ? 'var(--accent-green)' : 'var(--border)';
-    b.style.color = b.dataset.filter === filter ? 'var(--accent-green)' : 'var(--text-secondary)';
-  });
-  applySkillFilter();
-}
-function applySkillFilter() {
-  const q = (document.getElementById('skill-search-all')?.value || '').toLowerCase();
-  let filtered = skills;
-  if (currentSkillFilter !== 'all') filtered = filtered.filter(s => s.category === currentSkillFilter);
-  if (q) filtered = filtered.filter(s => s.name.toLowerCase().includes(q) || s.category.toLowerCase().includes(q));
-  renderSkills('skill-list-all', filtered);
-}
-
-// ===== CLOCK =====
-function updateClock() {
-  const n = new Date();
-  document.getElementById('clock').textContent = n.toLocaleTimeString('zh-CN', { hour12: false });
-}
-setInterval(updateClock, 1000);
-updateClock();
-
 // ===== TERMINAL DEMO =====
 function demoTerm(input) {
-  const out = document.getElementById('term-demo-output');
-  const val = input.value.trim();
-  if (!val) return;
-  out.innerHTML += `<div class="terminal-line"><span class="prompt">hermes@agent</span><span class="text-muted">:</span><span class="prompt">~</span><span class="cmd">$</span> <span class="cmd">${val}</span></div>`;
-  out.innerHTML += `<div class="terminal-line"><span class="output">${val.includes('help') ? '可用命令: status, tools, skills, memory, cron, session' : val.includes('status') ? 'Agent: Hermes Agent · Online · deepseek-v4-flash' : val.includes('cron') ? '→ 当前无定时任务' : val.includes('skills') ? '→ 共 ' + skills.length + ' 个技能可用。输入 skills list 查看。' : `[仿真] 命令 '${val}' 已收到`}</span></div>`;
-  out.scrollTop = out.scrollHeight;
-  input.value = '';
+  const out=document.getElementById('term-demo-output');const val=input.value.trim();if(!val)return;
+  out.innerHTML+=`<div class="terminal-line"><span class="prompt">hermes@agent</span><span class="text-muted">:</span><span class="prompt">~</span><span class="cmd">$</span> <span class="cmd">${val}</span></div>`;
+  out.innerHTML+=`<div class="terminal-line"><span class="output">${val.includes('help')?'可用命令: status, tools, skills, memory, cron, session':val.includes('status')?'Agent: Hermes Agent · Online · deepseek-v4-flash':val.includes('cron')?'→ 当前无定时任务':val.includes('skills')?'→ 共 '+skillsRepo.length+' 个技能可用。输入 skills list 查看。':`[仿真] 命令 '${val}' 已收到`}</span></div>`;
+  out.scrollTop=out.scrollHeight;input.value='';
 }
-
-// ===== COPY =====
-function copyToClipboard(text) { navigator.clipboard.writeText(text); }
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
-  renderSkills('skill-list-overview', skills.slice(0, 12));
-  renderSkills('skill-list-all', skills);
+  // Skill repo
+  renderSkillPills();
+  renderSkillList(skillsRepo);
+  document.getElementById('skill-count').textContent = skillsRepo.length;
+
+  // Tools
   renderTools();
+  document.getElementById('tool-count').textContent = toolsList.length;
+
+  // Memory
+  renderMemory();
+  document.getElementById('memory-count').textContent = memoryItems.length;
+
+  // Stats
+  const cats = new Set(skillsRepo.map(s=>s.cat));
+  document.getElementById('skill-category-count').textContent = cats.size;
+  document.getElementById('sys-skills-count').textContent = skillsRepo.length + ' 个可用';
+
+  // Todos
   renderTodos();
 
-  document.getElementById('skill-total-label').textContent = `(${skills.length})`;
-  document.getElementById('skill-count').textContent = skills.length;
-  document.getElementById('tool-count').textContent = toolsList.length;
-  document.getElementById('memory-count').textContent = '7';
-  const cats = new Set(skills.map(s => s.category));
-  document.getElementById('skill-category-count').textContent = cats.size;
-
-  // Provider init
+  // Providers
   renderProviders();
   updateProviderCount();
 
-  // Search events
-  const sb = document.getElementById('skill-search-all');
-  if (sb) sb.addEventListener('input', applySkillFilter);
-  const sb2 = document.getElementById('skill-search-overview');
-  if (sb2) sb2.addEventListener('input', function() { filterSkills(this.value, 'overview'); });
+  // Quick search hint
+  document.getElementById('quick-skill-results').innerHTML = '<div style="font-size:11px;color:var(--text-muted);padding:4px;">输入名称或说明搜索技能仓库</div>';
 
-  // Auto-test providers silently
+  // Auto-test providers
   setTimeout(autoTestProviders, 3000);
 });</script>
 </body>
