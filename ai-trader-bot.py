@@ -6,7 +6,7 @@ AI-Trader Auto Trading Bot (GitHub Actions version)
 - Runs as GitHub Actions cron job (24/7)
 """
 
-import requests, json, os, random
+import requests, json, os, random, time
 from datetime import datetime
 
 # === CONFIG (from GitHub Secrets) ===
