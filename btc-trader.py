@@ -182,7 +182,7 @@ def get_trader_sentiment():
         return None
 
     btc_signals = [s for s in signals
-                   if isinstance(s, dict) and s.get("symbol", "").upper() in ("BTC", "BTCUSDT")]
+                   if isinstance(s, dict) and (s.get("symbol") or "").upper() in ("BTC", "BTCUSDT")]
 
     if not btc_signals:
         # Fall back: look at recent BTC price direction from feed

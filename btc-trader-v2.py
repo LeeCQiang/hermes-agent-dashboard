@@ -231,7 +231,7 @@ def get_trader_sentiment():
     if not feed: return None
     signals = feed.get("signals", feed.get("results", feed.get("data", [])))
     if not isinstance(signals, list): return None
-    btc_signals = [s for s in signals if isinstance(s, dict) and s.get("symbol","").upper() in ("BTC","BTCUSDT")]
+    btc_signals = [s for s in signals if isinstance(s, dict) and (s.get("symbol") or "").upper() in ("BTC","BTCUSDT")]
     if not btc_signals: return 0
     longs = sum(1 for s in btc_signals if s.get("side") in ("buy", "long"))
     shorts = sum(1 for s in btc_signals if s.get("side") in ("sell", "short"))
