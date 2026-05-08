@@ -116,14 +116,14 @@ def okx_to_standard(okx_bars):
 
 
 def fetch_current_price():
-    """Multi-source BTC price"""
+    """Multi-source BTC price — Binance first now that IP restriction is removed"""
     sources = [
+        ("Binance", f"{BASE_URLS['binance']}/api/v3/ticker/price?symbol=BTCUSDT",
+         lambda d: float(d["price"])),
         ("Bybit", f"{BASE_URLS['bybit']}/v5/market/tickers?category=linear&symbol=BTCUSDT",
          lambda d: float(d["result"]["list"][0]["lastPrice"])),
         ("OKX", f"{BASE_URLS['okx']}/api/v5/market/ticker?instId=BTC-USDT",
          lambda d: float(d["data"][0]["last"])),
-        ("Binance", f"{BASE_URLS['binance']}/api/v3/ticker/price?symbol=BTCUSDT",
-         lambda d: float(d["price"])),
     ]
     for name, url, parser in sources:
         try:
@@ -378,6 +378,33 @@ def main():
     print("=" * 70)
     print(f"📊 BTC Backtester v2 — {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
     print("=" * 70)
+    
+    # Verify Binance signed API now that IP restriction is removed
+    print("\n🔑 验证 Binance API Key...")
+    bn_key = os.environ.get("BINANCE_API_KEY", "")
+    bn_secret = os.environ.get("BINANCE_SECRET_KEY", "")
+    if bn_key and bn_secret:
+        try:
+            import hashlib, hmac, urllib.parse
+            ts = int(time.time() * 1000)
+            params = {"timestamp": ts, "recvWindow": 60000}
+            query = urllib.parse.urlencode(sorted(params.items()))
+            sig = hmac.new(bn_secret.encode(), query.encode(), hashlib.sha256).hexdigest()
+            r = requests.get(f"{BASE_URLS['binance']}/api/v3/account?{query}&signature={sig}", 
+                            headers={"X-MBX-APIKEY": bn_key}, timeout=15)
+            if r.ok:
+                data = r.json()
+                balances = [b for b in data.get('balances', []) if float(b.get('free', 0)) > 0 or float(b.get('locked', 0)) > 0]
+                print(f"✅ Binance 连接成功! 账户有效, {len(balances)} 个币种有余额")
+                for b in balances[:3]:
+                    print(f"   {b['asset']}: {float(b['free']):.4f}")
+            else:
+                print(f"❌ Binance 签名请求失败: HTTP {r.status_code}")
+                print(f"   响应: {r.text[:200]}")
+        except Exception as e:
+            print(f"❌ Binance 测试异常: {e}")
+    else:
+        print("⚠️  未设置 BINANCE_API_KEY — 跳过验证")
     
     # Current price
     price, source = fetch_current_price()
