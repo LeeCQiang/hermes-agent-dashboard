@@ -1,0 +1,21 @@
+name: BTC Trader V2
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: pip install requests
+      - name: 执行 V2 策略交易机器人
+        env:
+          AI_TRADER_TOKEN: ${{ secrets.AI_TRADER_TOKEN }}
+        continue-on-error: true
+        run: python btc-trader-v2.py || echo "❌ 异常，下次再试"
