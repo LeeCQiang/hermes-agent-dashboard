@@ -1,0 +1,21 @@
+name: BTC Trader V3
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+
+jobs:
+  trade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: pip install requests
+      - name: V3 双引擎策略
+        env:
+          AI_TRADER_TOKEN: ${{ secrets.AI_TRADER_TOKEN }}
+        continue-on-error: true
+        run: python btc-trader-v3.py || echo "异常"

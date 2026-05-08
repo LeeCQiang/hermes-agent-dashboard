@@ -414,10 +414,10 @@ def main():
         print("⚠️ 无法获取 BTC 价格")
     
     # Fetch from Bybit (most reliable for GitHub runners)
-    print("\n📥 获取 Bybit 历史数据...")
-    klines = fetch_bybit_all("BTCUSDT", "60", 2000)
+    print("\n📥 获取 Bybit 历史数据 (90天)...")
+    klines = fetch_bybit_all("BTCUSDT", "60", 3000)  # ~125 days
     if not klines or len(klines) < 100:
-        print("Bybit 数据不足, 尝试 OKX...")
+        print(f"Bybit 仅获取到 {len(klines) if klines else 0} 根, 尝试 OKX...")
         okx_bars = fetch_okx_klines("BTC-USDT", "1H", 300)
         if okx_bars:
             klines = okx_to_standard(okx_bars)
