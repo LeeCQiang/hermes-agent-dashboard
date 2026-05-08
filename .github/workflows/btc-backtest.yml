@@ -1,0 +1,33 @@
+name: BTC Data & Backtest
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 每天凌晨跑一次
+    - cron: '0 4 * * *'
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: pip install requests
+
+      - name: 数据采集 + 策略回测
+        env:
+          BINANCE_API_KEY: ${{ secrets.BINANCE_API_KEY }}
+          BINANCE_SECRET_KEY: ${{ secrets.BINANCE_SECRET_KEY }}
+        run: python btc-backtest.py
+
+      - name: 上传回测结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: backtest-results
+          path: |
+            /tmp/backtest_results.json
+            /tmp/btc_klines_1h.json
+            /tmp/btc_klines_4h.json
+          retention-days: 7
