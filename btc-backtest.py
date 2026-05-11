@@ -203,23 +203,25 @@ def compute_bollinger(data, period=20, std_mult=2):
 
 
 # ============================================================
-# SESSION + SCORING
+# SESSION + SCORING — 夏令时感知
 # ============================================================
 
-SESSIONS = [
-    (0, 2, 1.0), (2, 7, 0.8), (7, 9, 1.2),
-    (9, 11, 1.5), (11, 13, 1.3), (13, 16, 2.0),
-    (16, 20, 1.5), (20, 22, 1.2), (22, 24, 0.9),
-]
+def get_sessions():
+    now = datetime.now(timezone.utc)
+    is_dst = 3 <= now.month <= 10
+    if is_dst:
+        return [(0,2,1.0),(2,7,0.8),(7,9,1.2),(9,11,1.5),(11,13,1.3),(13,16,2.0),(16,20,1.5),(20,22,1.2),(22,24,0.9)]
+    else:
+        return [(0,2,0.9),(2,7,0.8),(7,8,1.0),(8,11,1.5),(11,14,1.3),(14,17,2.0),(17,21,1.5),(21,23,1.2),(23,24,0.9)]
 
 def get_session_weight(hour):
-    for start, end, weight in SESSIONS:
+    for start, end, weight in get_sessions():
         if start <= hour < end:
             return weight
     return 1.0
 
-SCORE_LONG = 6
-SCORE_SHORT = -6
+SCORE_LONG = 5
+SCORE_SHORT = -5
 STOP_LOSS_PCT = 0.02
 TAKE_PROFIT_PCT = 0.03
 LEVERAGE = 10
@@ -415,10 +417,10 @@ def main():
     
     # Fetch from Bybit (most reliable for GitHub runners)
     print("\n📥 获取 Bybit 历史数据 (90天)...")
-    klines = fetch_bybit_all("BTCUSDT", "60", 3000)  # ~125 days
+    klines = fetch_bybit_all("BTCUSDT", "60", 2000)  # ~83天 1h K线
     if not klines or len(klines) < 100:
         print(f"Bybit 仅获取到 {len(klines) if klines else 0} 根, 尝试 OKX...")
-        okx_bars = fetch_okx_klines("BTC-USDT", "1H", 300)
+        okx_bars = fetch_okx_klines("BTC-USDT", "1H", 2000)
         if okx_bars:
             klines = okx_to_standard(okx_bars)
     

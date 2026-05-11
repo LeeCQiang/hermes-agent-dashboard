@@ -35,9 +35,9 @@ BASE_STOP_LOSS_PCT = 0.02       # 基础止损 2%
 BASE_TAKE_PROFIT_PCT = 0.03     # 基础止盈 3% → 1:1.5 R/R
 BASE_RR = BASE_TAKE_PROFIT_PCT / BASE_STOP_LOSS_PCT  # 1.5
 
-# 评分阈值 (v2: 根据时段动态调整)
-SCORE_LONG = 6
-SCORE_SHORT = -6
+# 评分阈值 (⬇️ 降低门槛: 6→5)
+SCORE_LONG = 5    # ≥5 开多
+SCORE_SHORT = -5  # ≤-5 开空
 
 # 追踪止损
 TRAIL_START_PCT = 0.01    # 浮盈超过1%后启动追踪
@@ -52,25 +52,42 @@ STATE_FILE = "/tmp/btc_trader_state.json"
 JOURNAL_FILE = "/tmp/btc_trader_journal.json"  # 交易日志，复盘用
 
 # ============================================================
-# 交易时段定义 (UTC)
+# 交易时段定义 (UTC) — 夏令时感知
+# 当前(5月)是US夏令时: 美股21:30北京=13:30UTC
+# 冬季标准时间: 美股22:30北京=14:30UTC, 时段后移1h
 # ============================================================
-SESSION_RANGES = [
-    # (名称, 开始小时, 结束小时, 波动权重, 说明)
-    ("asia_open",     0,  2,   1.0,  "亚盘开盘 (Tokyo/Sydney)"),
-    ("asia_mid",      2,  7,   0.8,  "亚盘盘中 (波动最低)"),
-    ("asia_close",    7,  9,   1.2,  "亚盘收盘/欧盘开盘前"),
-    ("euro_open",     9,  11,  1.5,  "欧盘开盘 (London 9:00 BST=8:00 UTC)"),
-    ("euro_mid",      11, 13,  1.3,  "欧盘盘中"),
-    ("euro_us_overlap", 13, 16, 2.0, "欧美重叠 (最高波动期)"),
-    ("us_mid",        16, 20,  1.5,  "美盘盘中"),
-    ("us_close",      20, 22,  1.2,  "美盘收盘"),
-    ("us_post",       22, 24,  0.9,  "美盘后 (流动性下降)"),
-]
+def get_session_ranges():
+    now = datetime.now(timezone.utc)
+    is_dst = 3 <= now.month <= 10  # US夏令时
+    if is_dst:
+        return [
+            ("asia_open",       0,  2,   1.0,  "亚盘开盘 (Tokyo/Sydney)"),
+            ("asia_mid",        2,  7,   0.8,  "亚盘盘中 (波动最低)"),
+            ("asia_close",      7,  9,   1.2,  "亚盘收盘/欧盘开盘前"),
+            ("euro_open",       9,  11,  1.5,  "欧盘开盘 (London 8:00 UTC)"),
+            ("euro_mid",        11, 13,  1.3,  "欧盘盘中"),
+            ("euro_us_overlap", 13, 16,  2.0,  "🇺🇸 欧美重叠 美股21:30北京"),
+            ("us_mid",          16, 20,  1.5,  "美盘盘中"),
+            ("us_close",        20, 22,  1.2,  "美盘收盘"),
+            ("us_post",         22, 24,  0.9,  "盘后"),
+        ]
+    else:
+        return [
+            ("us_post",         0,  2,   0.9,  "盘后"),
+            ("asia_mid",        2,  7,   0.8,  "亚盘盘中"),
+            ("asia_close",      7,  8,   1.0,  "过渡"),
+            ("euro_open",       8,  11,  1.5,  "欧盘开盘"),
+            ("euro_mid",        11, 14,  1.3,  "欧盘盘中"),
+            ("euro_us_overlap", 14, 17,  2.0,  "🇺🇸 欧美重叠 美股22:30北京"),
+            ("us_mid",          17, 21,  1.5,  "美盘盘中"),
+            ("us_close",        21, 23,  1.2,  "美盘收盘"),
+            ("us_post",         23, 24,  0.9,  "盘后"),
+        ]
 
 def get_current_session():
     """返回当前交易时段信息"""
     now_h = datetime.now(timezone.utc).hour
-    for name, start, end, weight, desc in SESSION_RANGES:
+    for name, start, end, weight, desc in get_session_ranges():
         if start <= now_h < end:
             return {"name": name, "weight": weight, "desc": desc, "hour": now_h}
     return {"name": "asia_open", "weight": 1.0, "desc": "凌晨转钟", "hour": now_h}
