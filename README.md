@@ -1,8 +1,8 @@
-# E1 信号机器人
+# E1 信号 + 模拟交易机器人
 
 Heikin Ashi + EMA50 + Stoch RSI 趋势交易系统。来源：K线游民抖音策略改良版。
 
-每小时自动检测 BTC/USDT 1H 级别交易信号，通过 Telegram 推送通知。
+**阿里云 ECS 24/7 运行**，每 15 分钟检查一次 BTC/USDT 1H 信号，自动执行模拟交易。
 
 ## 策略概述
 
@@ -41,28 +41,52 @@ BTC/USDT 1H, 5个月（2026-01 ~ 2026-05）
 | 交易次数 | 129 |
 | 同期BTC持有 | -22% |
 
-## 部署方式
-
-**GitHub Actions** 每小时触发（UTC :03），北京时间每小时+3分钟。
-
-数据源：OKX API（现货 1H K线）
-
-通知：Telegram @Leecjarvisbot
-
-### 仓库文件
+## 部署架构
 
 ```
-e1-signal-bot.py              # 信号检测脚本
-.github/workflows/e1-signal-bot.yml  # GH Actions 工作流
+阿里云 ECS (8.134.182.129)
+└─ /root/e1-sim-bot/
+   ├─ e1-sim-bot.py        # 主脚本（信号+模拟仓）
+   ├─ state.json            # 状态持久化
+   └─ logs/
+      ├─ cron.log           # crontab 运行日志
+      └─ sim.log            # 策略日志
 ```
 
-### GitHub Secrets
+### 运行频率
 
-| Secret | 用途 |
-|--------|------|
-| `TELEGRAM_BOT_TOKEN` | Telegram 机器人 Token |
-| `TELEGRAM_CHAT_ID` | 通知目标 Chat ID |
+crontab `*/15 * * * *` — 每 15 分钟运行一次。
 
-## 运行状态检查
+### 数据源
 
-前往 [Actions 页面](https://github.com/LeeCQiang/hermes-agent-dashboard/actions/workflows/e1-signal-bot.yml) 查看最新执行日志。
+OKX API（通过 ECS mihomo 代理访问）。
+
+### 通知
+
+Telegram @Leecjarvisbot — 以下事件会推送：
+- 开仓（LONG/SHORT）
+- 平仓（止损/止盈/追踪止损）
+- 每次运行结果摘要
+
+## 管理命令
+
+```bash
+# 查看最新运行日志
+ssh ecs 'tail -20 /root/e1-sim-bot/logs/cron.log'
+
+# 查看策略日志
+ssh ecs 'tail -30 /root/e1-sim-bot/logs/sim.log'
+
+# 查看当前状态（仓位/余额）
+ssh ecs 'cat /root/e1-sim-bot/state.json'
+
+# 手动运行一次
+ssh ecs 'cd /root/e1-sim-bot && python3 e1-sim-bot.py'
+```
+
+## 资金管理
+
+- 初始余额: $100 模拟资金
+- 单笔风险: 余额的 1%
+- 仓位计算: 风险金额 / 止损距离
+- 追踪止损: 1R 利润后激活，锁定 0.5R
