@@ -1,32 +1,68 @@
-# Hermes Agent Dashboard
+# E1 信号机器人
 
-> AI Agent Runtime 可视化监控与控制面板
+Heikin Ashi + EMA50 + Stoch RSI 趋势交易系统。来源：K线游民抖音策略改良版。
 
-将 Hermes Agent CLI 的运行时状态转化为可视化面板，实时监控 Agent 的技能体系、工具注册表、任务编排和运行状态。
+每小时自动检测 BTC/USDT 1H 级别交易信号，通过 Telegram 推送通知。
 
-## 功能
+## 策略概述
 
-- **系统概览** — Agent 运行时模型、Provider 信息、环境状态
-- **技能浏览器** — 42 个技能 × 12 个分类，支持搜索和详情查看
-- **工具注册表** — 16 个已注册工具，分类展示与一键调用
-- **任务管理器** — Todo 待办 + Cron 定时任务面板
-- **终端模拟器** — 内嵌交互式终端仿真界面
-- **会话时间线** — Agent 操作历史轨迹
+| 指标 | 参数 |
+|------|------|
+| K线类型 | Heikin Ashi |
+| 趋势过滤 | EMA50 |
+| 震荡指标 | Stoch RSI (14, 3, 3) |
+| 超买/超卖 | 80 / 20 |
+| 止盈 | R:R 2.5 |
+| 止损 | 1% 风险 |
+| 时间框架 | 1H |
 
-## 快速开始
+### 做多条件
+1. 价格在 EMA50 之上
+2. Heikin Ashi 看涨（收盘 > 开盘）
+3. Stoch RSI %K 上穿 20（超卖区金叉）
 
-直接在浏览器打开 `hermes-dashboard.html` 即可使用，零配置。
+### 做空条件
+1. 价格在 EMA50 之下
+2. Heikin Ashi 看跌（收盘 < 开盘）
+3. Stoch RSI %K 下穿 80（超买区死叉）
 
-## 技术栈
+## 回测数据
 
-HTML5 · CSS3 (Dark Theme) · Vanilla JavaScript · WSL2
+BTC/USDT 1H, 5个月（2026-01 ~ 2026-05）
 
-## 环境
+| 指标 | 数值 |
+|------|------|
+| 初始资金 | $100 |
+| 最终资金 | $208 |
+| 收益率 | +108.3% |
+| 胜率 | 61.2% |
+| 盈利因子 | 2.20 |
+| 最大回撤 | -5.8% |
+| 交易次数 | 129 |
+| 同期BTC持有 | -22% |
 
-- 运行环境：WSL2 (Windows Subsystem for Linux)
-- AI 模型：deepseek-v4-flash
-- Agent 框架：Hermes Agent CLI
+## 部署方式
 
-## 截图
+**GitHub Actions** 每小时触发（UTC :03），北京时间每小时+3分钟。
 
-![Dashboard Screenshot](dashboard-screenshot.png)
+数据源：OKX API（现货 1H K线）
+
+通知：Telegram @Leecjarvisbot
+
+### 仓库文件
+
+```
+e1-signal-bot.py              # 信号检测脚本
+.github/workflows/e1-signal-bot.yml  # GH Actions 工作流
+```
+
+### GitHub Secrets
+
+| Secret | 用途 |
+|--------|------|
+| `TELEGRAM_BOT_TOKEN` | Telegram 机器人 Token |
+| `TELEGRAM_CHAT_ID` | 通知目标 Chat ID |
+
+## 运行状态检查
+
+前往 [Actions 页面](https://github.com/LeeCQiang/hermes-agent-dashboard/actions/workflows/e1-signal-bot.yml) 查看最新执行日志。
