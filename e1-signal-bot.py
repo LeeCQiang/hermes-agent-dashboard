@@ -234,13 +234,27 @@ def main():
 
     # 检测信号
     signals = detect_signals(rows)
+    state = load_state()
 
     if not signals:
         log("当前无新信号")
+        # 记录已检查的最后一根K线，避免重复扫描
+        last_time = rows[-1]["time"].isoformat()
+        state["last_signal_time"] = last_time
+        save_state(state)
+        log(f"状态更新: 检查到 {last_time}")
+        # 输出当前指标
+        last = rows[-1]
+        print(f"\n--- 当前指标 ---")
+        print(f"时间: {last['time'].strftime('%m-%d %H:%M')}")
+        print(f"价格: ${last['close']:.2f}")
+        print(f"EMA50: ${last['ema']:.2f}")
+        print(f"HA: {'看多' if last['ha_bullish'] else '看空'}")
+        print(f"StochRSI %K: {last['stoch_k']:.1f}")
+        print(f"StochRSI %D: {last['stoch_d']:.1f}")
         return
 
     # 去重: 只通知未通知过的K线
-    state = load_state()
     new_signals = [s for s in signals if s["time"] != state.get("last_signal_time")]
 
     if not new_signals:
@@ -257,16 +271,6 @@ def main():
     state["last_signal_time"] = new_signals[-1]["time"]
     save_state(state)
     log(f"状态已更新: last_signal_time = {state['last_signal_time']}")
-
-    # 输出当前指标（供workflow日志查看）
-    last = rows[-1]
-    print(f"\n--- 当前指标 ---")
-    print(f"价格: ${last['close']:.2f}")
-    print(f"EMA50: ${last['ema']:.2f}")
-    print(f"HA: {'看多' if last['ha_bullish'] else '看空'}")
-    print(f"StochRSI %K: {last['stoch_k']:.1f}")
-    print(f"StochRSI %D: {last['stoch_d']:.1f}")
-    print(f"信号数: {len(new_signals)}")
 
 if __name__ == "__main__":
     main()
