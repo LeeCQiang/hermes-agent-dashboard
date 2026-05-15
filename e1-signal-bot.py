@@ -49,19 +49,26 @@ def send_telegram(text):
         log(f"Telegram请求异常: {e}")
         return False
 
-def fetch_binance_klines(symbol, interval, limit=200):
-    """从Binance获取K线数据"""
-    url = f"https://api.binance.com/api/v3/klines?symbol={symbol}&interval={interval}&limit={limit}"
+def fetch_klines(symbol, interval, limit=200):
+    """从OKX获取K线数据（GH Actions美国区无法访问Binance）"""
+    # OKX: BTC-USDT, bar=1H, k线按时间降序（新→旧）
+    okx_sym = symbol.replace("USDT", "-USDT").replace("USDC", "-USDC")
+    url = f"https://www.okx.com/api/v5/market/candles?instId={okx_sym}&bar={interval.upper()}&limit={limit}"
     try:
         r = requests.get(url, timeout=15)
         if not r.ok:
-            log(f"Binance API错误: {r.status_code} {r.text[:100]}")
+            log(f"OKX API错误: {r.status_code} {r.text[:100]}")
             return None
-        klines = r.json()
+        data = r.json()
+        if data.get("code") != "0":
+            log(f"OKX API异常: {data}")
+            return None
+        klines = data.get("data", [])
         rows = []
-        for k in klines:
+        # OKX返回降序（新→旧），需要反转
+        for k in reversed(klines):
             rows.append({
-                "time": datetime.fromtimestamp(k[0] / 1000, tz=timezone.utc),
+                "time": datetime.fromtimestamp(int(k[0]) / 1000, tz=timezone.utc),
                 "open": float(k[1]), "high": float(k[2]),
                 "low": float(k[3]), "close": float(k[4]),
                 "volume": float(k[5])
@@ -213,7 +220,7 @@ def main():
     log(f"符号: {SYMBOL}, 周期: {INTERVAL}")
 
     # 获取数据
-    rows = fetch_binance_klines(SYMBOL, INTERVAL, 200)
+    rows = fetch_klines(SYMBOL, INTERVAL, 200)
     if not rows or len(rows) < 60:
         log("数据不足，跳过")
         return
